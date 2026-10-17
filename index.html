@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>بوابة مساق التشفير وأمن المعلومات - النظام السحابي الموحد</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <!-- مكتبات Firebase السحابية -->
+    <!-- مكتبات Firebase السحابية المتوافقة مع الويب -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
@@ -506,7 +506,7 @@
     <div class="academic-container">
         <div class="academic-header">
             <div class="top-bar">
-                <span class="program-title" id="modeTitle">👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة اللحظية)</span>
+                <span class="program-title" id="modeTitle">👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة السحابية)</span>
                 <div class="header-actions" style="display:flex; gap:6px;">
                     <button class="sys-btn" onclick="toggleTheme()">☀️ / 🌙 المظهر</button>
                     <button class="sys-btn" id="modeToggleBtn" onclick="requestInstructorMode()" style="background:linear-gradient(135deg, #00f3ff, #7000ff); color:#050814;">👨‍🏫 لوحة تحكم الدكتور</button>
@@ -537,7 +537,7 @@
         </div>
 
         <div class="instructor-controls" id="instructorStatusBanner">
-            ⚡ أنت الآن في "وضع الدكتور السحابي" (أي تعديل، إضافة، أو حذف يتم بثه فوراً عبر قاعدة بيانات Firebase السحابية لكل الأجهزة المتصلة)
+            ⚡ أنت الآن في "وضع الدكتور السحابي النشط" (أي تعديل، إضافة، أو حذف يتم بثه فوراً عبر قاعدة بيانات Firebase الخاصة بك لكل الأجهزة المتصلة)
         </div>
 
         <div id="pagePlan" class="page-section">
@@ -646,29 +646,25 @@
 
     <script>
         // ---------------------------------------------------------
-        // 🔗 إعدادات قاعدة بيانات فايربيس السحابية الحقيقية (الرجاء وضع بيانات مشروعك هنا)
+        // 🔗 إعدادات Firebase الخاصة بك (المربوطة بقاعدة البيانات الحقيقية zdvr-eda5c)
         // ---------------------------------------------------------
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-            projectId: "YOUR_PROJECT",
-            storageBucket: "YOUR_PROJECT.appspot.com",
-            messagingSenderId: "...",
-            appId: "..."
+            apiKey: "AIzaSyBE0PQk__YiNHP7nd_EkTxHEK-0_7-iUUw",
+            authDomain: "zdvr-eda5c.firebaseapp.com",
+            databaseURL: "https://zdvr-eda5c-default-rtdb.firebaseio.com",
+            projectId: "zdvr-eda5c",
+            storageBucket: "zdvr-eda5c.firebasestorage.app",
+            messagingSenderId: "510018455297",
+            appId: "1:510018455297:web:02bee22c5227fc7439bd00",
+            measurementId: "G-FCB9S7J8KW"
         };
 
         let db = null;
-        let isCloudConnected = false;
-
         try {
-            if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
-                firebase.initializeApp(firebaseConfig);
-                db = firebase.database();
-                isCloudConnected = true;
-            }
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
         } catch (e) {
-            console.log("خطأ في الاتصال السحابي، سيتم العمل بالوضع الاحتياطي");
+            console.error("خطأ في تهيئة فايربيس:", e);
         }
 
         let isInstructorMode = false;
@@ -858,39 +854,29 @@
         let researchData = [...defaultResearch];
         let quizzesData = [...defaultQuizzes];
 
-        // الاستماع للتحديثات السحابية الحية لحظياً إن وُجد اتصال
-        if (isCloudConnected) {
-            db.ref('portal_unified_data').on('value', (snapshot) => {
+        // الاستماع الفوري للبيانات من قاعدة بيانات فايربيس (Realtime Listener)
+        if (db) {
+            db.ref('zdvr_unified_portal').on('value', (snapshot) => {
                 const serverData = snapshot.val();
                 if (serverData) {
                     if (serverData.lectures) lecturesData = serverData.lectures;
                     if (serverData.research) researchData = serverData.research;
                     if (serverData.quizzes) quizzesData = serverData.quizzes;
                 } else {
-                    // إذا كانت السحابة فارغة لأول مرة، قم برفع البيانات الافتراضية إليها
+                    // رفع البيانات الافتراضية لأول مرة إذا كانت القاعدة فارغة
                     syncToCloud();
                 }
                 renderAll();
             });
-        } else {
-            // وضع احتياطي محلي إذا لم يتم ربط المفاتيح بعد
-            lecturesData = JSON.parse(localStorage.getItem('sys_lectures')) || defaultLectures;
-            researchData = JSON.parse(localStorage.getItem('sys_research')) || defaultResearch;
-            quizzesData = JSON.parse(localStorage.getItem('sys_quizzes')) || defaultQuizzes;
-            renderAll();
         }
 
         function syncToCloud() {
-            if (isCloudConnected && db) {
-                db.ref('portal_unified_data').set({
+            if (db) {
+                db.ref('zdvr_unified_portal').set({
                     lectures: lecturesData,
                     research: researchData,
                     quizzes: quizzesData
                 });
-            } else {
-                localStorage.setItem('sys_lectures', JSON.stringify(lecturesData));
-                localStorage.setItem('sys_research', JSON.stringify(researchData));
-                localStorage.setItem('sys_quizzes', JSON.stringify(quizzesData));
             }
         }
 
@@ -899,7 +885,7 @@
                 let pin = prompt("أدخل رمز الدكتور للوصول (8000):");
                 if (pin === "8000") {
                     isInstructorMode = true;
-                    document.getElementById('modeTitle').innerText = "⚡ [وضع السيطرة السحابي] لوحة تحكم الدكتور النشطة";
+                    document.getElementById('modeTitle').innerText = "⚡ [وضع السيطرة السحابي الحقيقي] لوحة تحكم الدكتور النشطة";
                     document.getElementById('modeToggleBtn').innerText = "👨‍🎓 العودة لوضع الطلاب";
                     document.getElementById('instructorStatusBanner').classList.add('active');
                     document.getElementById('instructorResearchAdd').style.display = "block";
@@ -913,7 +899,7 @@
                 }
             } else {
                 isInstructorMode = false;
-                document.getElementById('modeTitle').innerText = "👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة اللحظية)";
+                document.getElementById('modeTitle').innerText = "👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة السحابية اللحظية)";
                 document.getElementById('modeToggleBtn').innerText = "👨‍🏫 لوحة تحكم الدكتور";
                 document.getElementById('instructorStatusBanner').classList.remove('active');
                 document.getElementById('instructorResearchAdd').style.display = "none";
