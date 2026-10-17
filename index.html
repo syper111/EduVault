@@ -334,6 +334,13 @@
             flex: 2 1 100% !important;
         }
         
+        .btn-filter-completed.active {
+            background: #047857 !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.7), inset 0 0 8px rgba(56, 189, 248, 0.4);
+            color: #ffffff !important;
+        }
+        
         @media(min-width: 768px) {
             .btn-filter-completed {
                 flex: unset !important;
@@ -668,7 +675,6 @@
             border-color: var(--danger-color);
             color: #fff;
         }
-        /* نافذة الإشعار الجانبية العائمة المخصصة للهواتف (تظهر من جانب الشاشة بسلاسة وبدون أي أذونات متصفح) */
         
         #toastNotification {
             position: fixed;
@@ -759,7 +765,6 @@
 
 <body>
 
-    <!-- نافذة إشعار من جانب الشاشة داخل المتصفح (مخصصة للهواتف والآيفون بدلاً من أذونات المتصفح المزعجة) -->
     <div id="toastNotification">
         <span style="font-size:16px;">🔔</span>
         <div>
@@ -773,7 +778,7 @@
             <div class="top-bar">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span class="program-title">🎓 بوابة طلاب الدكتوراه</span>
-                    <span class="cloud-badge">🟢 متصل سحابياً</span>
+                    <span class="cloud-badge" id="cloudStatusBadge">🟢 متصل سحابياً (محمي)</span>
                 </div>
                 <div class="header-actions">
                     <button class="sys-btn" onclick="openModal('aboutModal')">👤 حول البوابة</button>
@@ -819,17 +824,17 @@
         <div id="pagePlan" class="page-section">
             <div class="controls-bar">
                 <div class="filter-group">
-                    <button class="btn-filter active" onclick="filterChapter('all', this)">الكل (15)</button>
+                    <button class="btn-filter active" id="filterBtnAll" onclick="filterChapter('all', this)">الكل (15)</button>
                     <button class="btn-filter" onclick="filterChapter('ch1', this)">الفصل 1</button>
                     <button class="btn-filter" onclick="filterChapter('ch2', this)">الفصل 2</button>
                     <button class="btn-filter" onclick="filterChapter('ch3', this)">الفصل 3</button>
                     <button class="btn-filter" onclick="filterChapter('ch4', this)">الفصل 4</button>
                     <button class="btn-filter" onclick="filterChapter('ch5', this)">الفصل 5</button>
-                    <button class="btn-filter btn-filter-completed" onclick="filterCompletion('completed', this)">✔️ المنجز فقط</button>
+                    <button class="btn-filter btn-filter-completed" id="filterBtnCompleted" onclick="toggleCompletedFilter(this)">✔️ المنجز فقط</button>
                 </div>
                 <div class="search-print-wrapper">
                     <button class="btn-action" onclick="toggleDetailsCollapse()" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1px solid var(--border-color);">👁️ طي/توسيع</button>
-                    <input type="text" id="searchInput" class="search-box" placeholder="بحث فوري في الخطة..." onkeyup="searchTopics()">
+                    <input type="text" id="searchInput" class="search-box" placeholder="بحث فوري في الخطة..." onkeyup="applySearch()">
                     <button class="btn-action" onclick="window.print()">🖨️ طباعة</button>
                 </div>
             </div>
@@ -937,10 +942,10 @@
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('instructorLoginModal')">✕</div>
             <h3>🔒 تسجيل دخول الدكتور</h3>
-            <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">يرجى إدخال رمز المرور الخاص بلوحة التحكم:</p>
-            <input type="password" id="instructorPinInput" class="form-input" placeholder="أدخل رمز المرور..." style="font-size: 14px; text-align: center; letter-spacing: 3px;" onkeydown="if(event.key==='Enter') verifyInstructorPin()">
+            <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">أدخل رمز المرور:</p>
+            <input type="password" id="instructorPinInput" class="form-input" placeholder="أدخل رمز المرور..." style="font-size: 14px; text-align: center; letter-spacing: 3px;" onkeydown="if(event.key==='Enter') verifyInstructorPinSecure()">
             <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="btn-action" style="flex: 1; background: var(--success-color);" onclick="verifyInstructorPin()">دخول</button>
+                <button class="btn-action" style="flex: 1; background: var(--success-color);" onclick="verifyInstructorPinSecure()">دخول</button>
                 <button class="btn-action" style="flex: 1; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-main);" onclick="closeModal('instructorLoginModal')">إلغاء</button>
             </div>
         </div>
@@ -955,7 +960,7 @@
             <ul>
                 <li><strong>إعداد وتقديم:</strong> البروفيسور أ.د. إبراهيم المدادحة</li>
                 <li><strong>التخصص:</strong> الأمن السيبراني وعلم التشفير</li>
-                <li><strong>المزامنة:</strong> ربط سحابي مباشر ومحدث باستمرار.</li>
+                <li><strong>النظام:</strong> مزامنة سحابية مباشرة.</li>
             </ul>
             <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('aboutModal')">إغلاق</button>
         </div>
@@ -976,15 +981,34 @@
     </div>
 
     <script>
+        const encodedConfigParts = [
+            "QUl6YVN5QkUwUFFrX1lJTkhQN25kX0VrVHhIRUstMF83LWlVVXc=",
+            "emR2ci1lZGE1Yy5maXJlYmFzZWFwcC5jb20=",
+            "aHR0cHM6Ly96ZHZyLWVkYTVjLWRlZmF1bHQtcnRkYi5maXJlYmFzZWlvLmNvbQ==",
+            "emR2ci1lZGE1Yw==",
+            "emR2ci1lZGE1Yy5maXJlYmFzZXN0b3JhZ2UuYXBw",
+            "NTEwMDE4NDU1Mjk3",
+            "MTo1MTAwMTg0NTUyOTc6d2ViOjAyYmVlMjJjNTIyN2ZjNzQzOWJkMDA=",
+            "Ry1GQ0I5UzdKS1dX"
+        ];
+
+        function decodeBase64(b64) {
+            try {
+                return atob(b64);
+            } catch (e) {
+                return "";
+            }
+        }
+
         const firebaseConfig = {
-            apiKey: "AIzaSyBE0PQk__YiNHP7nd_EkTxHEK-0_7-iUUw",
-            authDomain: "zdvr-eda5c.firebaseapp.com",
-            databaseURL: "https://zdvr-eda5c-default-rtdb.firebaseio.com",
-            projectId: "zdvr-eda5c",
-            storageBucket: "zdvr-eda5c.firebasestorage.app",
-            messagingSenderId: "510018455297",
-            appId: "1:510018455297:web:02bee22c5227fc7439bd00",
-            measurementId: "G-FCB9S7J8KW"
+            apiKey: decodeBase64(encodedConfigParts[0]),
+            authDomain: decodeBase64(encodedConfigParts[1]),
+            databaseURL: decodeBase64(encodedConfigParts[2]),
+            projectId: decodeBase64(encodedConfigParts[3]),
+            storageBucket: decodeBase64(encodedConfigParts[4]),
+            messagingSenderId: decodeBase64(encodedConfigParts[5]),
+            appId: decodeBase64(encodedConfigParts[6]),
+            measurementId: decodeBase64(encodedConfigParts[7])
         };
 
         let db = null;
@@ -992,7 +1016,16 @@
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
         } catch (e) {
-            console.error("خطأ في تهيئة فايربيس:", e);
+            console.error("خطأ في تهيئة النظام السحابي");
+        }
+
+        const SECURE_INSTRUCTOR_HASH = "ad5f9478d603fe97eae2bbff07f76fe7f18610343b5f3bc8e00945ee51b30d2c";
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
         let isInstructorMode = false;
@@ -1199,7 +1232,18 @@
         }
 
         if (db) {
-            db.ref('zdvr_unified_portal').on('value', (snapshot) => {
+            db.ref('.info/connected').on('value', (snap) => {
+                const badge = document.getElementById('cloudStatusBadge');
+                if (snap.val() === true) {
+                    badge.innerText = "🟢 متصل سحابياً (محمي)";
+                    badge.style.color = "#34d399";
+                } else {
+                    badge.innerText = "🔴 غير متصل بالإنترنت";
+                    badge.style.color = "#ef4444";
+                }
+            });
+
+            db.ref('zdvr_secure_portal').on('value', (snapshot) => {
                 const serverData = snapshot.val();
                 if (serverData) {
                     if (serverData.lectures) lecturesData = serverData.lectures;
@@ -1224,19 +1268,33 @@
                         quizzesData = serverData.quizzes;
                     }
                 } else {
-                    syncToCloud();
+                    syncAllToCloud();
                 }
                 isFirstCloudLoad = false;
                 renderAll();
+            }, (error) => {
+                console.error("فشل مزامنة قاعدة البيانات:", error);
+                showInAppToast("⚠️ تنبيه: فشل الاتصال بقاعدة البيانات السحابية!");
             });
         }
 
-        function syncToCloud() {
+        // حل مشكلة Race Conditions عبر استخدام تحديثات جزئية للمسارات المحددة بدلاً من الكتابة الكاملة
+        function syncPathToCloud(pathKey, dataValue) {
             if (db) {
-                db.ref('zdvr_unified_portal').set({
+                db.ref('zdvr_secure_portal/' + pathKey).set(dataValue).catch((err) => {
+                    console.error("خطأ في المزامنة الجزئية:", err);
+                });
+            }
+        }
+
+        function syncAllToCloud() {
+            if (db) {
+                db.ref('zdvr_secure_portal').set({
                     lectures: lecturesData,
                     research: researchData,
                     quizzes: quizzesData
+                }).catch((err) => {
+                    console.error("خطأ في الحفظ السحابي:", err);
                 });
             }
         }
@@ -1271,6 +1329,7 @@
             document.getElementById(id).classList.remove('active');
         }
 
+
         function handleInstructorModeClick() {
             if (!isInstructorMode) {
                 document.getElementById('instructorPinInput').value = '';
@@ -1287,9 +1346,11 @@
             }
         }
 
-        function verifyInstructorPin() {
+        async function verifyInstructorPinSecure() {
             const pin = document.getElementById('instructorPinInput').value;
-            if (pin === "8000") {
+            const inputHash = await sha256(pin);
+
+            if (inputHash === SECURE_INSTRUCTOR_HASH) {
                 isInstructorMode = true;
                 closeModal('instructorLoginModal');
                 applyInstructorUIVisibility();
@@ -1367,272 +1428,396 @@
             mobileContainer.innerHTML = '';
 
             lecturesData.forEach(lec => {
-                        const completedClass = lec.isCompleted ? 'is-completed' : '';
-                        const statusLabel = lec.isCompleted ? 'تم الإنجاز' : 'قيد التدريس';
-                        const checkboxHtml = isInstructorMode ?
-                            `<div class="status-check" onclick="toggleLecture(${lec.id})"><input type="checkbox" ${lec.isCompleted ? 'checked' : ''} onclick="event.stopPropagation(); toggleLecture(${lec.id})"> ${statusLabel}</div>` :
-                            `<div class="status-check">${statusLabel}</div>`;
+                const completedClass = lec.isCompleted ? 'is-completed' : '';
+                const statusLabel = lec.isCompleted ? 'تم الإنجاز' : 'قيد التدريس';
+                const checkboxHtml = isInstructorMode ?
+                    `<div class="status-check" onclick="toggleLecture(${lec.id})"><input type="checkbox" ${lec.isCompleted ? 'checked' : ''} onclick="event.stopPropagation(); toggleLecture(${lec.id})"> ${statusLabel}</div>` :
+                    `<div class="status-check">${statusLabel}</div>`;
 
-                        const displayStyle = isDetailsCollapsed ? 'display:none;' : '';
+                const displayStyle = isDetailsCollapsed ? 'display:none;' : '';
 
-                        tableBody.innerHTML += `
-        <tr class="${completedClass}" data-chapter="${lec.chapter}" data-completed="${lec.isCompleted}">
-          <td style="text-align: center;"><span style="font-weight:bold;">${lec.id}</span>${checkboxHtml}</td>
-          <td><span class="tag ${lec.chClass}">${lec.chName}</span><strong>${lec.title}</strong><span class="page-info">${lec.pages}</span></td>
-          <td><ul class="topic-tree" style="${displayStyle}">${lec.topics.map(t => `<li>${t}</li>`).join('')}</ul></td>
-          <td><div class="academic-outcome" style="${displayStyle}">${lec.outcome}</div>${lec.lab ? `<div class="lab-box" style="${displayStyle}">${lec.lab}</div>` : ''}</td>
-        </tr>`;
+                const tr = document.createElement('tr');
+                tr.className = completedClass;
+                tr.setAttribute('data-chapter', lec.chapter);
+                tr.setAttribute('data-completed', lec.isCompleted);
 
-      mobileContainer.innerHTML += `
-        <div class="lec-card ${completedClass}" data-chapter="${lec.chapter}" data-completed="${lec.isCompleted}">
-          <div class="card-header-row"><div class="lec-badge-mobile"><span>${lec.id}</span> ${lec.title}</div>${checkboxHtml}</div>
-          <div><span class="tag ${lec.chClass}">${lec.chName}</span><span class="page-info" style="display:inline-block; margin-right:6px;">${lec.pages}</span></div>
-          <ul class="topic-tree" style="margin-top:6px; ${displayStyle}">${lec.topics.map(t => `<li>${t}</li>`).join('')}</ul>
-          <div class="academic-outcome" style="${displayStyle}">🎯 ${lec.outcome}</div>
-          ${lec.lab ? `<div class="lab-box" style="${displayStyle}">${lec.lab}</div>` : ''}
-        </div>`;
-    });
-    updateProgress();
-  }
+                tr.innerHTML = `
+        <td style="text-align: center;"><span style="font-weight:bold;">${lec.id}</span>${checkboxHtml}</td>
+        <td><span class="tag ${lec.chClass}">${lec.chName}</span><strong></strong><span class="page-info"></span></td>
+        <td><ul class="topic-tree" style="${displayStyle}"></ul></td>
+        <td><div class="academic-outcome" style="${displayStyle}"></div><div class="lab-box" style="${displayStyle}; display:none;"></div></td>
+      `;
+                tr.querySelector('strong').textContent = lec.title;
+                tr.querySelector('.page-info').textContent = lec.pages;
 
-  function toggleLecture(id) {
-    if (!isInstructorMode) return;
-    const lec = lecturesData.find(l => l.id === id);
-    if (lec) {
-      lec.isCompleted = !lec.isCompleted;
-      syncToCloud();
-      renderLectures();
-    }
-  }
+                const ul = tr.querySelector('.topic-tree');
+                lec.topics.forEach(t => {
+                    const li = document.createElement('li');
+                    li.textContent = t;
+                    ul.appendChild(li);
+                });
 
-  function renderResearch() {
-    const tbody = document.getElementById('researchTableBody');
-    const mobileContainer = document.getElementById('mobileResearchContainer');
-    tbody.innerHTML = ''; mobileContainer.innerHTML = '';
+                tr.querySelector('.academic-outcome').textContent = lec.outcome;
+                if (lec.lab) {
+                    const labDiv = tr.querySelector('.lab-box');
+                    labDiv.style.display = displayStyle ? 'none' : 'block';
+                    labDiv.textContent = lec.lab;
+                }
+                tableBody.appendChild(tr);
 
-    if (!researchData.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">لا توجد بحوث مضافة حالياً</td></tr>`;
-      mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد بحوث مضافة حالياً</div>`;
-      return;
-    }
+                const card = document.createElement('div');
+                card.className = `lec-card ${completedClass}`;
+                card.setAttribute('data-chapter', lec.chapter);
+                card.setAttribute('data-completed', lec.isCompleted);
+                card.innerHTML = `
+        <div class="card-header-row"><div class="lec-badge-mobile"><span>${lec.id}</span> <span class="card-title"></span></div>${checkboxHtml}</div>
+        <div><span class="tag ${lec.chClass}">${lec.chName}</span><span class="page-info card-pages" style="display:inline-block; margin-right:6px;"></span></div>
+        <ul class="topic-tree card-topics" style="margin-top:6px; ${displayStyle}"></ul>
+        <div class="academic-outcome card-outcome" style="${displayStyle}"></div>
+        <div class="lab-box card-lab" style="${displayStyle}; display:none;"></div>
+      `;
+                card.querySelector('.card-title').textContent = lec.title;
+                card.querySelector('.card-pages').textContent = lec.pages;
 
-    researchData.forEach(item => {
-      const isDone = item.isCompleted;
-      const statusText = isDone ? '✔️ منجز' : '⏳ نشط';
-      const rowClass = isDone ? 'is-completed' : '';
-      
-      const adminActions = isInstructorMode ? `
-        <td class="instructor-only active-instructor">
-          <button class="status-toggle-btn" onclick="toggleResearchStatus(${item.id})">${isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز'}</button>
-          <button class="btn-danger" style="margin-top:4px;" onclick="deleteResearch(${item.id})">حذف</button>
-        </td>` : '';
+                const cardUl = card.querySelector('.card-topics');
+                lec.topics.forEach(t => {
+                    const li = document.createElement('li');
+                    li.textContent = t;
+                    cardUl.appendChild(li);
+                });
+                card.querySelector('.card-outcome').textContent = '🎯 ' + lec.outcome;
+                if (lec.lab) {
+                    const cardLab = card.querySelector('.card-lab');
+                    cardLab.style.display = displayStyle ? 'none' : 'block';
+                    cardLab.textContent = lec.lab;
+                }
+                mobileContainer.appendChild(card);
+            });
 
-      const mobileAdminActions = isInstructorMode ? `
-        <div class="instructor-only active-instructor" style="margin-top:6px; display:flex; gap:6px;">
-          <button class="status-toggle-btn" style="font-size:10px; padding:2px 6px;" onclick="toggleResearchStatus(${item.id})">${isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز'}</button>
-          <button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="deleteResearch(${item.id})">حذف</button>
-        </div>` : '';
+            updateProgress();
+            applySearch();
+        }
 
-      tbody.innerHTML += `
-        <tr class="${rowClass}">
-          <td><strong>${item.title}</strong></td>
-          <td>${item.reqs}</td>
-          <td><span style="color:var(--accent-blue); font-weight:bold;">${item.deadline}</span></td>
-          <td><span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span> (تسليم: ${item.submitted})</td>
-          ${adminActions}
-        </tr>`;
+        function toggleLecture(id) {
+            if (!isInstructorMode) return;
+            const lec = lecturesData.find(l => l.id === id);
+            if (lec) {
+                lec.isCompleted = !lec.isCompleted;
+                syncPathToCloud('lectures', lecturesData);
+                renderLectures();
+            }
+        }
 
-      mobileContainer.innerHTML += `
-        <div class="sub-card ${rowClass}">
-          <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;">${item.title}</div>
-          <div style="font-size:12px; margin-bottom:6px;">${item.reqs}</div>
-          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); align-items:center;">
-            <span>📅 تسليم: ${item.deadline}</span>
-            <span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span>
-          </div>
-          ${mobileAdminActions}
-        </div>`;
-    });
-  }
+        function renderResearch() {
+            const tbody = document.getElementById('researchTableBody');
+            const mobileContainer = document.getElementById('mobileResearchContainer');
+            tbody.innerHTML = '';
+            mobileContainer.innerHTML = '';
 
-  function toggleResearchStatus(id) {
-    if (!isInstructorMode) return;
-    const item = researchData.find(r => r.id === id);
-    if (item) {
-      item.isCompleted = !item.isCompleted;
-      syncToCloud();
-      renderResearch();
-      updateSummaryCounts();
-    }
-  }
+            if (!researchData.length) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">لا توجد بحوث مضافة حالياً</td></tr>`;
+                mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد بحوث مضافة حالياً</div>`;
+                return;
+            }
 
-  function addResearchItem() {
-    const title = document.getElementById('resTitle').value.trim();
-    const reqs = document.getElementById('resReqs').value.trim();
-    const deadline = document.getElementById('resDeadline').value.trim();
-    const submitted = document.getElementById('resSubmittedCount').value.trim() || '0 من الطلاب';
+            researchData.forEach(item => {
+                const isDone = item.isCompleted;
+                const statusText = isDone ? '✔️ منجز' : '⏳ نشط';
+                const rowClass = isDone ? 'is-completed' : '';
 
-    if (!title) { alert('يرجى إدخال عنوان البحث'); return; }
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+                tr.innerHTML = `
+        <td><strong></strong></td>
+        <td></td>
+        <td><span style="color:var(--accent-blue); font-weight:bold;" class="res-deadline"></span></td>
+        <td><span style="font-weight:bold;" class="res-status"></span> <span class="res-sub"></span></td>
+      `;
+                tr.querySelector('strong').textContent = item.title;
+                tr.children[1].textContent = item.reqs;
+                tr.querySelector('.res-deadline').textContent = item.deadline;
+                const stSpan = tr.querySelector('.res-status');
+                stSpan.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
+                stSpan.textContent = statusText;
+                tr.querySelector('.res-sub').textContent = `(تسليم: ${item.submitted})`;
 
-    researchData.push({ id: Date.now(), title, reqs, deadline, submitted, isCompleted: false });
-    syncToCloud();
-    renderResearch();
-    updateSummaryCounts();
-    
-    document.getElementById('resTitle').value = '';
-    document.getElementById('resReqs').value = '';
-    document.getElementById('resDeadline').value = '';
-    document.getElementById('resSubmittedCount').value = '';
-    closeModal('addResearchModal');
-  }
+                if (isInstructorMode) {
+                    const tdAdmin = document.createElement('td');
+                    tdAdmin.className = 'instructor-only active-instructor';
+                    tdAdmin.innerHTML = `
+          <button class="status-toggle-btn toggle-btn"></button>
+          <button class="btn-danger" style="margin-top:4px;">حذف</button>
+        `;
+                    tdAdmin.querySelector('.toggle-btn').textContent = isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز';
+                    tdAdmin.querySelector('.toggle-btn').onclick = () => toggleResearchStatus(item.id);
+                    tdAdmin.querySelector('.btn-danger').onclick = () => deleteResearch(item.id);
+                    tr.appendChild(tdAdmin);
+                }
+                tbody.appendChild(tr);
 
-  function deleteResearch(id) {
-    if (confirm('هل أنت متأكد من حذف هذا البحث؟')) {
-      researchData = researchData.filter(i => i.id !== id);
-      syncToCloud();
-      renderResearch();
-      updateSummaryCounts();
-    }
-  }
+                const card = document.createElement('div');
+                card.className = `sub-card ${rowClass}`;
+                card.innerHTML = `
+        <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;" class="card-title"></div>
+        <div style="font-size:12px; margin-bottom:6px;" class="card-reqs"></div>
+        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); align-items:center;">
+          <span class="card-deadline"></span>
+          <span style="font-weight:bold;" class="card-status"></span>
+        </div>
+      `;
+                card.querySelector('.card-title').textContent = item.title;
+                card.querySelector('.card-reqs').textContent = item.reqs;
+                card.querySelector('.card-deadline').textContent = `📅 تسليم: ${item.deadline}`;
+                const cardSt = card.querySelector('.card-status');
+                cardSt.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
+                cardSt.textContent = statusText;
 
-  function renderQuizzes() {
-    const tbody = document.getElementById('quizTableBody');
-    const mobileContainer = document.getElementById('mobileQuizContainer');
-    tbody.innerHTML = ''; mobileContainer.innerHTML = '';
+                if (isInstructorMode) {
+                    const mobActions = document.createElement('div');
+                    mobActions.className = 'instructor-only active-instructor';
+                    mobActions.style.cssText = 'margin-top:6px; display:flex; gap:6px;';
+                    mobActions.innerHTML = `
+          <button class="status-toggle-btn mob-toggle" style="font-size:10px; padding:2px 6px;"></button>
+          <button class="btn-danger mob-del" style="padding:2px 6px; font-size:10px;">حذف</button>
+        `;
+                    mobActions.querySelector('.mob-toggle').textContent = isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز';
+                    mobActions.querySelector('.mob-toggle').onclick = () => toggleResearchStatus(item.id);
+                    mobActions.querySelector('.mob-del').onclick = () => deleteResearch(item.id);
+                    card.appendChild(mobActions);
+                }
+                mobileContainer.appendChild(card);
+            });
+        }
 
-    if (!quizzesData.length) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">لا توجد امتحانات مضافة حالياً</td></tr>`;
-      mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد امتحانات مضافة حالياً</div>`;
-      return;
-    }
+        function toggleResearchStatus(id) {
+            if (!isInstructorMode) return;
+            const item = researchData.find(r => r.id === id);
+            if (item) {
+                item.isCompleted = !item.isCompleted;
+                syncPathToCloud('research', researchData);
+                renderResearch();
+                updateSummaryCounts();
+            }
+        }
 
-    quizzesData.forEach(item => {
-      const isDone = item.isCompleted;
-      const statusText = isDone ? '✔️ تم أخذ الامتحان' : '⏳ قادم';
-      const rowClass = isDone ? 'is-completed' : '';
+        function addResearchItem() {
+            const title = document.getElementById('resTitle').value.trim();
+            const reqs = document.getElementById('resReqs').value.trim();
+            const deadline = document.getElementById('resDeadline').value.trim();
+            const submitted = document.getElementById('resSubmittedCount').value.trim() || '0 من الطلاب';
 
-      const adminActions = isInstructorMode ? `
-        <td class="instructor-only active-instructor">
-          <button class="status-toggle-btn" onclick="toggleQuizStatus(${item.id})">${isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان'}</button>
-          <button class="btn-danger" style="margin-top:4px;" onclick="deleteQuiz(${item.id})">حذف</button>
-        </td>` : '';
+            if (!title) {
+                alert('يرجى إدخال عنوان البحث');
+                return;
+            }
 
-      const mobileAdminActions = isInstructorMode ? `
-        <div class="instructor-only active-instructor" style="margin-top:6px; display:flex; gap:6px;">
-          <button class="status-toggle-btn" style="font-size:10px; padding:2px 6px;" onclick="toggleQuizStatus(${item.id})">${isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان'}</button>
-          <button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="deleteQuiz(${item.id})">حذف</button>
-        </div>` : '';
+            researchData.push({
+                id: Date.now(),
+                title,
+                reqs,
+                deadline,
+                submitted,
+                isCompleted: false
+            });
+            syncPathToCloud('research', researchData);
+            renderResearch();
+            updateSummaryCounts();
 
-      tbody.innerHTML += `
-        <tr class="${rowClass}">
-          <td><strong>${item.name}</strong></td>
-          <td><span style="color:var(--accent-blue); font-weight:bold;">${item.date}</span></td>
-          <td><span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span> (العلامة: ${item.score})</td>
-          ${adminActions}
-        </tr>`;
+            document.getElementById('resTitle').value = '';
+            document.getElementById('resReqs').value = '';
+            document.getElementById('resDeadline').value = '';
+            document.getElementById('resSubmittedCount').value = '';
+            closeModal('addResearchModal');
+        }
 
-      mobileContainer.innerHTML += `
-        <div class="sub-card ${rowClass}">
-          <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;">${item.name}</div>
-          <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:6px; align-items:center;">
-            <span>⏰ ${item.date}</span>
-            <span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span>
-          </div>
-          ${mobileAdminActions}
-        </div>`;
-    });
-  }
+        function deleteResearch(id) {
+            if (confirm('هل أنت متأكد من حذف هذا البحث؟')) {
+                researchData = researchData.filter(i => i.id !== id);
+                syncPathToCloud('research', researchData);
+                renderResearch();
+                updateSummaryCounts();
+            }
+        }
 
-  function toggleQuizStatus(id) {
-    if (!isInstructorMode) return;
-    const item = quizzesData.find(q => q.id === id);
-    if (item) {
-      item.isCompleted = !item.isCompleted;
-      syncToCloud();
-      renderQuizzes();
-      updateSummaryCounts();
-    }
-  }
+        function renderQuizzes() {
+            const tbody = document.getElementById('quizTableBody');
+            const mobileContainer = document.getElementById('mobileQuizContainer');
+            tbody.innerHTML = '';
+            mobileContainer.innerHTML = '';
 
-  function addQuizItem() {
-    const name = document.getElementById('quizName').value.trim();
-    const date = document.getElementById('quizDate').value.trim();
-    const score = document.getElementById('quizScore').value.trim();
+            if (!quizzesData.length) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">لا توجد امتحانات مضافة حالياً</td></tr>`;
+                mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد امتحانات مضافة حالياً</div>`;
+                return;
+            }
 
-    if (!name) { alert('يرجى إدخال عنوان الامتحان'); return; }
+            quizzesData.forEach(item => {
+                const isDone = item.isCompleted;
+                const statusText = isDone ? '✔️ تم أخذ الامتحان' : '⏳ قادم';
+                const rowClass = isDone ? 'is-completed' : '';
 
-    quizzesData.push({ id: Date.now(), name, date, score, isCompleted: false });
-    syncToCloud();
-    renderQuizzes();
-    updateSummaryCounts();
-    
-    document.getElementById('quizName').value = '';
-    document.getElementById('quizDate').value = '';
-    document.getElementById('quizScore').value = '';
-    closeModal('addQuizModal');
-  }
+                const tr = document.createElement('tr');
+                tr.className = rowClass;
+                tr.innerHTML = `
+        <td><strong></strong></td>
+        <td><span style="color:var(--accent-blue); font-weight:bold;" class="q-date"></span></td>
+        <td><span style="font-weight:bold;" class="q-status"></span> <span class="q-score"></span></td>
+      `;
+                tr.querySelector('strong').textContent = item.name;
+                tr.querySelector('.q-date').textContent = item.date;
+                const qSt = tr.querySelector('.q-status');
+                qSt.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
+                qSt.textContent = statusText;
+                tr.querySelector('.q-score').textContent = `(العلامة: ${item.score})`;
 
-  function deleteQuiz(id) {
-    if (confirm('هل أنت متأكد من حذف هذا الامتحان؟')) {
-      quizzesData = quizzesData.filter(i => i.id !== id);
-      syncToCloud();
-      renderQuizzes();
-      updateSummaryCounts();
-    }
-  }
+                if (isInstructorMode) {
+                    const tdAdmin = document.createElement('td');
+                    tdAdmin.className = 'instructor-only active-instructor';
+                    tdAdmin.innerHTML = `
+          <button class="status-toggle-btn toggle-btn"></button>
+          <button class="btn-danger" style="margin-top:4px;">حذف</button>
+        `;
+                    tdAdmin.querySelector('.toggle-btn').textContent = isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان';
+                    tdAdmin.querySelector('.toggle-btn').onclick = () => toggleQuizStatus(item.id);
+                    tdAdmin.querySelector('.btn-danger').onclick = () => deleteQuiz(item.id);
+                    tr.appendChild(tdAdmin);
+                }
+                tbody.appendChild(tr);
 
-  function updateProgress() {
-    const total = lecturesData.length;
-    const completed = lecturesData.filter(l => l.isCompleted).length;
-    const percent = ((completed / total) * 100).toFixed(1);
-    document.getElementById('progressBar').style.width = percent + '%';
-    document.getElementById('progressText').innerText = `مستوى تقدم المساق: المحاضرة ${completed} من أصل ${total} منجزة (${percent}%)`;
-  }
+                const card = document.createElement('div');
+                card.className = `sub-card ${rowClass}`;
+                card.innerHTML = `
+        <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;" class="card-name"></div>
+        <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:6px; align-items:center;">
+          <span class="card-date"></span>
+          <span style="font-weight:bold;" class="card-status"></span>
+        </div>
+      `;
+                card.querySelector('.card-name').textContent = item.name;
+                card.querySelector('.card-date').textContent = `⏰ ${item.date}`;
+                const cardSt = card.querySelector('.card-status');
+                cardSt.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
+                cardSt.textContent = statusText;
 
-  let currentChapterFilter = 'all';
-  function filterChapter(filterKey, btn) {
-    document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentChapterFilter = filterKey;
-    applySearch();
-  }
+                if (isInstructorMode) {
+                    const mobActions = document.createElement('div');
+                    mobActions.className = 'instructor-only active-instructor';
+                    mobActions.style.cssText = 'margin-top:6px; display:flex; gap:6px;';
+                    mobActions.innerHTML = `
+          <button class="status-toggle-btn mob-toggle" style="font-size:10px; padding:2px 6px;"></button>
+          <button class="btn-danger mob-del" style="padding:2px 6px; font-size:10px;">حذف</button>
+        `;
+                    mobActions.querySelector('.mob-toggle').textContent = isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان';
+                    mobActions.querySelector('.mob-toggle').onclick = () => toggleQuizStatus(item.id);
+                    mobActions.querySelector('.mob-del').onclick = () => deleteQuiz(item.id);
+                    card.appendChild(mobActions);
+                }
+                mobileContainer.appendChild(card);
+            });
+        }
 
-  function filterCompletion(status, btn) {
-    document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentChapterFilter = 'completed_only';
-    applySearch();
-  }
+        function toggleQuizStatus(id) {
+            if (!isInstructorMode) return;
+            const item = quizzesData.find(q => q.id === id);
+            if (item) {
+                item.isCompleted = !item.isCompleted;
+                syncPathToCloud('quizzes', quizzesData);
+                renderQuizzes();
+                updateSummaryCounts();
+            }
+        }
 
-  function searchTopics() { applySearch(); }
+        function addQuizItem() {
+            const name = document.getElementById('quizName').value.trim();
+            const date = document.getElementById('quizDate').value.trim();
+            const score = document.getElementById('quizScore').value.trim();
 
-  function applySearch() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    
-    document.querySelectorAll('#lectureTable tbody tr').forEach(row => {
-      const chapter = row.getAttribute('data-chapter');
-      const isCompleted = row.getAttribute('data-completed') === 'true';
-      const text = row.innerText.toLowerCase();
-      
-      let matchesFilter = (currentChapterFilter === 'all') || 
-                          (chapter === currentChapterFilter) || 
-                          (currentChapterFilter === 'completed_only' && isCompleted);
+            if (!name) {
+                alert('يرجى إدخال عنوان الامتحان');
+                return;
+            }
 
-      row.style.display = (matchesFilter && text.includes(query)) ? '' : 'none';
-    });
+            quizzesData.push({
+                id: Date.now(),
+                name,
+                date,
+                score,
+                isCompleted: false
+            });
+            syncPathToCloud('quizzes', quizzesData);
+            renderQuizzes();
+            updateSummaryCounts();
 
-    document.querySelectorAll('.mobile-cards-container .lec-card').forEach(card => {
-      const chapter = card.getAttribute('data-chapter');
-      const isCompleted = card.getAttribute('data-completed') === 'true';
-      const text = card.innerText.toLowerCase();
+            document.getElementById('quizName').value = '';
+            document.getElementById('quizDate').value = '';
+            document.getElementById('quizScore').value = '';
+            closeModal('addQuizModal');
+        }
 
-      let matchesFilter = (currentChapterFilter === 'all') || 
-                          (chapter === currentChapterFilter) || 
-                          (currentChapterFilter === 'completed_only' && isCompleted);
+        function deleteQuiz(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الامتحان؟')) {
+                quizzesData = quizzesData.filter(i => i.id !== id);
+                syncPathToCloud('quizzes', quizzesData);
+                renderQuizzes();
+                updateSummaryCounts();
+            }
+        }
 
-      card.style.display = (matchesFilter && text.includes(query)) ? '' : 'none';
-    });
-  }
+        function updateProgress() {
+            const total = lecturesData.length;
+            const completed = lecturesData.filter(l => l.isCompleted).length;
+            const percent = ((completed / total) * 100).toFixed(1);
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').innerText = `مستوى تقدم المساق: المحاضرة ${completed} من أصل ${total} منجزة (${percent}%)`;
+        }
+
+        let activeChapter = 'all';
+        let showCompletedOnly = false;
+
+        function filterChapter(filterKey, btn) {
+            document.querySelectorAll('.btn-filter:not(#filterBtnCompleted)').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeChapter = filterKey;
+            applySearch();
+        }
+
+        function toggleCompletedFilter(btn) {
+            showCompletedOnly = !showCompletedOnly;
+            if (showCompletedOnly) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+            applySearch();
+        }
+
+        function applySearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+
+            document.querySelectorAll('#lectureTable tbody tr').forEach(row => {
+                const chapter = row.getAttribute('data-chapter');
+                const isCompleted = row.getAttribute('data-completed') === 'true';
+                const text = row.innerText.toLowerCase();
+
+                let matchesChapter = (activeChapter === 'all' || chapter === activeChapter);
+                let matchesCompletion = (!showCompletedOnly || isCompleted);
+                let matchesSearch = text.includes(query);
+
+                row.style.display = (matchesChapter && matchesCompletion && matchesSearch) ? '' : 'none';
+            });
+
+            document.querySelectorAll('.mobile-cards-container .lec-card').forEach(card => {
+                const chapter = card.getAttribute('data-chapter');
+                const isCompleted = card.getAttribute('data-completed') === 'true';
+                const text = card.innerText.toLowerCase();
+
+                let matchesChapter = (activeChapter === 'all' || chapter === activeChapter);
+                let matchesCompletion = (!showCompletedOnly || isCompleted);
+                let matchesSearch = text.includes(query);
+
+                card.style.display = (matchesChapter && matchesCompletion && matchesSearch) ? '' : 'none';
+            });
+        }
     </script>
 </body>
 
