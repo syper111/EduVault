@@ -4,34 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بوابة مساق التشفير وأمن المعلومات - النظام السحابي الموحد</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <!-- مكتبات Firebase السحابية المتوافقة مع الويب -->
+    <title>بوابة مساق التشفير وأمن المعلومات - النظام الأكاديمي المطور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- مكتبات Firebase السحابية المتوافقة -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <style>
          :root {
-            --bg-main: #0f172a;
-            --card-bg: #1e293b;
-            --card-inner: rgba(255, 255, 255, 0.04);
-            --text-main: #f8fafc;
+            --bg-main: #0b1329;
+            --card-bg: #131c38;
+            --card-inner: rgba(255, 255, 255, 0.03);
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --academic-blue: #0284c7;
-            --academic-sky: #38bdf8;
-            --success-color: #22c55e;
-            --danger-color: #f43f5e;
+            --border-color: #223055;
+            --accent-blue: #38bdf8;
+            --accent-indigo: #6366f1;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --badge-new: #f59e0b;
             --ch1-color: #0284c7;
             --ch2-color: #0d9488;
             --ch3-color: #6366f1;
             --ch4-color: #a855f7;
-            --ch5-color: #f43f5e;
+            --ch5-color: #ec4899;
         }
         
         body.light-theme {
-            --bg-main: #f1f5f9;
+            --bg-main: #f8fafc;
             --card-bg: #ffffff;
-            --card-inner: #f8fafc;
+            --card-inner: #f1f5f9;
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
@@ -46,66 +48,89 @@
             background-color: var(--bg-main);
             color: var(--text-main);
             margin: 0;
-            padding: 10px 8px;
+            padding: 16px 10px;
             line-height: 1.6;
         }
         
         .academic-container {
-            max-width: 1180px;
+            max-width: 1100px;
             margin: 0 auto;
             background: var(--card-bg);
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             border: 1px solid var(--border-color);
             overflow: hidden;
         }
         
         .academic-header {
-            background: linear-gradient(135deg, #090d16 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #0f172a 100%, #1e293b 0%);
             color: #ffffff;
-            padding: 22px 16px;
-            border-bottom: 3px solid var(--academic-sky);
+            padding: 24px 20px;
+            border-bottom: 3px solid var(--accent-blue);
         }
         
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
         
         .program-title {
-            font-size: 12.5px;
-            color: var(--academic-sky);
+            font-size: 13.5px;
+            color: var(--accent-blue);
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .cloud-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         
         .sys-btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border-color);
             color: #fff;
-            border-radius: 16px;
-            padding: 5px 12px;
-            font-size: 11.5px;
+            border-radius: 10px;
+            padding: 6px 14px;
+            font-size: 12px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: bold;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .sys-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
         
         .academic-header h1 {
-            margin: 0 0 14px 0;
-            font-size: 21px;
+            margin: 0 0 16px 0;
+            font-size: 22px;
             font-weight: 800;
             text-align: center;
+            color: #ffffff;
         }
         
         .meta-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -118,23 +143,48 @@
         
         .meta-item {
             background: var(--card-inner);
-            padding: 10px 12px;
+            padding: 12px 14px;
             border-radius: 10px;
-            border-right: 3px solid var(--academic-sky);
-            border: 1px solid var(--border-color);
+            border-right: 3px solid var(--accent-blue);
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .meta-item .label {
             font-size: 11px;
             color: var(--text-muted);
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
         
         .meta-item .value {
             font-size: 13px;
             font-weight: 700;
             color: #fff;
+        }
+        /* شريط ملخص الأنشطة */
+        
+        .tasks-summary-bar {
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 10px;
+            padding: 10px 16px;
+            margin: 16px auto 0 auto;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 12.5px;
+            font-weight: 600;
+            flex-wrap: wrap;
+            gap: 10px;
+            color: #e2e8f0;
+        }
+        
+        .summary-badge {
+            color: var(--accent-blue);
+            font-weight: 700;
         }
         
         .page-nav-bar {
@@ -146,55 +196,56 @@
         }
         
         .btn-nav-page {
-            background: rgba(56, 189, 248, 0.12);
-            color: var(--academic-sky);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 7px 14px;
-            border-radius: 12px;
-            font-size: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12.5px;
             font-weight: 700;
             cursor: pointer;
         }
         
         .btn-nav-page.active {
-            background: var(--academic-sky);
-            color: #0f172a;
-            border-color: var(--academic-sky);
+            background: var(--accent-blue);
+            color: #0b1329;
+            border-color: var(--accent-blue);
         }
         
         .progress-section {
             max-width: 900px;
-            margin: 14px auto 0 auto;
+            margin: 16px auto 0 auto;
             text-align: center;
         }
         
         .progress-container {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 3px;
-            margin-top: 5px;
+            margin-top: 6px;
         }
         
         .progress-bar {
             width: 6.7%;
             height: 8px;
-            background: linear-gradient(90deg, #38bdf8, #22c55e);
+            background: var(--success-color);
             border-radius: 20px;
         }
         
         .progress-text {
-            font-size: 11.5px;
+            font-size: 12px;
             color: var(--text-muted);
             display: block;
+            font-weight: 600;
         }
         
         .controls-bar {
-            padding: 12px 16px;
+            padding: 14px 20px;
             background-color: var(--card-inner);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         
         @media(min-width: 768px) {
@@ -202,7 +253,6 @@
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
-                padding: 14px 20px;
             }
         }
         
@@ -226,9 +276,10 @@
         }
         
         .btn-filter.active {
-            background-color: var(--academic-sky);
-            color: #0f172a;
-            font-weight: 800;
+            background-color: var(--accent-blue);
+            color: #0b1329;
+            font-weight: 700;
+            border-color: var(--accent-blue);
         }
         
         .search-print-wrapper {
@@ -246,7 +297,7 @@
         }
         
         .search-box {
-            padding: 6px 12px;
+            padding: 7px 12px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -257,12 +308,12 @@
         }
         
         .btn-action {
-            background-color: var(--academic-blue);
+            background: var(--accent-indigo);
             color: white;
             border: none;
-            padding: 6px 14px;
+            padding: 7px 14px;
             border-radius: 8px;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 12px;
             cursor: pointer;
         }
@@ -276,14 +327,14 @@
         }
         
         .sub-page-wrapper {
-            padding: 20px 16px;
+            padding: 20px;
             max-width: 1000px;
             margin: 0 auto;
         }
         
         .table-wrapper {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
         }
         
         .desktop-table {
@@ -317,6 +368,7 @@
             color: var(--text-main);
             padding: 12px;
             border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
         }
         
         td {
@@ -330,13 +382,13 @@
             background: var(--card-inner);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 8px;
+            padding: 14px;
+            margin-bottom: 10px;
         }
         
         .lec-card.is-completed {
-            background-color: rgba(34, 197, 94, 0.08) !important;
-            border-color: rgba(34, 197, 94, 0.3);
+            background-color: rgba(16, 185, 129, 0.05) !important;
+            border-color: rgba(16, 185, 129, 0.3);
         }
         
         .card-header-row {
@@ -347,7 +399,7 @@
         }
         
         .lec-badge-mobile {
-            font-weight: 800;
+            font-weight: 700;
             font-size: 13.5px;
             display: flex;
             align-items: center;
@@ -360,21 +412,21 @@
             gap: 4px;
             font-size: 11px;
             font-weight: 600;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.06);
             color: var(--text-main);
             cursor: pointer;
         }
         
         .lec-card.is-completed .status-check {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
         }
         
         .tag {
             display: inline-block;
-            padding: 2px 7px;
+            padding: 2px 8px;
             border-radius: 4px;
             font-size: 10.5px;
             font-weight: 700;
@@ -404,7 +456,7 @@
         .page-info {
             font-size: 11px;
             font-weight: 700;
-            color: var(--academic-sky);
+            color: var(--accent-blue);
             display: block;
             margin-top: 2px;
         }
@@ -423,25 +475,26 @@
             font-size: 12px;
             color: var(--text-muted);
             margin-top: 6px;
-            background: rgba(0, 0, 0, 0.1);
-            padding: 6px;
-            border-radius: 4px;
-            border-right: 3px solid var(--academic-sky);
+            background: rgba(0, 0, 0, 0.15);
+            padding: 6px 8px;
+            border-radius: 6px;
+            border-right: 3px solid var(--accent-blue);
         }
         
         .lab-box {
-            margin-top: 5px;
-            padding: 5px;
-            background-color: rgba(34, 197, 94, 0.1);
-            border-right: 3px solid #22c55e;
-            border-radius: 4px;
+            margin-top: 6px;
+            padding: 6px 8px;
+            background-color: rgba(16, 185, 129, 0.08);
+            border-right: 3px solid var(--success-color);
+            border-radius: 6px;
             font-size: 11.5px;
-            color: #22c55e;
+            color: var(--success-color);
+            font-weight: 600;
         }
         
         .add-form-box {
             background: var(--card-inner);
-            border: 2px dashed var(--academic-sky);
+            border: 2px dashed var(--accent-blue);
             padding: 14px;
             border-radius: 10px;
             margin-bottom: 15px;
@@ -458,7 +511,7 @@
             margin-bottom: 8px;
             border-radius: 6px;
             border: 1px solid var(--border-color);
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
             color: var(--text-main);
             font-family: inherit;
             font-size: 12px;
@@ -473,30 +526,121 @@
             border-radius: 6px;
             font-size: 11px;
             cursor: pointer;
+            font-weight: 600;
         }
         
         .instructor-controls {
             display: none;
             margin-bottom: 15px;
-            background: rgba(0, 243, 255, 0.08);
+            background: rgba(56, 189, 248, 0.1);
             padding: 10px;
-            border-radius: 10px;
-            border: 1px solid var(--academic-sky);
+            border-radius: 8px;
+            border: 1px solid var(--accent-blue);
             text-align: center;
-            font-weight: bold;
-            color: var(--academic-sky);
+            font-weight: 700;
+            color: var(--accent-blue);
+            font-size: 12.5px;
         }
         
         .instructor-controls.active {
             display: block;
         }
+        /* النوافذ المنبثقة */
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 19, 41, 0.8);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 15px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            color: var(--text-main);
+        }
+        
+        .modal-box h3 {
+            margin-top: 0;
+            color: var(--accent-blue);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            font-size: 17px;
+        }
+        
+        .modal-box p,
+        .modal-box ul {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        /* شارة التنبيه الجديدة الفردية لكل جهاز */
+        
+        .new-badge {
+            background: var(--badge-new);
+            color: #0b1329;
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-weight: 800;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
         
         .academic-footer {
-            padding: 14px;
+            padding: 16px;
             text-align: center;
             font-size: 12px;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
+        }
+        
+        @media print {
+            .top-bar,
+            .page-nav-bar,
+            .controls-bar,
+            .sys-btn,
+            .btn-action,
+            .instructor-controls,
+            .tasks-summary-bar {
+                display: none !important;
+            }
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
+            .academic-container {
+                border: none !important;
+                box-shadow: none !important;
+            }
+            .desktop-table {
+                display: table !important;
+                color: #000 !important;
+            }
+            th {
+                background: #f1f5f9 !important;
+                color: #000 !important;
+            }
+            td {
+                border-bottom: 1px solid #ccc !important;
+            }
         }
     </style>
 </head>
@@ -506,10 +650,15 @@
     <div class="academic-container">
         <div class="academic-header">
             <div class="top-bar">
-                <span class="program-title" id="modeTitle">👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة السحابية)</span>
-                <div class="header-actions" style="display:flex; gap:6px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="program-title">🎓 بوابة طلاب الدكتوراه</span>
+                    <span class="cloud-badge">🟢 متصل سحابياً</span>
+                </div>
+                <div class="header-actions">
+                    <button class="sys-btn" onclick="openModal('aboutModal')">👤 حول البوابة</button>
+                    <button class="sys-btn" onclick="openModal('policyModal')">📜 تعليمات التسليم</button>
                     <button class="sys-btn" onclick="toggleTheme()">☀️ / 🌙 المظهر</button>
-                    <button class="sys-btn" id="modeToggleBtn" onclick="requestInstructorMode()" style="background:linear-gradient(135deg, #00f3ff, #7000ff); color:#050814;">👨‍🏫 لوحة تحكم الدكتور</button>
+                    <button class="sys-btn" id="modeToggleBtn" onclick="requestInstructorMode()" style="background:var(--accent-blue); color:#0b1329;">👨‍🏫 لوحة تحكم الدكتور</button>
                 </div>
             </div>
 
@@ -522,10 +671,17 @@
                 <div class="meta-item"><span class="label">إجمالي المساق</span><span class="value">15 محاضرة أكاديمية</span></div>
             </div>
 
+            <!-- شريط ملخص الأنشطة -->
+            <div class="tasks-summary-bar">
+                <span>📖 البحوث النشطة: <span class="summary-badge" id="activeResearchCount">1</span></span>
+                <span>📝 الامتحانات القادمة: <span class="summary-badge" id="activeQuizzesCount">1</span></span>
+                <span>🎯 حالة المزامنة: <span style="color:var(--success-color);">نشطة ومحدثة</span></span>
+            </div>
+
             <div class="page-nav-bar">
                 <button class="btn-nav-page active" id="btnPagePlan" onclick="switchPage('plan')">📚 جدول الخطة الدراسية</button>
-                <button class="btn-nav-page" id="btnPageResearch" onclick="switchPage('research')">📖 البحوث والمتطلبات</button>
-                <button class="btn-nav-page" id="btnPageQuizzes" onclick="switchPage('quizzes')">📝 الامتحانات والكويزات</button>
+                <button class="btn-nav-page" id="btnPageResearch" onclick="switchPage('research')" onclick="clearDeviceNotifications('research')">📖 البحوث والمتطلبات <span id="resNavBadge" style="display:none;" class="new-badge">جديد</span></button>
+                <button class="btn-nav-page" id="btnPageQuizzes" onclick="switchPage('quizzes')" onclick="clearDeviceNotifications('quizzes')">📝 الامتحانات والكويزات <span id="quizNavBadge" style="display:none;" class="new-badge">جديد</span></button>
             </div>
 
             <div class="progress-section" id="progressSection">
@@ -537,7 +693,7 @@
         </div>
 
         <div class="instructor-controls" id="instructorStatusBanner">
-            ⚡ أنت الآن في "وضع الدكتور السحابي النشط" (أي تعديل، إضافة، أو حذف يتم بثه فوراً عبر قاعدة بيانات Firebase الخاصة بك لكل الأجهزة المتصلة)
+            ⚡ وضع الدكتور نشط (أي تعديل يتم حفظه سحابياً ويظهر للجميع، بينما تظهر إشعارات "العناصر الجديدة" لكل طالب على جهازه المنفصل عند فتحه)
         </div>
 
         <div id="pagePlan" class="page-section">
@@ -549,10 +705,12 @@
                     <button class="btn-filter" onclick="filterChapter('ch3', this)">الفصل 3</button>
                     <button class="btn-filter" onclick="filterChapter('ch4', this)">الفصل 4</button>
                     <button class="btn-filter" onclick="filterChapter('ch5', this)">الفصل 5</button>
+                    <button class="btn-filter" onclick="filterCompletion('completed', this)" style="border-color:var(--success-color); color:var(--success-color);">✔️ المنجز فقط</button>
                 </div>
                 <div class="search-print-wrapper">
-                    <input type="text" id="searchInput" class="search-box" placeholder="بحث في موضوعات المساق..." onkeyup="searchTopics()">
-                    <button class="btn-action" onclick="window.print()">🖨️ طباعة</button>
+                    <button class="btn-action" onclick="toggleDetailsCollapse()" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1px solid var(--border-color);">👁️ طي/توسيع التفاصيل</button>
+                    <input type="text" id="searchInput" class="search-box" placeholder="بحث فوري في الخطة..." onkeyup="searchTopics()">
+                    <button class="btn-action" onclick="window.print()">🖨️ طباعة الجدول</button>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -574,19 +732,19 @@
         <div id="pageResearch" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h3 style="margin:0; color:var(--academic-sky);">📖 البحوث والمتطلبات الأكاديمية</h3>
+                    <h3 style="margin:0; color:var(--accent-blue);">📖 البحوث والمتطلبات الأكاديمية</h3>
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
                 <div id="instructorResearchAdd" style="display:none; margin-bottom: 12px;">
-                    <button class="btn-action" onclick="toggleAddBox('researchBox')">➕ إضافة بحث أو متطلب سحابي جديد</button>
+                    <button class="btn-action" onclick="toggleAddBox('researchBox')">➕ إضافة بحث أو متطلب جديد</button>
                 </div>
                 <div class="add-form-box" id="researchBox">
-                    <h4 style="margin:0 0 8px 0; color:var(--academic-sky);">إضافة بحث أو مهمة جديدة سحابياً</h4>
+                    <h4 style="margin:0 0 8px 0; color:var(--accent-blue);">إضافة بحث أو مهمة جديدة</h4>
                     <input type="text" id="resTitle" class="form-input" placeholder="عنوان البحث / المهمة">
                     <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
                     <input type="text" id="resDeadline" class="form-input" placeholder="موعد التسليم (مثل: الأسبوع العاشر)">
                     <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
-                    <button class="btn-action" onclick="addResearchItem()">حفظ ونشر سحابي فوري</button>
+                    <button class="btn-action" onclick="addResearchItem()">حفظ ونشر فوري</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="researchTable">
@@ -609,18 +767,18 @@
         <div id="pageQuizzes" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h3 style="margin:0; color:var(--academic-sky);">📝 الامتحانات والكويزات والتقييمات</h3>
+                    <h3 style="margin:0; color:var(--accent-blue);">📝 الامتحانات والكويزات والتقييمات</h3>
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
                 <div id="instructorQuizAdd" style="display:none; margin-bottom: 12px;">
-                    <button class="btn-action" onclick="toggleAddBox('quizBox')">➕ إضافة امتحان أو كويز سحابي جديد</button>
+                    <button class="btn-action" onclick="toggleAddBox('quizBox')">➕ إضافة امتحان أو كويز جديد</button>
                 </div>
                 <div class="add-form-box" id="quizBox">
-                    <h4 style="margin:0 0 8px 0; color:var(--academic-sky);">إضافة امتحان أو كويز جديد سحابياً</h4>
+                    <h4 style="margin:0 0 8px 0; color:var(--accent-blue);">إضافة امتحان أو كويز جديد</h4>
                     <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
                     <input type="text" id="quizDate" class="form-input" placeholder="موعد الامتحان (التاريخ والوقت)">
                     <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
-                    <button class="btn-action" onclick="addQuizItem()">حفظ ونشر سحابي فوري</button>
+                    <button class="btn-action" onclick="addQuizItem()">حفظ ونشر فوري</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="quizTable">
@@ -644,9 +802,36 @@
         </div>
     </div>
 
+    <!-- Modal 1: حول البوابة -->
+    <div class="modal-overlay" id="aboutModal">
+        <div class="modal-box">
+            <h3>👤 حول البوابة الأكاديمية</h3>
+            <p>بوابة رسمية مخصصة لمتابعة جدول المحاضرات، المتطلبات الأكاديمية، والامتحانات لمساق التشفير وأمن المعلومات - مرحلة الدكتوراه.</p>
+            <ul>
+                <li><strong>إعداد وتقديم:</strong> البروفيسور أ.د. إبراهيم المدادحة</li>
+                <li><strong>التخصص:</strong> الأمن السيبراني وععلم التشفير</li>
+                <li><strong>المزامنة:</strong> ربط سحابي مباشر ومحدث باستمرار.</li>
+            </ul>
+            <button class="btn-action" style="width:100%; margin-top:10px;" onclick="closeModal('aboutModal')">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- Modal 2: تعليمات التسليم -->
+    <div class="modal-overlay" id="policyModal">
+        <div class="modal-box">
+            <h3>📜 تعليمات وإرشادات التسليم</h3>
+            <ul>
+                <li>يجب تسليم جميع البحوث والمتطلبات في الموعد المحدد.</li>
+                <li>تُقدم التقارير بصيغة PDF أو مطبوعة حسب التوجيهات.</li>
+                <li>ضرورة توثيق المراجع والورقات العلمية وفق معايير الأمان المعتمدة.</li>
+            </ul>
+            <button class="btn-action" style="width:100%; margin-top:10px;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
+        </div>
+    </div>
+
     <script>
         // ---------------------------------------------------------
-        // 🔗 إعدادات Firebase الخاصة بك (المربوطة بقاعدة البيانات الحقيقية zdvr-eda5c)
+        // 🔗 إعدادات Firebase الخاصة بك (zdvr-eda5c)
         // ---------------------------------------------------------
         const firebaseConfig = {
             apiKey: "AIzaSyBE0PQk__YiNHP7nd_EkTxHEK-0_7-iUUw",
@@ -668,6 +853,7 @@
         }
 
         let isInstructorMode = false;
+        let isDetailsCollapsed = false;
 
         const defaultLectures = [{
             id: 1,
@@ -854,16 +1040,31 @@
         let researchData = [...defaultResearch];
         let quizzesData = [...defaultQuizzes];
 
-        // الاستماع الفوري للبيانات من قاعدة بيانات فايربيس (Realtime Listener)
+        // ---------------------------------------------------------
+        // 🔔 نظام التنبيهات المنفصل لكل جهاز (Local Device Notification)
+        // ---------------------------------------------------------
+        let lastSeenResearchCount = parseInt(localStorage.getItem('seen_res_count') || defaultResearch.length);
+        let lastSeenQuizCount = parseInt(localStorage.getItem('seen_quiz_count') || defaultQuizzes.length);
+
+        // الاستماع الفوري للبيانات السحابية
         if (db) {
             db.ref('zdvr_unified_portal').on('value', (snapshot) => {
                 const serverData = snapshot.val();
                 if (serverData) {
                     if (serverData.lectures) lecturesData = serverData.lectures;
-                    if (serverData.research) researchData = serverData.research;
-                    if (serverData.quizzes) quizzesData = serverData.quizzes;
+                    if (serverData.research) {
+                        if (serverData.research.length > lastSeenResearchCount) {
+                            document.getElementById('resNavBadge').style.display = 'inline-block';
+                        }
+                        researchData = serverData.research;
+                    }
+                    if (serverData.quizzes) {
+                        if (serverData.quizzes.length > lastSeenQuizCount) {
+                            document.getElementById('quizNavBadge').style.display = 'inline-block';
+                        }
+                        quizzesData = serverData.quizzes;
+                    }
                 } else {
-                    // رفع البيانات الافتراضية لأول مرة إذا كانت القاعدة فارغة
                     syncToCloud();
                 }
                 renderAll();
@@ -880,12 +1081,42 @@
             }
         }
 
+        function clearDeviceNotifications(type) {
+            if (type === 'research') {
+                lastSeenResearchCount = researchData.length;
+                localStorage.setItem('seen_res_count', lastSeenResearchCount);
+                document.getElementById('resNavBadge').style.display = 'none';
+            } else if (type === 'quizzes') {
+                lastSeenQuizCount = quizzesData.length;
+                localStorage.setItem('seen_quiz_count', lastSeenQuizCount);
+                document.getElementById('quizNavBadge').style.display = 'none';
+            }
+        }
+
+        // استعادة الثيم المحفوظ
+        if (localStorage.getItem('theme_preference') === 'light') {
+            document.body.classList.add('light-theme');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            localStorage.setItem('theme_preference', isLight ? 'light' : 'dark');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
         function requestInstructorMode() {
             if (!isInstructorMode) {
                 let pin = prompt("أدخل رمز الدكتور للوصول (8000):");
                 if (pin === "8000") {
                     isInstructorMode = true;
-                    document.getElementById('modeTitle').innerText = "⚡ [وضع السيطرة السحابي الحقيقي] لوحة تحكم الدكتور النشطة";
                     document.getElementById('modeToggleBtn').innerText = "👨‍🎓 العودة لوضع الطلاب";
                     document.getElementById('instructorStatusBanner').classList.add('active');
                     document.getElementById('instructorResearchAdd').style.display = "block";
@@ -893,13 +1124,11 @@
                     document.getElementById('resDeleteHeader').style.display = "table-cell";
                     document.getElementById('quizDeleteHeader').style.display = "table-cell";
                     renderAll();
-                    alert("تم تفعيل وضع الدكتور السحابي بنجاح!");
                 } else if (pin !== null) {
                     alert("رمز المرور غير صحيح!");
                 }
             } else {
                 isInstructorMode = false;
-                document.getElementById('modeTitle').innerText = "👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة السحابية اللحظية)";
                 document.getElementById('modeToggleBtn').innerText = "👨‍🏫 لوحة تحكم الدكتور";
                 document.getElementById('instructorStatusBanner').classList.remove('active');
                 document.getElementById('instructorResearchAdd').style.display = "none";
@@ -908,10 +1137,6 @@
                 document.getElementById('quizDeleteHeader').style.display = "none";
                 renderAll();
             }
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('light-theme');
         }
 
         function switchPage(page) {
@@ -923,10 +1148,12 @@
                 document.getElementById('pageResearch').classList.remove('hidden');
                 document.getElementById('btnPageResearch').classList.add('active');
                 progressSection.style.display = 'none';
+                clearDeviceNotifications('research');
             } else if (page === 'quizzes') {
                 document.getElementById('pageQuizzes').classList.remove('hidden');
                 document.getElementById('btnPageQuizzes').classList.add('active');
                 progressSection.style.display = 'none';
+                clearDeviceNotifications('quizzes');
             } else {
                 document.getElementById('pagePlan').classList.remove('hidden');
                 document.getElementById('btnPagePlan').classList.add('active');
@@ -938,10 +1165,21 @@
             document.getElementById(id).classList.toggle('active');
         }
 
+        function toggleDetailsCollapse() {
+            isDetailsCollapsed = !isDetailsCollapsed;
+            renderLectures();
+        }
+
         function renderAll() {
             renderLectures();
             renderResearch();
             renderQuizzes();
+            updateSummaryCounts();
+        }
+
+        function updateSummaryCounts() {
+            document.getElementById('activeResearchCount').innerText = researchData.length;
+            document.getElementById('activeQuizzesCount').innerText = quizzesData.length;
         }
 
         function renderLectures() {
@@ -957,21 +1195,23 @@
                             `<div class="status-check" onclick="toggleLecture(${lec.id})"><input type="checkbox" ${lec.isCompleted ? 'checked' : ''} onclick="event.stopPropagation(); toggleLecture(${lec.id})"> ${statusLabel}</div>` :
                             `<div class="status-check">${statusLabel}</div>`;
 
+                        const displayStyle = isDetailsCollapsed ? 'display:none;' : '';
+
                         tableBody.innerHTML += `
-        <tr class="${completedClass}" data-chapter="${lec.chapter}">
+        <tr class="${completedClass}" data-chapter="${lec.chapter}" data-completed="${lec.isCompleted}">
           <td style="text-align: center;"><span style="font-weight:bold;">${lec.id}</span>${checkboxHtml}</td>
           <td><span class="tag ${lec.chClass}">${lec.chName}</span><strong>${lec.title}</strong><span class="page-info">${lec.pages}</span></td>
-          <td><ul class="topic-tree">${lec.topics.map(t => `<li>${t}</li>`).join('')}</ul></td>
-          <td><div class="academic-outcome">${lec.outcome}</div>${lec.lab ? `<div class="lab-box">${lec.lab}</div>` : ''}</td>
+          <td><ul class="topic-tree" style="${displayStyle}">${lec.topics.map(t => `<li>${t}</li>`).join('')}</ul></td>
+          <td><div class="academic-outcome" style="${displayStyle}">${lec.outcome}</div>${lec.lab ? `<div class="lab-box" style="${displayStyle}">${lec.lab}</div>` : ''}</td>
         </tr>`;
 
       mobileContainer.innerHTML += `
-        <div class="lec-card ${completedClass}" data-chapter="${lec.chapter}">
+        <div class="lec-card ${completedClass}" data-chapter="${lec.chapter}" data-completed="${lec.isCompleted}">
           <div class="card-header-row"><div class="lec-badge-mobile"><span>${lec.id}</span> ${lec.title}</div>${checkboxHtml}</div>
           <div><span class="tag ${lec.chClass}">${lec.chName}</span><span class="page-info" style="display:inline-block; margin-right:6px;">${lec.pages}</span></div>
-          <ul class="topic-tree" style="margin-top:6px;">${lec.topics.map(t => `<li>${t}</li>`).join('')}</ul>
-          <div class="academic-outcome">🎯 ${lec.outcome}</div>
-          ${lec.lab ? `<div class="lab-box">${lec.lab}</div>` : ''}
+          <ul class="topic-tree" style="margin-top:6px; ${displayStyle}">${lec.topics.map(t => `<li>${t}</li>`).join('')}</ul>
+          <div class="academic-outcome" style="${displayStyle}">🎯 ${lec.outcome}</div>
+          ${lec.lab ? `<div class="lab-box" style="${displayStyle}">${lec.lab}</div>` : ''}
         </div>`;
     });
     updateProgress();
@@ -993,8 +1233,8 @@
     tbody.innerHTML = ''; mobileContainer.innerHTML = '';
 
     if (!researchData.length) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">لا توجد بحوث مضافة</td></tr>`;
-      mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد بحوث مضافة</div>`;
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">لا توجد بحوث مضافة حالياً</td></tr>`;
+      mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد بحوث مضافة حالياً</div>`;
       return;
     }
 
@@ -1006,7 +1246,7 @@
         <tr>
           <td><strong>${item.title}</strong></td>
           <td>${item.reqs}</td>
-          <td><span style="color:var(--academic-sky); font-weight:bold;">${item.deadline}</span></td>
+          <td><span style="color:var(--accent-blue); font-weight:bold;">${item.deadline}</span></td>
           <td><span style="color:var(--success-color); font-weight:bold;">👥 ${item.submitted}</span></td>
           ${deleteBtn}
         </tr>`;
@@ -1014,7 +1254,7 @@
       mobileContainer.innerHTML += `
         <div class="sub-card">
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div style="font-weight:bold; color:var(--academic-sky); font-size:14px; margin-bottom:4px;">${item.title}</div>
+            <div style="font-weight:bold; color:var(--accent-blue); font-size:14px; margin-bottom:4px;">${item.title}</div>
             ${mobileDelete}
           </div>
           <div style="font-size:12.5px; margin-bottom:6px;">${item.reqs}</div>
@@ -1037,6 +1277,7 @@
     researchData.push({ id: Date.now(), title, reqs, deadline, submitted });
     syncToCloud();
     renderResearch();
+    updateSummaryCounts();
     document.getElementById('resTitle').value = '';
     document.getElementById('resReqs').value = '';
     document.getElementById('resDeadline').value = '';
@@ -1049,6 +1290,7 @@
       researchData = researchData.filter(i => i.id !== id);
       syncToCloud();
       renderResearch();
+      updateSummaryCounts();
     }
   }
 
@@ -1058,8 +1300,8 @@
     tbody.innerHTML = ''; mobileContainer.innerHTML = '';
 
     if (!quizzesData.length) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">لا توجد امتحانات مضافة</td></tr>`;
-      mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد امتحانات مضافة</div>`;
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">لا توجد امتحانات مضافة حالياً</td></tr>`;
+      mobileContainer.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:10px;">لا توجد امتحانات مضافة حالياً</div>`;
       return;
     }
 
@@ -1070,7 +1312,7 @@
       tbody.innerHTML += `
         <tr>
           <td><strong>${item.name}</strong></td>
-          <td><span style="color:var(--academic-sky); font-weight:bold;">${item.date}</span></td>
+          <td><span style="color:var(--accent-blue); font-weight:bold;">${item.date}</span></td>
           <td><span style="color:var(--success-color); font-weight:bold;">⭐ ${item.score}</span></td>
           ${deleteBtn}
         </tr>`;
@@ -1078,7 +1320,7 @@
       mobileContainer.innerHTML += `
         <div class="sub-card">
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div style="font-weight:bold; color:var(--academic-sky); font-size:14px; margin-bottom:4px;">${item.name}</div>
+            <div style="font-weight:bold; color:var(--accent-blue); font-size:14px; margin-bottom:4px;">${item.name}</div>
             ${mobileDelete}
           </div>
           <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-top:6px;">
@@ -1099,6 +1341,7 @@
     quizzesData.push({ id: Date.now(), name, date, score });
     syncToCloud();
     renderQuizzes();
+    updateSummaryCounts();
     document.getElementById('quizName').value = '';
     document.getElementById('quizDate').value = '';
     document.getElementById('quizScore').value = '';
@@ -1110,6 +1353,7 @@
       quizzesData = quizzesData.filter(i => i.id !== id);
       syncToCloud();
       renderQuizzes();
+      updateSummaryCounts();
     }
   }
 
@@ -1129,19 +1373,40 @@
     applySearch();
   }
 
+  function filterCompletion(status, btn) {
+    document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentChapterFilter = 'completed_only';
+    applySearch();
+  }
+
   function searchTopics() { applySearch(); }
 
   function applySearch() {
     const query = document.getElementById('searchInput').value.toLowerCase();
+    
     document.querySelectorAll('#lectureTable tbody tr').forEach(row => {
       const chapter = row.getAttribute('data-chapter');
+      const isCompleted = row.getAttribute('data-completed') === 'true';
       const text = row.innerText.toLowerCase();
-      row.style.display = ((currentChapterFilter === 'all' || chapter === currentChapterFilter) && text.includes(query)) ? '' : 'none';
+      
+      let matchesFilter = (currentChapterFilter === 'all') || 
+                          (chapter === currentChapterFilter) || 
+                          (currentChapterFilter === 'completed_only' && isCompleted);
+
+      row.style.display = (matchesFilter && text.includes(query)) ? '' : 'none';
     });
+
     document.querySelectorAll('.mobile-cards-container .lec-card').forEach(card => {
       const chapter = card.getAttribute('data-chapter');
+      const isCompleted = card.getAttribute('data-completed') === 'true';
       const text = card.innerText.toLowerCase();
-      card.style.display = ((currentChapterFilter === 'all' || chapter === currentChapterFilter) && text.includes(query)) ? '' : 'none';
+
+      let matchesFilter = (currentChapterFilter === 'all') || 
+                          (chapter === currentChapterFilter) || 
+                          (currentChapterFilter === 'completed_only' && isCompleted);
+
+      card.style.display = (matchesFilter && text.includes(query)) ? '' : 'none';
     });
   }
     </script>
