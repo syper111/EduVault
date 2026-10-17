@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>بوابة مساق التشفير وأمن المعلومات - طلاب الدكتوراه</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
          :root {
             --bg-main: #0f172a;
@@ -768,17 +770,34 @@
             score: '15 علامة'
         }];
 
-        initStudentView();
+        // عرض فوري أولي حتمي لا يختفي أبداً
+        renderLectures(defaultLectures);
+        renderResearch(defaultResearch);
+        renderQuizzes(defaultQuizzes);
 
-        function initStudentView() {
-            const lectures = JSON.parse(localStorage.getItem('prof_neon_lectures')) || defaultLectures;
-            const research = JSON.parse(localStorage.getItem('prof_neon_research')) || defaultResearch;
-            const quizzes = JSON.parse(localStorage.getItem('prof_neon_quizzes')) || defaultQuizzes;
-
-            renderLectures(lectures);
-            renderResearch(research);
-            renderQuizzes(quizzes);
-        }
+        try {
+            const firebaseConfig = {
+                apiKey: "YOUR_API_KEY",
+                authDomain: "YOUR_PROJECT.firebaseapp.com",
+                databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+                projectId: "YOUR_PROJECT",
+                storageBucket: "YOUR_PROJECT.appspot.com",
+                messagingSenderId: "...",
+                appId: "..."
+            };
+            if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                const db = firebase.database();
+                db.ref('portal_data').on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        if (data.lectures && data.lectures.length) renderLectures(data.lectures);
+                        if (data.research && data.research.length) renderResearch(data.research);
+                        if (data.quizzes && data.quizzes.length) renderQuizzes(data.quizzes);
+                    }
+                });
+            }
+        } catch (e) {}
 
         function toggleTheme() {
             document.body.classList.toggle('light-theme');
