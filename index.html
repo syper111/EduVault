@@ -4,8 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بوابة مساق التشفير وأمن المعلومات - النظام الموحد</title>
+    <title>بوابة مساق التشفير وأمن المعلومات - النظام السحابي الموحد</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <!-- مكتبات Firebase السحابية -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
          :root {
             --bg-main: #0f172a;
@@ -282,7 +285,6 @@
             width: 100%;
             padding: 10px;
         }
-        /* إظهار الجدول حصرياً على الشاشات الكبيرة وإخفاء بطاقات الجوال، والعكس صحيح */
         
         .desktop-table {
             width: 100%;
@@ -504,7 +506,7 @@
     <div class="academic-container">
         <div class="academic-header">
             <div class="top-bar">
-                <span class="program-title" id="modeTitle">👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة)</span>
+                <span class="program-title" id="modeTitle">👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة اللحظية)</span>
                 <div class="header-actions" style="display:flex; gap:6px;">
                     <button class="sys-btn" onclick="toggleTheme()">☀️ / 🌙 المظهر</button>
                     <button class="sys-btn" id="modeToggleBtn" onclick="requestInstructorMode()" style="background:linear-gradient(135deg, #00f3ff, #7000ff); color:#050814;">👨‍🏫 لوحة تحكم الدكتور</button>
@@ -535,7 +537,7 @@
         </div>
 
         <div class="instructor-controls" id="instructorStatusBanner">
-            ⚡ أنت الآن في "وضع الدكتور" (يمكنك تعديل حالة المحاضرات، وإضافة أو حذف البحوث والكويزات وستظهر فوراً دون تكرار)
+            ⚡ أنت الآن في "وضع الدكتور السحابي" (أي تعديل، إضافة، أو حذف يتم بثه فوراً عبر قاعدة بيانات Firebase السحابية لكل الأجهزة المتصلة)
         </div>
 
         <div id="pagePlan" class="page-section">
@@ -576,15 +578,15 @@
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
                 <div id="instructorResearchAdd" style="display:none; margin-bottom: 12px;">
-                    <button class="btn-action" onclick="toggleAddBox('researchBox')">➕ إضافة بحث أو متطلب جديد</button>
+                    <button class="btn-action" onclick="toggleAddBox('researchBox')">➕ إضافة بحث أو متطلب سحابي جديد</button>
                 </div>
                 <div class="add-form-box" id="researchBox">
-                    <h4 style="margin:0 0 8px 0; color:var(--academic-sky);">إضافة بحث أو مهمة جديدة</h4>
+                    <h4 style="margin:0 0 8px 0; color:var(--academic-sky);">إضافة بحث أو مهمة جديدة سحابياً</h4>
                     <input type="text" id="resTitle" class="form-input" placeholder="عنوان البحث / المهمة">
                     <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
                     <input type="text" id="resDeadline" class="form-input" placeholder="موعد التسليم (مثل: الأسبوع العاشر)">
                     <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
-                    <button class="btn-action" onclick="addResearchItem()">حفظ وإضافة فورية</button>
+                    <button class="btn-action" onclick="addResearchItem()">حفظ ونشر سحابي فوري</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="researchTable">
@@ -611,14 +613,14 @@
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
                 <div id="instructorQuizAdd" style="display:none; margin-bottom: 12px;">
-                    <button class="btn-action" onclick="toggleAddBox('quizBox')">➕ إضافة امتحان أو كويز جديد</button>
+                    <button class="btn-action" onclick="toggleAddBox('quizBox')">➕ إضافة امتحان أو كويز سحابي جديد</button>
                 </div>
                 <div class="add-form-box" id="quizBox">
-                    <h4 style="margin:0 0 8px 0; color:var(--academic-sky);">إضافة امتحان أو كويز جديد</h4>
+                    <h4 style="margin:0 0 8px 0; color:var(--academic-sky);">إضافة امتحان أو كويز جديد سحابياً</h4>
                     <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
                     <input type="text" id="quizDate" class="form-input" placeholder="موعد الامتحان (التاريخ والوقت)">
                     <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
-                    <button class="btn-action" onclick="addQuizItem()">حفظ وإضافة فورية</button>
+                    <button class="btn-action" onclick="addQuizItem()">حفظ ونشر سحابي فوري</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="quizTable">
@@ -643,6 +645,32 @@
     </div>
 
     <script>
+        // ---------------------------------------------------------
+        // 🔗 إعدادات قاعدة بيانات فايربيس السحابية الحقيقية (الرجاء وضع بيانات مشروعك هنا)
+        // ---------------------------------------------------------
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
+        };
+
+        let db = null;
+        let isCloudConnected = false;
+
+        try {
+            if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+                isCloudConnected = true;
+            }
+        } catch (e) {
+            console.log("خطأ في الاتصال السحابي، سيتم العمل بالوضع الاحتياطي");
+        }
+
         let isInstructorMode = false;
 
         const defaultLectures = [{
@@ -826,16 +854,44 @@
             score: '15 علامة'
         }];
 
-        let lecturesData = JSON.parse(localStorage.getItem('sys_lectures')) || defaultLectures;
-        let researchData = JSON.parse(localStorage.getItem('sys_research')) || defaultResearch;
-        let quizzesData = JSON.parse(localStorage.getItem('sys_quizzes')) || defaultQuizzes;
+        let lecturesData = [...defaultLectures];
+        let researchData = [...defaultResearch];
+        let quizzesData = [...defaultQuizzes];
 
-        renderAll();
+        // الاستماع للتحديثات السحابية الحية لحظياً إن وُجد اتصال
+        if (isCloudConnected) {
+            db.ref('portal_unified_data').on('value', (snapshot) => {
+                const serverData = snapshot.val();
+                if (serverData) {
+                    if (serverData.lectures) lecturesData = serverData.lectures;
+                    if (serverData.research) researchData = serverData.research;
+                    if (serverData.quizzes) quizzesData = serverData.quizzes;
+                } else {
+                    // إذا كانت السحابة فارغة لأول مرة، قم برفع البيانات الافتراضية إليها
+                    syncToCloud();
+                }
+                renderAll();
+            });
+        } else {
+            // وضع احتياطي محلي إذا لم يتم ربط المفاتيح بعد
+            lecturesData = JSON.parse(localStorage.getItem('sys_lectures')) || defaultLectures;
+            researchData = JSON.parse(localStorage.getItem('sys_research')) || defaultResearch;
+            quizzesData = JSON.parse(localStorage.getItem('sys_quizzes')) || defaultQuizzes;
+            renderAll();
+        }
 
-        function saveData() {
-            localStorage.setItem('sys_lectures', JSON.stringify(lecturesData));
-            localStorage.setItem('sys_research', JSON.stringify(researchData));
-            localStorage.setItem('sys_quizzes', JSON.stringify(quizzesData));
+        function syncToCloud() {
+            if (isCloudConnected && db) {
+                db.ref('portal_unified_data').set({
+                    lectures: lecturesData,
+                    research: researchData,
+                    quizzes: quizzesData
+                });
+            } else {
+                localStorage.setItem('sys_lectures', JSON.stringify(lecturesData));
+                localStorage.setItem('sys_research', JSON.stringify(researchData));
+                localStorage.setItem('sys_quizzes', JSON.stringify(quizzesData));
+            }
         }
 
         function requestInstructorMode() {
@@ -843,7 +899,7 @@
                 let pin = prompt("أدخل رمز الدكتور للوصول (8000):");
                 if (pin === "8000") {
                     isInstructorMode = true;
-                    document.getElementById('modeTitle').innerText = "⚡ [وضع السيطرة] لوحة تحكم الدكتور النشطة";
+                    document.getElementById('modeTitle').innerText = "⚡ [وضع السيطرة السحابي] لوحة تحكم الدكتور النشطة";
                     document.getElementById('modeToggleBtn').innerText = "👨‍🎓 العودة لوضع الطلاب";
                     document.getElementById('instructorStatusBanner').classList.add('active');
                     document.getElementById('instructorResearchAdd').style.display = "block";
@@ -851,13 +907,13 @@
                     document.getElementById('resDeleteHeader').style.display = "table-cell";
                     document.getElementById('quizDeleteHeader').style.display = "table-cell";
                     renderAll();
-                    alert("تم تفعيل وضع الدكتور بنجاح!");
+                    alert("تم تفعيل وضع الدكتور السحابي بنجاح!");
                 } else if (pin !== null) {
                     alert("رمز المرور غير صحيح!");
                 }
             } else {
                 isInstructorMode = false;
-                document.getElementById('modeTitle').innerText = "👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة)";
+                document.getElementById('modeTitle').innerText = "👨‍🎓 وضع الطلاب (عرض الخطة والمتابعة اللحظية)";
                 document.getElementById('modeToggleBtn').innerText = "👨‍🏫 لوحة تحكم الدكتور";
                 document.getElementById('instructorStatusBanner').classList.remove('active');
                 document.getElementById('instructorResearchAdd').style.display = "none";
@@ -940,7 +996,7 @@
     const lec = lecturesData.find(l => l.id === id);
     if (lec) {
       lec.isCompleted = !lec.isCompleted;
-      saveData();
+      syncToCloud();
       renderLectures();
     }
   }
@@ -993,7 +1049,7 @@
     if (!title) { alert('يرجى إدخال عنوان البحث'); return; }
 
     researchData.push({ id: Date.now(), title, reqs, deadline, submitted });
-    saveData();
+    syncToCloud();
     renderResearch();
     document.getElementById('resTitle').value = '';
     document.getElementById('resReqs').value = '';
@@ -1005,7 +1061,7 @@
   function deleteResearch(id) {
     if (confirm('هل أنت متأكد من حذف هذا البحث؟')) {
       researchData = researchData.filter(i => i.id !== id);
-      saveData();
+      syncToCloud();
       renderResearch();
     }
   }
@@ -1055,7 +1111,7 @@
     if (!name) { alert('يرجى إدخال عنوان الامتحان'); return; }
 
     quizzesData.push({ id: Date.now(), name, date, score });
-    saveData();
+    syncToCloud();
     renderQuizzes();
     document.getElementById('quizName').value = '';
     document.getElementById('quizDate').value = '';
@@ -1066,7 +1122,7 @@
   function deleteQuiz(id) {
     if (confirm('هل أنت متأكد من حذف هذا الامتحان؟')) {
       quizzesData = quizzesData.filter(i => i.id !== id);
-      saveData();
+      syncToCloud();
       renderQuizzes();
     }
   }
