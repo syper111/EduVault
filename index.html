@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>بوابة مساق التشفير وأمن المعلومات - الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --bg-main: #050814;
+            --card-bg: #0b1329;
+            --academic-sky: #00f3ff;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-main);
+            color: #ffffff;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .portal-card {
+            background: var(--card-bg);
+            border: 2px solid var(--academic-sky);
+            border-radius: 20px;
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(0, 243, 255, 0.25);
+        }
+        
+        .portal-card h1 {
+            font-size: 22px;
+            color: var(--academic-sky);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        
+        .portal-card .prof-name {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+        
+        .btn-portal {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .btn-student {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+        }
+        
+        .btn-student:hover {
+            background: rgba(56, 189, 248, 0.25);
+        }
+        
+        .btn-prof {
+            background: linear-gradient(135deg, #00f3ff 0%, #7000ff 100%);
+            color: #050814;
+            border: none;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+        }
+        
+        .btn-prof:hover {
+            opacity: 0.9;
+        }
+        
+        .portal-footer {
+            margin-top: 20px;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="portal-card">
+        <h1>بوابة مساق التشفير وأمن المعلومات</h1>
+        <div class="prof-name">إعداد وتقديم: البروفيسور أ.د. إبراهيم المدادحة</div>
+
+        <a href="student.html" class="btn-portal btn-student">
+    👨‍🎓 دخول بوابة الطلاب (قراءة الخطة والمتابعة)
+  </a>
+
+        <a href="instructor.html" class="btn-portal btn-prof">
+    👨‍🏫 دخول لوحة تحكم الدكتور (إدارة المحتوى)
+  </a>
+
+        <div class="portal-footer">
+            نظام أكاديمي ذكي ومترابط بذاكرة التخزين المحلي
+        </div>
+    </div>
+
+</body>
+
+</html>
