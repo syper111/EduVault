@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>لوحة تحكم الدكتور - البروفيسور أ.د. إبراهيم المدادحة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
          :root {
             --bg-main: #050814;
@@ -577,7 +579,7 @@
     <div class="modal-login" id="loginModal">
         <div class="modal-login-card">
             <h3>تسجيل دخول الدكتور</h3>
-            <p>أدخل رمز الأستاذ (8000) للوصول للوحة التحكم النيون</p>
+
             <input type="password" id="passcodeInput" class="login-input" placeholder="••••" maxlength="4">
             <button class="login-btn" onclick="verifyInstructor()">تحقق ودخول</button>
             <div class="login-error" id="loginError">رمز المرور غير صحيح.</div>
@@ -894,16 +896,58 @@
             score: '15 علامة'
         }];
 
-        let lecturesData = JSON.parse(localStorage.getItem('prof_neon_lectures')) || defaultLectures;
-        let researchData = JSON.parse(localStorage.getItem('prof_neon_research')) || defaultResearch;
-        let quizzesData = JSON.parse(localStorage.getItem('prof_neon_quizzes')) || defaultQuizzes;
+        let lecturesData = [...defaultLectures];
+        let researchData = [...defaultResearch];
+        let quizzesData = [...defaultQuizzes];
+
+        // عرض أولي فوري وحتمي لجميع العناصر
+        renderLectures();
+        renderResearch();
+        renderQuizzes();
+
+        let db = null;
+        try {
+            const firebaseConfig = {
+                apiKey: "YOUR_API_KEY",
+                authDomain: "YOUR_PROJECT.firebaseapp.com",
+                databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+                projectId: "YOUR_PROJECT",
+                storageBucket: "YOUR_PROJECT.appspot.com",
+                messagingSenderId: "...",
+                appId: "..."
+            };
+            if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.database();
+                db.ref('portal_data').on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        if (data.lectures && data.lectures.length) lecturesData = data.lectures;
+                        if (data.research && data.research.length) researchData = data.research;
+                        if (data.quizzes && data.quizzes.length) quizzesData = data.quizzes;
+                        renderLectures();
+                        renderResearch();
+                        renderQuizzes();
+                    }
+                });
+            }
+        } catch (e) {}
+
+        function syncToCloud() {
+            if (db) {
+                db.ref('portal_data').set({
+                    lectures: lecturesData,
+                    research: researchData,
+                    quizzes: quizzesData
+                });
+            }
+        }
 
         function verifyInstructor() {
             const code = document.getElementById('passcodeInput').value.trim();
             if (code === '8000') {
                 document.getElementById('loginModal').style.display = 'none';
                 document.getElementById('mainContainer').style.display = 'block';
-                initSystem();
             } else {
                 document.getElementById('loginError').style.display = 'block';
             }
@@ -912,12 +956,6 @@
         document.getElementById('passcodeInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') verifyInstructor();
         });
-
-        function initSystem() {
-            renderLectures();
-            renderResearch();
-            renderQuizzes();
-        }
 
         function switchPage(page) {
             ['pagePlan', 'pageResearch', 'pageQuizzes'].forEach(p => document.getElementById(p).classList.add('hidden'));
@@ -976,20 +1014,20 @@
                 deadline,
                 submitted
             });
-            localStorage.setItem('prof_neon_research', JSON.stringify(researchData));
+            renderResearch();
+            syncToCloud();
             document.getElementById('resTitle').value = '';
             document.getElementById('resReqs').value = '';
             document.getElementById('resDeadline').value = '';
             document.getElementById('resSubmittedCount').value = '';
             document.getElementById('researchBox').classList.remove('active');
-            renderResearch();
         }
 
         function deleteResearch(id) {
             if (confirm('هل أنت متأكد من حذف هذا العنصر؟')) {
                 researchData = researchData.filter(i => i.id !== id);
-                localStorage.setItem('prof_neon_research', JSON.stringify(researchData));
                 renderResearch();
+                syncToCloud();
             }
         }
 
@@ -1023,19 +1061,19 @@
                 date,
                 score
             });
-            localStorage.setItem('prof_neon_quizzes', JSON.stringify(quizzesData));
+            renderQuizzes();
+            syncToCloud();
             document.getElementById('quizName').value = '';
             document.getElementById('quizDate').value = '';
             document.getElementById('quizScore').value = '';
             document.getElementById('quizBox').classList.remove('active');
-            renderQuizzes();
         }
 
         function deleteQuiz(id) {
             if (confirm('هل أنت متأكد من حذف هذا الامتحان؟')) {
                 quizzesData = quizzesData.filter(i => i.id !== id);
-                localStorage.setItem('prof_neon_quizzes', JSON.stringify(quizzesData));
                 renderQuizzes();
+                syncToCloud();
             }
         }
 
@@ -1085,9 +1123,8 @@
     const lec = lecturesData.find(l => l.id === id);
     if (lec) {
       lec.isCompleted = !lec.isCompleted;
-      localStorage.setItem('prof_neon_lectures', JSON.stringify(lecturesData));
       renderLectures();
-      applySearch();
+      syncToCloud();
     }
   }
 
