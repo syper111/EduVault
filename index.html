@@ -668,30 +668,40 @@
             border-color: var(--danger-color);
             color: #fff;
         }
+        /* نافذة الإشعار الجانبية العائمة المخصصة للهواتف (تظهر من جانب الشاشة بسلاسة وبدون أي أذونات متصفح) */
         
         #toastNotification {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
+            bottom: 20px;
+            right: 20px;
+            transform: translateY(120px);
             background: linear-gradient(135deg, #0f172a, #1e293b);
             color: #fff;
             border: 2px solid var(--accent-blue);
-            padding: 14px 22px;
+            padding: 12px 18px;
             border-radius: 12px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             z-index: 10000;
-            font-size: 13.5px;
+            font-size: 12.5px;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: transform 0.4s ease, opacity 0.4s ease;
+            gap: 10px;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
             opacity: 0;
+            max-width: 90%;
+        }
+        
+        @media(max-width: 576px) {
+            #toastNotification {
+                right: 10px;
+                left: 10px;
+                bottom: 15px;
+            }
         }
         
         #toastNotification.show {
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
             opacity: 1;
         }
         
@@ -747,11 +757,15 @@
     </style>
 </head>
 
-<body onclick="tryRegisterDevicePushOnce()">
+<body>
 
+    <!-- نافذة إشعار من جانب الشاشة داخل المتصفح (مخصصة للهواتف والآيفون بدلاً من أذونات المتصفح المزعجة) -->
     <div id="toastNotification">
-        <span>🔔 تنبيه أكاديمي:</span>
-        <span id="toastMessage">تم إضافة بحث أو مهمة جديدة للمساق!</span>
+        <span style="font-size:16px;">🔔</span>
+        <div>
+            <div style="color:var(--accent-blue); font-size:11px; margin-bottom:2px;">تنبيه أكاديمي فوري</div>
+            <span id="toastMessage">تم إضافة بحث أو مهمة جديدة للمساق!</span>
+        </div>
     </div>
 
     <div class="academic-container">
@@ -1175,27 +1189,13 @@
         let lastSeenQuizCount = parseInt(localStorage.getItem('seen_quiz_count') || defaultQuizzes.length);
         let isFirstCloudLoad = true;
 
-        // التحقق من الإذن مرة واحدة وحفظه في ذاكرة المتصفح لمنع تكرار السؤال
-        function tryRegisterDevicePushOnce() {
-            if ("Notification" in window && Notification.permission === "default") {
-                if (!localStorage.getItem('notification_permission_asked')) {
-                    localStorage.setItem('notification_permission_asked', 'true');
-                    Notification.requestPermission();
-                }
-            }
-        }
-
-        function triggerSystemPushNotification(title, bodyText) {
-            if ("Notification" in window && Notification.permission === "granted") {
-                try {
-                    new Notification(title, {
-                        body: bodyText,
-                        icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                    });
-                } catch (e) {
-                    console.log("Push notification error:", e);
-                }
-            }
+        function showInAppToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5500);
         }
 
         if (db) {
@@ -1206,9 +1206,7 @@
 
                     if (serverData.research) {
                         if (serverData.research.length > researchData.length && !isFirstCloudLoad) {
-                            const msg = "تمت إضافة بحث أو متطلب أكاديمي جديد للمساق!";
-                            showInAppToast(msg);
-                            triggerSystemPushNotification("بوابة التشفير وأمن المعلومات", msg);
+                            showInAppToast("تم إضافة بحث أو مهمة أكاديمية جديدة للمساق!");
                         }
                         if (serverData.research.length > lastSeenResearchCount) {
                             document.getElementById('resNavBadge').style.display = 'inline-block';
@@ -1218,9 +1216,7 @@
 
                     if (serverData.quizzes) {
                         if (serverData.quizzes.length > quizzesData.length && !isFirstCloudLoad) {
-                            const msg = "تمت إضافة امتحان أو كويز جديد للمساق!";
-                            showInAppToast(msg);
-                            triggerSystemPushNotification("بوابة التشفير وأمن المعلومات", msg);
+                            showInAppToast("تم إضافة امتحان أو كويز جديد للمساق!");
                         }
                         if (serverData.quizzes.length > lastSeenQuizCount) {
                             document.getElementById('quizNavBadge').style.display = 'inline-block';
@@ -1233,15 +1229,6 @@
                 isFirstCloudLoad = false;
                 renderAll();
             });
-        }
-
-        function showInAppToast(msg) {
-            const toast = document.getElementById('toastNotification');
-            document.getElementById('toastMessage').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 5000);
         }
 
         function syncToCloud() {
