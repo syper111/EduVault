@@ -22,7 +22,10 @@
             --accent-indigo: #6366f1;
             --success-color: #10b981;
             --danger-color: #ef4444;
+            --warning-color: #f59e0b;
             --badge-new: #f59e0b;
+            --neon-red: #ff3366;
+            --neon-red-glow: 0 0 12px rgba(255, 51, 102, 0.6), inset 0 0 6px rgba(255, 51, 102, 0.3);
             --ch1-color: #0284c7;
             --ch2-color: #0d9488;
             --ch3-color: #6366f1;
@@ -37,6 +40,8 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
+            --neon-red: #e11d48;
+            --neon-red-glow: 0 0 10px rgba(225, 29, 72, 0.4);
         }
         
         * {
@@ -48,7 +53,7 @@
             background-color: var(--bg-main);
             color: var(--text-main);
             margin: 0;
-            padding: 16px 10px;
+            padding: 10px 6px;
             line-height: 1.6;
         }
         
@@ -56,7 +61,7 @@
             max-width: 1100px;
             margin: 0 auto;
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 14px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             border: 1px solid var(--border-color);
             overflow: hidden;
@@ -65,7 +70,7 @@
         .academic-header {
             background: linear-gradient(135deg, #0f172a 100%, #1e293b 0%);
             color: #ffffff;
-            padding: 24px 20px;
+            padding: 16px 12px;
             border-bottom: 3px solid var(--accent-blue);
         }
         
@@ -73,13 +78,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
         
         .program-title {
-            font-size: 13.5px;
+            font-size: 13px;
             color: var(--accent-blue);
             font-weight: 700;
             display: flex;
@@ -91,48 +96,83 @@
             background: rgba(16, 185, 129, 0.15);
             border: 1px solid rgba(16, 185, 129, 0.4);
             color: #34d399;
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
         }
         
         .header-actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
+            width: 100%;
+        }
+        
+        @media(min-width: 768px) {
+            .header-actions {
+                width: auto;
+            }
         }
         
         .sys-btn {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border-color);
             color: #fff;
-            border-radius: 10px;
-            padding: 6px 14px;
-            font-size: 12px;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 11.5px;
             cursor: pointer;
             font-weight: 600;
-            transition: background 0.2s;
+            flex: 1;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        @media(min-width: 768px) {
+            .sys-btn {
+                flex: unset;
+            }
         }
         
         .sys-btn:hover {
             background: rgba(255, 255, 255, 0.15);
         }
         
+        .sys-btn-neon {
+            background: rgba(255, 51, 102, 0.15) !important;
+            border: 1px solid var(--neon-red) !important;
+            color: #ff80ab !important;
+            box-shadow: var(--neon-red-glow);
+            font-weight: 700 !important;
+        }
+        
         .academic-header h1 {
-            margin: 0 0 16px 0;
-            font-size: 22px;
+            margin: 10px 0 12px 0;
+            font-size: 18px;
             font-weight: 800;
             text-align: center;
             color: #ffffff;
         }
         
+        @media(min-width: 768px) {
+            .academic-header h1 {
+                font-size: 22px;
+            }
+        }
+        
         .meta-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 8px;
             max-width: 900px;
             margin: 0 auto;
+        }
+        
+        @media(min-width: 576px) {
+            .meta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         @media(min-width: 768px) {
@@ -143,42 +183,39 @@
         
         .meta-item {
             background: var(--card-inner);
-            padding: 12px 14px;
-            border-radius: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
             border-right: 3px solid var(--accent-blue);
-            border-top: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
+            border: 1px solid var(--border-color);
         }
         
         .meta-item .label {
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--text-muted);
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         
         .meta-item .value {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: #fff;
         }
-        /* شريط ملخص الأنشطة */
         
         .tasks-summary-bar {
             background: rgba(56, 189, 248, 0.08);
             border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 10px;
-            padding: 10px 16px;
-            margin: 16px auto 0 auto;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 12px auto 0 auto;
             max-width: 900px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            font-size: 12.5px;
+            font-size: 11.5px;
             font-weight: 600;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             color: #e2e8f0;
         }
         
@@ -190,8 +227,8 @@
         .page-nav-bar {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: 16px;
+            gap: 6px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
         
@@ -199,11 +236,14 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
             border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 12.5px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 11.5px;
             font-weight: 700;
             cursor: pointer;
+            flex: 1;
+            text-align: center;
+            min-width: 110px;
         }
         
         .btn-nav-page.active {
@@ -214,7 +254,7 @@
         
         .progress-section {
             max-width: 900px;
-            margin: 16px auto 0 auto;
+            margin: 12px auto 0 auto;
             text-align: center;
         }
         
@@ -222,45 +262,46 @@
             background-color: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 3px;
-            margin-top: 6px;
+            margin-top: 5px;
         }
         
         .progress-bar {
             width: 6.7%;
-            height: 8px;
+            height: 6px;
             background: var(--success-color);
             border-radius: 20px;
         }
         
         .progress-text {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
             display: block;
             font-weight: 600;
         }
         
         .controls-bar {
-            padding: 14px 20px;
+            padding: 10px 12px;
             background-color: var(--card-inner);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-        
-        @media(min-width: 768px) {
-            .controls-bar {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
+            gap: 10px;
         }
         
         .filter-group {
             display: flex;
             gap: 6px;
-            overflow-x: auto;
-            padding-bottom: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        @media(min-width: 768px) {
+            .filter-group {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 4px;
+            }
         }
         
         .btn-filter {
@@ -268,11 +309,14 @@
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-muted);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
+            flex: 1 1 auto;
+            text-align: center;
+            min-width: 65px;
         }
         
         .btn-filter.active {
@@ -282,9 +326,23 @@
             border-color: var(--accent-blue);
         }
         
+        .btn-filter-completed {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
+            border-color: #10b981 !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            flex: 2 1 100% !important;
+        }
+        
+        @media(min-width: 768px) {
+            .btn-filter-completed {
+                flex: unset !important;
+            }
+        }
+        
         .search-print-wrapper {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
             flex-wrap: wrap;
         }
@@ -297,25 +355,27 @@
         }
         
         .search-box {
-            padding: 7px 12px;
-            border-radius: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
-            font-size: 12.5px;
+            font-size: 11.5px;
             flex: 1;
             outline: none;
+            min-width: 140px;
         }
         
         .btn-action {
             background: var(--accent-indigo);
             color: white;
             border: none;
-            padding: 7px 14px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 12px;
+            font-size: 11.5px;
             cursor: pointer;
+            white-space: nowrap;
         }
         
         .page-section {
@@ -327,21 +387,21 @@
         }
         
         .sub-page-wrapper {
-            padding: 20px;
+            padding: 14px 10px;
             max-width: 1000px;
             margin: 0 auto;
         }
         
         .table-wrapper {
             width: 100%;
-            padding: 12px;
+            padding: 8px;
         }
         
         .desktop-table {
             width: 100%;
             border-collapse: collapse;
             text-align: right;
-            font-size: 13px;
+            font-size: 12.5px;
             display: table;
         }
         
@@ -354,7 +414,7 @@
         .mobile-cards-container {
             display: none;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
         
         @media(max-width: 767px) {
@@ -366,13 +426,13 @@
         th {
             background-color: var(--card-inner);
             color: var(--text-main);
-            padding: 12px;
+            padding: 10px;
             border-bottom: 2px solid var(--border-color);
             font-weight: 700;
         }
         
         td {
-            padding: 12px;
+            padding: 10px;
             border-bottom: 1px solid var(--border-color);
             vertical-align: top;
         }
@@ -381,12 +441,13 @@
         .sub-card {
             background: var(--card-inner);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 10px;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
         }
         
-        .lec-card.is-completed {
+        .lec-card.is-completed,
+        .sub-card.is-completed {
             background-color: rgba(16, 185, 129, 0.05) !important;
             border-color: rgba(16, 185, 129, 0.3);
         }
@@ -395,40 +456,43 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .lec-badge-mobile {
             font-weight: 700;
-            font-size: 13.5px;
+            font-size: 13px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
         
-        .status-check {
+        .status-check,
+        .status-toggle-btn {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.06);
             color: var(--text-main);
             cursor: pointer;
+            border: 1px solid var(--border-color);
         }
         
-        .lec-card.is-completed .status-check {
-            background: rgba(16, 185, 129, 0.15);
+        .is-completed .status-toggle-btn {
+            background: rgba(16, 185, 129, 0.2);
             color: var(--success-color);
+            border-color: var(--success-color);
         }
         
         .tag {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 700;
             color: #fff;
         }
@@ -454,7 +518,7 @@
         }
         
         .page-info {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 700;
             color: var(--accent-blue);
             display: block;
@@ -464,7 +528,7 @@
         ul.topic-tree {
             margin: 4px 0;
             padding-right: 15px;
-            font-size: 12.5px;
+            font-size: 12px;
         }
         
         ul.topic-tree li {
@@ -472,43 +536,38 @@
         }
         
         .academic-outcome {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-muted);
             margin-top: 6px;
             background: rgba(0, 0, 0, 0.15);
-            padding: 6px 8px;
+            padding: 6px;
             border-radius: 6px;
             border-right: 3px solid var(--accent-blue);
         }
         
         .lab-box {
             margin-top: 6px;
-            padding: 6px 8px;
+            padding: 6px;
             background-color: rgba(16, 185, 129, 0.08);
             border-right: 3px solid var(--success-color);
             border-radius: 6px;
-            font-size: 11.5px;
+            font-size: 11px;
             color: var(--success-color);
             font-weight: 600;
         }
         
-        .add-form-box {
-            background: var(--card-inner);
-            border: 2px dashed var(--accent-blue);
-            padding: 14px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            display: none;
+        .instructor-only {
+            display: none !important;
         }
         
-        .add-form-box.active {
-            display: block;
+        .instructor-only.active-instructor {
+            display: block !important;
         }
         
         .form-input {
             width: 100%;
-            padding: 8px 10px;
-            margin-bottom: 8px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
             border-radius: 6px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -522,30 +581,30 @@
             background-color: var(--danger-color);
             color: white;
             border: none;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 10.5px;
             cursor: pointer;
             font-weight: 600;
         }
         
         .instructor-controls {
             display: none;
-            margin-bottom: 15px;
-            background: rgba(56, 189, 248, 0.1);
+            margin-bottom: 12px;
+            background: rgba(255, 51, 102, 0.08);
             padding: 10px;
             border-radius: 8px;
-            border: 1px solid var(--accent-blue);
+            border: 1px solid var(--neon-red);
+            box-shadow: var(--neon-red-glow);
             text-align: center;
             font-weight: 700;
-            color: var(--accent-blue);
-            font-size: 12.5px;
+            color: #ff80ab;
+            font-size: 11.5px;
         }
         
         .instructor-controls.active {
             display: block;
         }
-        /* النوافذ المنبثقة */
         
         .modal-overlay {
             position: fixed;
@@ -553,13 +612,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 19, 41, 0.8);
+            background: rgba(11, 19, 41, 0.85);
             backdrop-filter: blur(4px);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            padding: 15px;
+            padding: 12px;
         }
         
         .modal-overlay.active {
@@ -569,45 +628,88 @@
         .modal-box {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 18px;
             width: 100%;
-            max-width: 480px;
+            max-width: 440px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             color: var(--text-main);
+            position: relative;
         }
         
         .modal-box h3 {
             margin-top: 0;
             color: var(--accent-blue);
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 8px;
-            font-size: 17px;
+            padding-bottom: 6px;
+            font-size: 16px;
         }
         
-        .modal-box p,
-        .modal-box ul {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.7;
+        .modal-close-btn {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
         }
-        /* شارة التنبيه الجديدة الفردية لكل جهاز */
+        
+        .modal-close-btn:hover {
+            background: var(--danger-color);
+            border-color: var(--danger-color);
+            color: #fff;
+        }
+        
+        #toastNotification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #fff;
+            border: 2px solid var(--accent-blue);
+            padding: 14px 22px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            font-size: 13.5px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+        }
+        
+        #toastNotification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
         
         .new-badge {
             background: var(--badge-new);
             color: #0b1329;
-            font-size: 10px;
-            padding: 2px 7px;
+            font-size: 9.5px;
+            padding: 2px 6px;
             border-radius: 6px;
             font-weight: 800;
-            margin-right: 6px;
+            margin-right: 4px;
             vertical-align: middle;
         }
         
         .academic-footer {
-            padding: 16px;
+            padding: 12px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
         }
@@ -645,20 +747,25 @@
     </style>
 </head>
 
-<body>
+<body onclick="tryRegisterDevicePushOnce()">
+
+    <div id="toastNotification">
+        <span>🔔 تنبيه أكاديمي:</span>
+        <span id="toastMessage">تم إضافة بحث أو مهمة جديدة للمساق!</span>
+    </div>
 
     <div class="academic-container">
         <div class="academic-header">
             <div class="top-bar">
-                <div style="display:flex; align-items:center; gap:10px;">
+                <div style="display:flex; align-items:center; gap:8px;">
                     <span class="program-title">🎓 بوابة طلاب الدكتوراه</span>
                     <span class="cloud-badge">🟢 متصل سحابياً</span>
                 </div>
                 <div class="header-actions">
                     <button class="sys-btn" onclick="openModal('aboutModal')">👤 حول البوابة</button>
-                    <button class="sys-btn" onclick="openModal('policyModal')">📜 تعليمات التسليم</button>
+                    <button class="sys-btn" onclick="openModal('policyModal')">📜 التعليمات</button>
                     <button class="sys-btn" onclick="toggleTheme()">☀️ / 🌙 المظهر</button>
-                    <button class="sys-btn" id="modeToggleBtn" onclick="requestInstructorMode()" style="background:var(--accent-blue); color:#0b1329;">👨‍🏫 لوحة تحكم الدكتور</button>
+                    <button class="sys-btn sys-btn-neon" id="modeToggleBtn" onclick="handleInstructorModeClick()" style="flex:2;">👨‍🏫 لوحة الدكتور</button>
                 </div>
             </div>
 
@@ -671,17 +778,16 @@
                 <div class="meta-item"><span class="label">إجمالي المساق</span><span class="value">15 محاضرة أكاديمية</span></div>
             </div>
 
-            <!-- شريط ملخص الأنشطة -->
             <div class="tasks-summary-bar">
-                <span>📖 البحوث النشطة: <span class="summary-badge" id="activeResearchCount">1</span></span>
-                <span>📝 الامتحانات القادمة: <span class="summary-badge" id="activeQuizzesCount">1</span></span>
-                <span>🎯 حالة المزامنة: <span style="color:var(--success-color);">نشطة ومحدثة</span></span>
+                <span>📖 البحوث النشطة: <span class="summary-badge" id="activeResearchCount">0</span></span>
+                <span>📝 الامتحانات القادمة: <span class="summary-badge" id="activeQuizzesCount">0</span></span>
+                <span>🎯 الحالة: <span style="color:var(--success-color);">نشطة ومحدثة</span></span>
             </div>
 
             <div class="page-nav-bar">
-                <button class="btn-nav-page active" id="btnPagePlan" onclick="switchPage('plan')">📚 جدول الخطة الدراسية</button>
-                <button class="btn-nav-page" id="btnPageResearch" onclick="switchPage('research')" onclick="clearDeviceNotifications('research')">📖 البحوث والمتطلبات <span id="resNavBadge" style="display:none;" class="new-badge">جديد</span></button>
-                <button class="btn-nav-page" id="btnPageQuizzes" onclick="switchPage('quizzes')" onclick="clearDeviceNotifications('quizzes')">📝 الامتحانات والكويزات <span id="quizNavBadge" style="display:none;" class="new-badge">جديد</span></button>
+                <button class="btn-nav-page active" id="btnPagePlan" onclick="switchPage('plan')">📚 جدول الخطة</button>
+                <button class="btn-nav-page" id="btnPageResearch" onclick="switchPage('research')">📖 البحوث <span id="resNavBadge" style="display:none;" class="new-badge">جديد</span></button>
+                <button class="btn-nav-page" id="btnPageQuizzes" onclick="switchPage('quizzes')">📝 الامتحانات <span id="quizNavBadge" style="display:none;" class="new-badge">جديد</span></button>
             </div>
 
             <div class="progress-section" id="progressSection">
@@ -693,7 +799,7 @@
         </div>
 
         <div class="instructor-controls" id="instructorStatusBanner">
-            ⚡ وضع الدكتور نشط (أي تعديل يتم حفظه سحابياً ويظهر للجميع، بينما تظهر إشعارات "العناصر الجديدة" لكل طالب على جهازه المنفصل عند فتحه)
+            ⚡ وضع الدكتور نشط (يمكنك تعديل حالة البحوث والكويزات لتحديثها سحابياً للطلاب)
         </div>
 
         <div id="pagePlan" class="page-section">
@@ -705,12 +811,12 @@
                     <button class="btn-filter" onclick="filterChapter('ch3', this)">الفصل 3</button>
                     <button class="btn-filter" onclick="filterChapter('ch4', this)">الفصل 4</button>
                     <button class="btn-filter" onclick="filterChapter('ch5', this)">الفصل 5</button>
-                    <button class="btn-filter" onclick="filterCompletion('completed', this)" style="border-color:var(--success-color); color:var(--success-color);">✔️ المنجز فقط</button>
+                    <button class="btn-filter btn-filter-completed" onclick="filterCompletion('completed', this)">✔️ المنجز فقط</button>
                 </div>
                 <div class="search-print-wrapper">
-                    <button class="btn-action" onclick="toggleDetailsCollapse()" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1px solid var(--border-color);">👁️ طي/توسيع التفاصيل</button>
+                    <button class="btn-action" onclick="toggleDetailsCollapse()" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1px solid var(--border-color);">👁️ طي/توسيع</button>
                     <input type="text" id="searchInput" class="search-box" placeholder="بحث فوري في الخطة..." onkeyup="searchTopics()">
-                    <button class="btn-action" onclick="window.print()">🖨️ طباعة الجدول</button>
+                    <button class="btn-action" onclick="window.print()">🖨️ طباعة</button>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -731,20 +837,12 @@
 
         <div id="pageResearch" class="page-section hidden">
             <div class="sub-page-wrapper">
-                <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h3 style="margin:0; color:var(--accent-blue);">📖 البحوث والمتطلبات الأكاديمية</h3>
+                <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 style="margin:0; color:var(--accent-blue); font-size:16px;">📖 البحوث والمتطلبات الأكاديمية</h3>
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
-                <div id="instructorResearchAdd" style="display:none; margin-bottom: 12px;">
-                    <button class="btn-action" onclick="toggleAddBox('researchBox')">➕ إضافة بحث أو متطلب جديد</button>
-                </div>
-                <div class="add-form-box" id="researchBox">
-                    <h4 style="margin:0 0 8px 0; color:var(--accent-blue);">إضافة بحث أو مهمة جديدة</h4>
-                    <input type="text" id="resTitle" class="form-input" placeholder="عنوان البحث / المهمة">
-                    <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
-                    <input type="text" id="resDeadline" class="form-input" placeholder="موعد التسليم (مثل: الأسبوع العاشر)">
-                    <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
-                    <button class="btn-action" onclick="addResearchItem()">حفظ ونشر فوري</button>
+                <div id="instructorResearchAdd" class="instructor-only" style="margin-bottom: 12px;">
+                    <button class="btn-action" onclick="openModal('addResearchModal')">➕ إضافة بحث جديد</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="researchTable">
@@ -753,8 +851,8 @@
                                 <th>عنوان البحث / المهمة</th>
                                 <th>المتطلبات والتفاصيل</th>
                                 <th>موعد التسليم</th>
-                                <th>عدد من سلموا</th>
-                                <th id="resDeleteHeader" style="display:none; width:70px;">إدارة</th>
+                                <th>الحالة / عدد من سلموا</th>
+                                <th id="resDeleteHeader" class="instructor-only" style="width:110px;">إدارة الحالة</th>
                             </tr>
                         </thead>
                         <tbody id="researchTableBody"></tbody>
@@ -766,19 +864,12 @@
 
         <div id="pageQuizzes" class="page-section hidden">
             <div class="sub-page-wrapper">
-                <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h3 style="margin:0; color:var(--accent-blue);">📝 الامتحانات والكويزات والتقييمات</h3>
+                <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 style="margin:0; color:var(--accent-blue); font-size:16px;">📝 الامتحانات والكويزات</h3>
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
-                <div id="instructorQuizAdd" style="display:none; margin-bottom: 12px;">
-                    <button class="btn-action" onclick="toggleAddBox('quizBox')">➕ إضافة امتحان أو كويز جديد</button>
-                </div>
-                <div class="add-form-box" id="quizBox">
-                    <h4 style="margin:0 0 8px 0; color:var(--accent-blue);">إضافة امتحان أو كويز جديد</h4>
-                    <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
-                    <input type="text" id="quizDate" class="form-input" placeholder="موعد الامتحان (التاريخ والوقت)">
-                    <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
-                    <button class="btn-action" onclick="addQuizItem()">حفظ ونشر فوري</button>
+                <div id="instructorQuizAdd" class="instructor-only" style="margin-bottom: 12px;">
+                    <button class="btn-action" onclick="openModal('addQuizModal')">➕ إضافة امتحان جديد</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="quizTable">
@@ -786,8 +877,8 @@
                             <tr>
                                 <th>عنوان الامتحان / الكويز</th>
                                 <th>موعد الامتحان</th>
-                                <th>علامة الامتحان</th>
-                                <th id="quizDeleteHeader" style="display:none; width:70px;">إدارة</th>
+                                <th>علامة الامتحان / الحالة</th>
+                                <th id="quizDeleteHeader" class="instructor-only" style="width:110px;">إدارة الحالة</th>
                             </tr>
                         </thead>
                         <tbody id="quizTableBody"></tbody>
@@ -802,37 +893,75 @@
         </div>
     </div>
 
+    <!-- Modal: نافذة إضافة بحث جديد -->
+    <div class="modal-overlay" id="addResearchModal">
+        <div class="modal-box">
+            <div class="modal-close-btn" onclick="closeModal('addResearchModal')">✕</div>
+            <h3>إضافة بحث أو مهمة جديدة</h3>
+            <input type="text" id="resTitle" class="form-input" placeholder="عنوان البحث / المهمة">
+            <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
+            <input type="text" id="resDeadline" class="form-input" placeholder="موعد التسليم (مثل: الأسبوع العاشر)">
+            <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
+            <button class="btn-action" style="margin-top:4px;" onclick="addResearchItem()">حفظ ونشر فوري</button>
+        </div>
+    </div>
+
+    <!-- Modal: نافذة إضافة امتحان جديد -->
+    <div class="modal-overlay" id="addQuizModal">
+        <div class="modal-box">
+            <div class="modal-close-btn" onclick="closeModal('addQuizModal')">✕</div>
+            <h3>إضافة امتحان أو كويز جديد</h3>
+            <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
+            <input type="text" id="quizDate" class="form-input" placeholder="موعد الامتحان (التاريخ والوقت)">
+            <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
+            <button class="btn-action" style="margin-top:4px;" onclick="addQuizItem()">حفظ ونشر فوري</button>
+        </div>
+    </div>
+
+    <!-- Modal: تسجيل دخول الدكتور -->
+    <div class="modal-overlay" id="instructorLoginModal">
+        <div class="modal-box">
+            <div class="modal-close-btn" onclick="closeModal('instructorLoginModal')">✕</div>
+            <h3>🔒 تسجيل دخول الدكتور</h3>
+            <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">يرجى إدخال رمز المرور الخاص بلوحة التحكم:</p>
+            <input type="password" id="instructorPinInput" class="form-input" placeholder="أدخل رمز المرور..." style="font-size: 14px; text-align: center; letter-spacing: 3px;" onkeydown="if(event.key==='Enter') verifyInstructorPin()">
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+                <button class="btn-action" style="flex: 1; background: var(--success-color);" onclick="verifyInstructorPin()">دخول</button>
+                <button class="btn-action" style="flex: 1; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-main);" onclick="closeModal('instructorLoginModal')">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal 1: حول البوابة -->
     <div class="modal-overlay" id="aboutModal">
         <div class="modal-box">
+            <div class="modal-close-btn" onclick="closeModal('aboutModal')">✕</div>
             <h3>👤 حول البوابة الأكاديمية</h3>
             <p>بوابة رسمية مخصصة لمتابعة جدول المحاضرات، المتطلبات الأكاديمية، والامتحانات لمساق التشفير وأمن المعلومات - مرحلة الدكتوراه.</p>
             <ul>
                 <li><strong>إعداد وتقديم:</strong> البروفيسور أ.د. إبراهيم المدادحة</li>
-                <li><strong>التخصص:</strong> الأمن السيبراني وععلم التشفير</li>
+                <li><strong>التخصص:</strong> الأمن السيبراني وعلم التشفير</li>
                 <li><strong>المزامنة:</strong> ربط سحابي مباشر ومحدث باستمرار.</li>
             </ul>
-            <button class="btn-action" style="width:100%; margin-top:10px;" onclick="closeModal('aboutModal')">إغلاق</button>
+            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('aboutModal')">إغلاق</button>
         </div>
     </div>
 
     <!-- Modal 2: تعليمات التسليم -->
     <div class="modal-overlay" id="policyModal">
         <div class="modal-box">
+            <div class="modal-close-btn" onclick="closeModal('policyModal')">✕</div>
             <h3>📜 تعليمات وإرشادات التسليم</h3>
             <ul>
                 <li>يجب تسليم جميع البحوث والمتطلبات في الموعد المحدد.</li>
                 <li>تُقدم التقارير بصيغة PDF أو مطبوعة حسب التوجيهات.</li>
                 <li>ضرورة توثيق المراجع والورقات العلمية وفق معايير الأمان المعتمدة.</li>
             </ul>
-            <button class="btn-action" style="width:100%; margin-top:10px;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
+            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
         </div>
     </div>
 
     <script>
-        // ---------------------------------------------------------
-        // 🔗 إعدادات Firebase الخاصة بك (zdvr-eda5c)
-        // ---------------------------------------------------------
         const firebaseConfig = {
             apiKey: "AIzaSyBE0PQk__YiNHP7nd_EkTxHEK-0_7-iUUw",
             authDomain: "zdvr-eda5c.firebaseapp.com",
@@ -1022,43 +1151,77 @@
             lab: ''
         }];
 
-        const defaultResearch = [{
+        let defaultResearch = [{
             id: 1,
             title: 'تحليل بروتوكولات الحوسبة الكمومية في التشفير',
             reqs: 'مراجعة نقدية لاحدث أوراق NIST PQC مع تقديم تقرير مطبوع',
             deadline: 'الأسبوع العاشر',
-            submitted: '3 من أصل 5'
+            submitted: '3 من أصل 5',
+            isCompleted: false
         }];
-        const defaultQuizzes = [{
+        let defaultQuizzes = [{
             id: 1,
             name: 'الامتحان النصفي للمساق (Midterm)',
             date: 'الأسبوع الثامن - قاعة 302',
-            score: '15 علامة'
+            score: '15 علامة',
+            isCompleted: false
         }];
 
         let lecturesData = [...defaultLectures];
         let researchData = [...defaultResearch];
         let quizzesData = [...defaultQuizzes];
 
-        // ---------------------------------------------------------
-        // 🔔 نظام التنبيهات المنفصل لكل جهاز (Local Device Notification)
-        // ---------------------------------------------------------
         let lastSeenResearchCount = parseInt(localStorage.getItem('seen_res_count') || defaultResearch.length);
         let lastSeenQuizCount = parseInt(localStorage.getItem('seen_quiz_count') || defaultQuizzes.length);
+        let isFirstCloudLoad = true;
 
-        // الاستماع الفوري للبيانات السحابية
+        // التحقق من الإذن مرة واحدة وحفظه في ذاكرة المتصفح لمنع تكرار السؤال
+        function tryRegisterDevicePushOnce() {
+            if ("Notification" in window && Notification.permission === "default") {
+                if (!localStorage.getItem('notification_permission_asked')) {
+                    localStorage.setItem('notification_permission_asked', 'true');
+                    Notification.requestPermission();
+                }
+            }
+        }
+
+        function triggerSystemPushNotification(title, bodyText) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                try {
+                    new Notification(title, {
+                        body: bodyText,
+                        icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    });
+                } catch (e) {
+                    console.log("Push notification error:", e);
+                }
+            }
+        }
+
         if (db) {
             db.ref('zdvr_unified_portal').on('value', (snapshot) => {
                 const serverData = snapshot.val();
                 if (serverData) {
                     if (serverData.lectures) lecturesData = serverData.lectures;
+
                     if (serverData.research) {
+                        if (serverData.research.length > researchData.length && !isFirstCloudLoad) {
+                            const msg = "تمت إضافة بحث أو متطلب أكاديمي جديد للمساق!";
+                            showInAppToast(msg);
+                            triggerSystemPushNotification("بوابة التشفير وأمن المعلومات", msg);
+                        }
                         if (serverData.research.length > lastSeenResearchCount) {
                             document.getElementById('resNavBadge').style.display = 'inline-block';
                         }
                         researchData = serverData.research;
                     }
+
                     if (serverData.quizzes) {
+                        if (serverData.quizzes.length > quizzesData.length && !isFirstCloudLoad) {
+                            const msg = "تمت إضافة امتحان أو كويز جديد للمساق!";
+                            showInAppToast(msg);
+                            triggerSystemPushNotification("بوابة التشفير وأمن المعلومات", msg);
+                        }
                         if (serverData.quizzes.length > lastSeenQuizCount) {
                             document.getElementById('quizNavBadge').style.display = 'inline-block';
                         }
@@ -1067,8 +1230,18 @@
                 } else {
                     syncToCloud();
                 }
+                isFirstCloudLoad = false;
                 renderAll();
             });
+        }
+
+        function showInAppToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
         }
 
         function syncToCloud() {
@@ -1093,7 +1266,6 @@
             }
         }
 
-        // استعادة الثيم المحفوظ
         if (localStorage.getItem('theme_preference') === 'light') {
             document.body.classList.add('light-theme');
         }
@@ -1112,31 +1284,51 @@
             document.getElementById(id).classList.remove('active');
         }
 
-        function requestInstructorMode() {
+        function handleInstructorModeClick() {
             if (!isInstructorMode) {
-                let pin = prompt("أدخل رمز الدكتور للوصول (8000):");
-                if (pin === "8000") {
-                    isInstructorMode = true;
-                    document.getElementById('modeToggleBtn').innerText = "👨‍🎓 العودة لوضع الطلاب";
-                    document.getElementById('instructorStatusBanner').classList.add('active');
-                    document.getElementById('instructorResearchAdd').style.display = "block";
-                    document.getElementById('instructorQuizAdd').style.display = "block";
-                    document.getElementById('resDeleteHeader').style.display = "table-cell";
-                    document.getElementById('quizDeleteHeader').style.display = "table-cell";
-                    renderAll();
-                } else if (pin !== null) {
-                    alert("رمز المرور غير صحيح!");
-                }
+                document.getElementById('instructorPinInput').value = '';
+                openModal('instructorLoginModal');
+                setTimeout(() => document.getElementById('instructorPinInput').focus(), 100);
             } else {
                 isInstructorMode = false;
-                document.getElementById('modeToggleBtn').innerText = "👨‍🏫 لوحة تحكم الدكتور";
+                applyInstructorUIVisibility();
+                const btn = document.getElementById('modeToggleBtn');
+                btn.innerText = "👨‍🏫 لوحة الدكتور";
+                btn.classList.add('sys-btn-neon');
                 document.getElementById('instructorStatusBanner').classList.remove('active');
-                document.getElementById('instructorResearchAdd').style.display = "none";
-                document.getElementById('instructorQuizAdd').style.display = "none";
-                document.getElementById('resDeleteHeader').style.display = "none";
-                document.getElementById('quizDeleteHeader').style.display = "none";
                 renderAll();
             }
+        }
+
+        function verifyInstructorPin() {
+            const pin = document.getElementById('instructorPinInput').value;
+            if (pin === "8000") {
+                isInstructorMode = true;
+                closeModal('instructorLoginModal');
+                applyInstructorUIVisibility();
+                const btn = document.getElementById('modeToggleBtn');
+                btn.innerText = "👨‍🎓 العودة للطلاب";
+                btn.classList.remove('sys-btn-neon');
+                btn.style.background = "var(--success-color)";
+                btn.style.color = "#fff";
+                document.getElementById('instructorStatusBanner').classList.add('active');
+                renderAll();
+            } else {
+                alert("رمز المرور غير صحيح!");
+                document.getElementById('instructorPinInput').value = '';
+                document.getElementById('instructorPinInput').focus();
+            }
+        }
+
+        function applyInstructorUIVisibility() {
+            const instructorElements = document.querySelectorAll('.instructor-only');
+            instructorElements.forEach(el => {
+                if (isInstructorMode) {
+                    el.classList.add('active-instructor');
+                } else {
+                    el.classList.remove('active-instructor');
+                }
+            });
         }
 
         function switchPage(page) {
@@ -1161,10 +1353,6 @@
             }
         }
 
-        function toggleAddBox(id) {
-            document.getElementById(id).classList.toggle('active');
-        }
-
         function toggleDetailsCollapse() {
             isDetailsCollapsed = !isDetailsCollapsed;
             renderLectures();
@@ -1175,11 +1363,14 @@
             renderResearch();
             renderQuizzes();
             updateSummaryCounts();
+            applyInstructorUIVisibility();
         }
 
         function updateSummaryCounts() {
-            document.getElementById('activeResearchCount').innerText = researchData.length;
-            document.getElementById('activeQuizzesCount').innerText = quizzesData.length;
+            const activeRes = researchData.filter(r => !r.isCompleted).length;
+            const activeQ = quizzesData.filter(q => !q.isCompleted).length;
+            document.getElementById('activeResearchCount').innerText = activeRes;
+            document.getElementById('activeQuizzesCount').innerText = activeQ;
         }
 
         function renderLectures() {
@@ -1239,31 +1430,53 @@
     }
 
     researchData.forEach(item => {
-      const deleteBtn = isInstructorMode ? `<td><button class="btn-danger" onclick="deleteResearch(${item.id})">حذف</button></td>` : '';
-      const mobileDelete = isInstructorMode ? `<button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="deleteResearch(${item.id})">حذف</button>` : '';
+      const isDone = item.isCompleted;
+      const statusText = isDone ? '✔️ منجز' : '⏳ نشط';
+      const rowClass = isDone ? 'is-completed' : '';
+      
+      const adminActions = isInstructorMode ? `
+        <td class="instructor-only active-instructor">
+          <button class="status-toggle-btn" onclick="toggleResearchStatus(${item.id})">${isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز'}</button>
+          <button class="btn-danger" style="margin-top:4px;" onclick="deleteResearch(${item.id})">حذف</button>
+        </td>` : '';
+
+      const mobileAdminActions = isInstructorMode ? `
+        <div class="instructor-only active-instructor" style="margin-top:6px; display:flex; gap:6px;">
+          <button class="status-toggle-btn" style="font-size:10px; padding:2px 6px;" onclick="toggleResearchStatus(${item.id})">${isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز'}</button>
+          <button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="deleteResearch(${item.id})">حذف</button>
+        </div>` : '';
 
       tbody.innerHTML += `
-        <tr>
+        <tr class="${rowClass}">
           <td><strong>${item.title}</strong></td>
           <td>${item.reqs}</td>
           <td><span style="color:var(--accent-blue); font-weight:bold;">${item.deadline}</span></td>
-          <td><span style="color:var(--success-color); font-weight:bold;">👥 ${item.submitted}</span></td>
-          ${deleteBtn}
+          <td><span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span> (تسليم: ${item.submitted})</td>
+          ${adminActions}
         </tr>`;
 
       mobileContainer.innerHTML += `
-        <div class="sub-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div style="font-weight:bold; color:var(--accent-blue); font-size:14px; margin-bottom:4px;">${item.title}</div>
-            ${mobileDelete}
-          </div>
-          <div style="font-size:12.5px; margin-bottom:6px;">${item.reqs}</div>
-          <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--text-muted);">
+        <div class="sub-card ${rowClass}">
+          <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;">${item.title}</div>
+          <div style="font-size:12px; margin-bottom:6px;">${item.reqs}</div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); align-items:center;">
             <span>📅 تسليم: ${item.deadline}</span>
-            <span style="color:var(--success-color);">👥 ${item.submitted}</span>
+            <span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span>
           </div>
+          ${mobileAdminActions}
         </div>`;
     });
+  }
+
+  function toggleResearchStatus(id) {
+    if (!isInstructorMode) return;
+    const item = researchData.find(r => r.id === id);
+    if (item) {
+      item.isCompleted = !item.isCompleted;
+      syncToCloud();
+      renderResearch();
+      updateSummaryCounts();
+    }
   }
 
   function addResearchItem() {
@@ -1274,15 +1487,16 @@
 
     if (!title) { alert('يرجى إدخال عنوان البحث'); return; }
 
-    researchData.push({ id: Date.now(), title, reqs, deadline, submitted });
+    researchData.push({ id: Date.now(), title, reqs, deadline, submitted, isCompleted: false });
     syncToCloud();
     renderResearch();
     updateSummaryCounts();
+    
     document.getElementById('resTitle').value = '';
     document.getElementById('resReqs').value = '';
     document.getElementById('resDeadline').value = '';
     document.getElementById('resSubmittedCount').value = '';
-    toggleAddBox('researchBox');
+    closeModal('addResearchModal');
   }
 
   function deleteResearch(id) {
@@ -1306,29 +1520,51 @@
     }
 
     quizzesData.forEach(item => {
-      const deleteBtn = isInstructorMode ? `<td><button class="btn-danger" onclick="deleteQuiz(${item.id})">حذف</button></td>` : '';
-      const mobileDelete = isInstructorMode ? `<button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="deleteQuiz(${item.id})">حذف</button>` : '';
+      const isDone = item.isCompleted;
+      const statusText = isDone ? '✔️ تم أخذ الامتحان' : '⏳ قادم';
+      const rowClass = isDone ? 'is-completed' : '';
+
+      const adminActions = isInstructorMode ? `
+        <td class="instructor-only active-instructor">
+          <button class="status-toggle-btn" onclick="toggleQuizStatus(${item.id})">${isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان'}</button>
+          <button class="btn-danger" style="margin-top:4px;" onclick="deleteQuiz(${item.id})">حذف</button>
+        </td>` : '';
+
+      const mobileAdminActions = isInstructorMode ? `
+        <div class="instructor-only active-instructor" style="margin-top:6px; display:flex; gap:6px;">
+          <button class="status-toggle-btn" style="font-size:10px; padding:2px 6px;" onclick="toggleQuizStatus(${item.id})">${isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان'}</button>
+          <button class="btn-danger" style="padding:2px 6px; font-size:10px;" onclick="deleteQuiz(${item.id})">حذف</button>
+        </div>` : '';
 
       tbody.innerHTML += `
-        <tr>
+        <tr class="${rowClass}">
           <td><strong>${item.name}</strong></td>
           <td><span style="color:var(--accent-blue); font-weight:bold;">${item.date}</span></td>
-          <td><span style="color:var(--success-color); font-weight:bold;">⭐ ${item.score}</span></td>
-          ${deleteBtn}
+          <td><span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span> (العلامة: ${item.score})</td>
+          ${adminActions}
         </tr>`;
 
       mobileContainer.innerHTML += `
-        <div class="sub-card">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div style="font-weight:bold; color:var(--accent-blue); font-size:14px; margin-bottom:4px;">${item.name}</div>
-            ${mobileDelete}
-          </div>
-          <div style="display:flex; justify-content:space-between; font-size:12.5px; margin-top:6px;">
+        <div class="sub-card ${rowClass}">
+          <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;">${item.name}</div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:6px; align-items:center;">
             <span>⏰ ${item.date}</span>
-            <span style="color:var(--success-color); font-weight:bold;">⭐ ${item.score}</span>
+            <span style="font-weight:bold; color:${isDone ? 'var(--success-color)' : 'var(--warning-color)'};">${statusText}</span>
           </div>
+          ${mobileAdminActions}
         </div>`;
     });
+  }
+
+  function toggleQuizStatus(id) {
+    if (!isInstructorMode) return;
+    const item = quizzesData.find(q => q.id === id);
+    if (item) {
+      item.isCompleted = !item.isCompleted;
+      syncToCloud();
+      renderQuizzes();
+      updateSummaryCounts();
+    }
   }
 
   function addQuizItem() {
@@ -1338,14 +1574,15 @@
 
     if (!name) { alert('يرجى إدخال عنوان الامتحان'); return; }
 
-    quizzesData.push({ id: Date.now(), name, date, score });
+    quizzesData.push({ id: Date.now(), name, date, score, isCompleted: false });
     syncToCloud();
     renderQuizzes();
     updateSummaryCounts();
+    
     document.getElementById('quizName').value = '';
     document.getElementById('quizDate').value = '';
     document.getElementById('quizScore').value = '';
-    toggleAddBox('quizBox');
+    closeModal('addQuizModal');
   }
 
   function deleteQuiz(id) {
