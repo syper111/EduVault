@@ -24,8 +24,8 @@
             --danger-color: #ef4444;
             --warning-color: #f59e0b;
             --badge-new: #f59e0b;
-            --neon-color: #00e5ff;
-            --neon-glow: 0 0 15px rgba(0, 229, 255, 0.5), inset 0 0 8px rgba(0, 229, 255, 0.2);
+            --neon-color: #38bdf8;
+            --neon-glow: 0 0 15px rgba(56, 189, 248, 0.5), inset 0 0 8px rgba(56, 189, 248, 0.2);
             --ch1-color: #0284c7;
             --ch2-color: #0d9488;
             --ch3-color: #6366f1;
@@ -41,7 +41,7 @@
             --text-muted: #64748b;
             --border-color: #cbd5e1;
         }
-        /* ثيم النيون المتكامل: تغيير الخلفيات والبطاقات والأزرار بالكامل بشكل متناسق */
+        /* الثيمات الثلاثة الرئيسية (أزرق، أحمر، أخضر) */
         
         body.global-cyber-neon-theme {
             --bg-main: #020617;
@@ -67,7 +67,8 @@
         body.global-cyber-neon-theme .meta-item,
         body.global-cyber-neon-theme .lec-card,
         body.global-cyber-neon-theme .sub-card,
-        body.global-cyber-neon-theme .tasks-summary-bar {
+        body.global-cyber-neon-theme .tasks-summary-bar,
+        body.global-cyber-neon-theme .top-ticker-bar {
             border-color: var(--neon-color) !important;
             box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
         }
@@ -88,33 +89,30 @@
             background-color: var(--bg-main);
             color: var(--text-main);
             margin: 0;
-            padding: 10px 6px 45px 6px;
-            /* مساحة للشريط العائم الأسفل */
+            padding: 10px 6px;
             line-height: 1.6;
             transition: background 0.3s ease, color 0.3s ease;
         }
-        /* تنسيق شريط الأخبار العائم الأسفل */
+        /* شريط الأخبار المتحرك في أعلى الشاشة بالمنتصف */
         
-        .floating-ticker-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        .top-ticker-bar {
             background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
-            border-top: 2px solid var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
             color: #fff;
-            padding: 8px 12px;
+            padding: 7px 12px;
             display: flex;
             align-items: center;
-            z-index: 9998;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+            margin: 12px auto;
+            max-width: 900px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
             font-size: 12px;
         }
         
-        body.global-cyber-neon-theme .floating-ticker-bar {
+        body.global-cyber-neon-theme .top-ticker-bar {
             background: linear-gradient(90deg, #030712, #090f24, #030712);
-            border-top: 2px solid var(--neon-color);
-            box-shadow: 0 -5px 20px var(--neon-color);
+            border: 1px solid var(--neon-color);
+            box-shadow: 0 0 12px var(--neon-color);
         }
         
         .ticker-title {
@@ -126,6 +124,7 @@
             font-size: 11px;
             margin-left: 10px;
             white-space: nowrap;
+            cursor: pointer;
         }
         
         .ticker-content-wrap {
@@ -784,7 +783,7 @@
         
         #toastNotification {
             position: fixed;
-            bottom: 50px;
+            bottom: 20px;
             right: 20px;
             transform: translateY(120px);
             background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -902,7 +901,7 @@
             .btn-action,
             .instructor-controls,
             .tasks-summary-bar,
-            .floating-ticker-bar {
+            .top-ticker-bar {
                 display: none !important;
             }
             body {
@@ -930,14 +929,6 @@
 
 <body>
 
-    <!-- شريط الأخبار العائم الأسفل -->
-    <div class="floating-ticker-bar">
-        <span class="ticker-title">📢 تعميم عاجل</span>
-        <div class="ticker-content-wrap">
-            <span class="ticker-text" id="floatingTickerText">مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة (المزامنة السحابية نشطة ومحدثة)</span>
-        </div>
-    </div>
-
     <div id="toastNotification">
         <span style="font-size:16px;">🔔</span>
         <div>
@@ -960,13 +951,21 @@
 
                     <button class="sys-btn" style="background:rgba(56,189,248,0.15); border-color:var(--accent-blue); color:var(--accent-blue);" onclick="openModal('notificationsModal')">🔔 سجل الإشعارات <span id="notificationBadge" class="new-badge" style="display:none;">0</span></button>
 
-                    <button class="sys-btn instructor-only-flex" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#34d399;" onclick="openModal('instructorSettingsModal')">⚙️ إعدادات الدكتور</button>
+                    <button class="sys-btn instructor-only-flex" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#34d399;" onclick="openModal('instructorSettingsModal')">⚙️ إعدادات الثيمات</button>
 
                     <button class="sys-btn sys-btn-neon" id="modeToggleBtn" onclick="handleInstructorModeClick()" style="flex:2;">👨‍🏫 لوحة الدكتور</button>
                 </div>
             </div>
 
             <h1>خطة التدريس الأكاديمية لمساق التشفير وأمن المعلومات</h1>
+
+            <!-- شريط الأخبار المتحرك في أعلى الشاشة بالمنتصف -->
+            <div class="top-ticker-bar">
+                <span class="ticker-title" onclick="updateFloatingTickerText()" title="اضغط للتعديل (للدكتور)">📢 تعميم عاجل</span>
+                <div class="ticker-content-wrap">
+                    <span class="ticker-text" id="topTickerText">مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة (المزامنة السحابية نشطة ومحدثة)</span>
+                </div>
+            </div>
 
             <div class="meta-grid">
                 <div class="meta-item"><span class="label">أستاذ المساق</span><span class="value">البروفيسور: أ.د. إبراهيم المدادحة</span></div>
@@ -1062,7 +1061,7 @@
         <div id="pageQuizzes" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                    <h3 style="margin:0; color:var(--accent-blue); font-size:16px;">📝 الامتحانات والكويزات (مزامنة سحابية موحدة)</h3>
+                    <h3 style="margin:0; color:var(--accent-blue); font-size:16px;">📝 جدول الامتحانات والكويزات (مستقل ومنفصل تماماً سحابياً)</h3>
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
                 <div id="instructorQuizAdd" class="instructor-only" style="margin-bottom: 12px;">
@@ -1090,61 +1089,47 @@
         </div>
     </div>
 
-    <!-- Modal: إعدادات الدكتور -->
+    <!-- Modal: إعدادات الثيمات الرئيسية الثلاثة -->
     <div class="modal-overlay" id="instructorSettingsModal">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('instructorSettingsModal')">✕</div>
-            <h3>⚙️ لوحة التحكم وثيمات النيون</h3>
-            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">اختر لون النيون السيبراني المتناسق وقم بتفعيله/إلغائه بمفتاح التشغيل:</p>
+            <h3>🎨 إعدادات الثيمات الرئيسية الثلاثة</h3>
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">اختر أحد الثيمات الثلاثة (أزرق، أحمر، أخضر) وقم بتفعيله:</p>
 
             <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
                 <div class="color-switch-row">
-                    <span class="color-label" style="color: #10b981;">🟢 أخضر زمردي (Emerald Green)</span>
+                    <span class="color-label" style="color: #38bdf8;">🔵 الأزرق السيبراني (Cyber Blue)</span>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="sw_emerald" onchange="handleCapsuleToggle('#10b981', this)">
+                        <input type="checkbox" id="sw_blue" onchange="handleCapsuleToggle('#38bdf8', this)">
                         <span class="slider"></span>
                     </label>
                 </div>
 
                 <div class="color-switch-row">
-                    <span class="color-label" style="color: #00e5ff;">🔵 أزرق سيبراني (Cyber Cyan)</span>
+                    <span class="color-label" style="color: #ef4444;">🔴 الأحمر الناري (Neon Red)</span>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="sw_cyan" onchange="handleCapsuleToggle('#00e5ff', this)">
+                        <input type="checkbox" id="sw_red" onchange="handleCapsuleToggle('#ef4444', this)">
                         <span class="slider"></span>
                     </label>
                 </div>
 
                 <div class="color-switch-row">
-                    <span class="color-label" style="color: #ff3366;">🔴 أحمر ناري (Neon Red)</span>
+                    <span class="color-label" style="color: #10b981;">🟢 الأخضر الزمردي (Emerald Green)</span>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="sw_red" onchange="handleCapsuleToggle('#ff3366', this)">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <div class="color-switch-row">
-                    <span class="color-label" style="color: #a855f7;">🟣 بنفسجي ملكي (Royal Purple)</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="sw_purple" onchange="handleCapsuleToggle('#a855f7', this)">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-
-                <div class="color-switch-row">
-                    <span class="color-label" style="color: #f59e0b;">🟡 ذهبي مشرق (Golden Amber)</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="sw_amber" onchange="handleCapsuleToggle('#f59e0b', this)">
+                        <input type="checkbox" id="sw_green" onchange="handleCapsuleToggle('#10b981', this)">
                         <span class="slider"></span>
                     </label>
                 </div>
             </div>
 
             <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button class="btn-action" style="flex: 1; background: rgba(56,189,248,0.2); border:1px solid var(--accent-blue); color:var(--accent-blue);" onclick="updateFloatingTickerText(); closeModal('instructorSettingsModal');">📢 تعديل شريط الأخبار</button>
                 <button class="btn-action" style="flex: 1; background: rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#f59e0b;" onclick="broadcastAlertToAllStudents(); closeModal('instructorSettingsModal');">📢 إرسال تعميم</button>
-                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="forceResetAllDoctorSessions(); closeModal('instructorSettingsModal');">⚡ تفريغ القفل</button>
             </div>
 
-            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('instructorSettingsModal')">إغلاق النافذة</button>
+            <button class="btn-action" style="width:100%; margin-top:8px; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="clearAndResetEntireCloudDatabase(); closeModal('instructorSettingsModal');">🗑️ تفريغ وفراغ القاعدة تماماً (إعادة ضبط)</button>
+            <button class="btn-action" style="width:100%; margin-top:6px; background: rgba(239,68,68,0.1); border:1px solid var(--border-color);" onclick="forceResetAllDoctorSessions(); closeModal('instructorSettingsModal');">⚡ تفريغ القفل</button>
+            <button class="btn-action" style="width:100%; margin-top:6px;" onclick="closeModal('instructorSettingsModal')">إغلاق النافذة</button>
         </div>
     </div>
 
@@ -1508,13 +1493,7 @@
             isCompleted: false
         }];
 
-        let defaultQuizzes = [{
-            id: 1,
-            name: 'الامتحان النصفي للمساق (Midterm)',
-            date: 'الأسبوع الثامن - قاعة 302',
-            score: '15 علامة',
-            isCompleted: false
-        }];
+        let defaultQuizzes = [];
 
         let lecturesData = [...defaultLectures];
         let researchData = [...defaultResearch];
@@ -1561,8 +1540,8 @@
                         setNeonColorProperties(settings.neonColorHex);
                         syncToggleSwitchesUI(settings.cyberNeonThemeActive ? settings.neonColorHex : null);
                     }
-                    if (settings.floatingTickerText) {
-                        document.getElementById('floatingTickerText').innerText = settings.floatingTickerText;
+                    if (settings.topTickerText) {
+                        document.getElementById('topTickerText').innerText = settings.topTickerText;
                     }
                     if (settings.notificationsList) {
                         cloudNotificationsList = settings.notificationsList;
@@ -1574,7 +1553,6 @@
                 }
             });
 
-            // قفل الجلسات المزدوجة حتى بين التبويبات على نفس المتصفح
             db.ref('zdvr_doctor_active_session').on('value', (snapshot) => {
                 activeDoctorSession = snapshot.val();
                 if (activeDoctorSession) {
@@ -1598,6 +1576,8 @@
                             showInAppToast("📝 تم إضافة امتحان أو كويز جديد سحابياً!");
                         }
                         quizzesData = serverData.quizzes;
+                    } else {
+                        quizzesData = [];
                     }
                 } else {
                     syncAllToCloud();
@@ -1638,11 +1618,9 @@
 
         function syncToggleSwitchesUI(activeHex) {
             const hexMap = {
-                '#10b981': 'sw_emerald',
-                '#00e5ff': 'sw_cyan',
-                '#ff3366': 'sw_red',
-                '#a855f7': 'sw_purple',
-                '#f59e0b': 'sw_amber'
+                '#38bdf8': 'sw_blue',
+                '#ef4444': 'sw_red',
+                '#10b981': 'sw_green'
             };
             Object.values(hexMap).forEach(id => {
                 const elem = document.getElementById(id);
@@ -1665,23 +1643,26 @@
                 db.ref('zdvr_portal_settings').update({
                     cyberNeonThemeActive: isChecked,
                     neonColorHex: hex,
-                    latestMessage: isChecked ? "✨ قام الدكتور بتفعيل ثيم نيون متناسق بالكامل!" : "🌙 قام الدكتور بإلغاء مفتاح النيون."
+                    latestMessage: isChecked ? "✨ قام الدكتور بتفعيل الثيم الرئيسي المخصص!" : "🌙 قام الدكتور بإلغاء الثيم الرئيسي."
                 });
             }
         }
 
         function updateFloatingTickerText() {
-            if (!isInstructorMode) return;
-            const newTicker = prompt("أدخل نص شريط الأخبار العائم الجديد:", document.getElementById('floatingTickerText').innerText);
+            if (!isInstructorMode) {
+                showCustomAlert("تنبيه", "يجب تسجيل الدخول كدكتور أولاً لتعديل شريط الأخبار.");
+                return;
+            }
+            const newTicker = prompt("أدخل نص شريط الأخبار العلوي الجديد:", document.getElementById('topTickerText').innerText);
             if (newTicker !== null) {
                 const trimmed = newTicker.trim() || "مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة";
                 if (db) {
                     db.ref('zdvr_portal_settings').update({
-                        floatingTickerText: trimmed
+                        topTickerText: trimmed
                     });
                 }
-                document.getElementById('floatingTickerText').innerText = trimmed;
-                showCustomAlert("نجاح التحديث", "تم تحديث شريط الأخبار العائم سحابياً بنجاح.");
+                document.getElementById('topTickerText').innerText = trimmed;
+                showCustomAlert("نجاح التحديث", "تم تحديث شريط الأخبار العلوي سحابياً بنجاح.");
             }
         }
 
@@ -1699,6 +1680,18 @@
                 }).catch(() => {
                     showCustomAlert("خطأ", "تعذر جلب الإشعارات من السيرفر السحابي.");
                 });
+            }
+        }
+
+        function clearAndResetEntireCloudDatabase() {
+            if (!isInstructorMode) return;
+            if (confirm('هل أنت متأكد تماماً من تفريغ جداول البيانات السحابية (البحوث والامتحانات) وجعلها فارغة تماماً لتضيف منها يدوياً؟')) {
+                lecturesData = [...defaultLectures];
+                researchData = [];
+                quizzesData = [];
+                syncAllToCloud();
+                renderAll();
+                showCustomAlert("🗑️ تم التفريغ التام", "تمت تهيئة وتفريغ جداول البحوث والامتحانات في القاعدة السحابية بنجاح. أصبحت فارغة وجاهزة لإضافتك.");
             }
         }
 
