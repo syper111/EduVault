@@ -24,8 +24,8 @@
             --danger-color: #ef4444;
             --warning-color: #f59e0b;
             --badge-new: #f59e0b;
-            --neon-red: #ff3366;
-            --neon-red-glow: 0 0 12px rgba(255, 51, 102, 0.6), inset 0 0 6px rgba(255, 51, 102, 0.3);
+            --neon-color: #00e5ff;
+            --neon-glow: 0 0 15px rgba(0, 229, 255, 0.5), inset 0 0 8px rgba(0, 229, 255, 0.2);
             --ch1-color: #0284c7;
             --ch2-color: #0d9488;
             --ch3-color: #6366f1;
@@ -40,8 +40,43 @@
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
-            --neon-red: #e11d48;
-            --neon-red-glow: 0 0 10px rgba(225, 29, 72, 0.4);
+        }
+        /* ثيم النيون المتكامل: تغيير الخلفيات والبطاقات والأزرار بالكامل بشكل متناسق */
+        
+        body.global-cyber-neon-theme {
+            --bg-main: #020617;
+            --card-bg: #090f24;
+            --card-inner: rgba(56, 189, 248, 0.06);
+            --text-main: #f0fdf4;
+            --border-color: var(--neon-color);
+            --accent-blue: var(--neon-color);
+        }
+        
+        body.global-cyber-neon-theme .academic-container {
+            border: 2px solid var(--neon-color);
+            box-shadow: 0 0 25px var(--neon-color), inset 0 0 15px rgba(56, 189, 248, 0.15);
+        }
+        
+        body.global-cyber-neon-theme .academic-header {
+            background: linear-gradient(135deg, #060e26 100%, #030712 0%);
+            border-bottom: 3px solid var(--neon-color);
+        }
+        
+        body.global-cyber-neon-theme .sys-btn,
+        body.global-cyber-neon-theme .btn-filter,
+        body.global-cyber-neon-theme .meta-item,
+        body.global-cyber-neon-theme .lec-card,
+        body.global-cyber-neon-theme .sub-card,
+        body.global-cyber-neon-theme .tasks-summary-bar {
+            border-color: var(--neon-color) !important;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+        }
+        
+        body.global-cyber-neon-theme .btn-filter.active,
+        body.global-cyber-neon-theme .btn-nav-page.active {
+            background-color: var(--neon-color) !important;
+            color: #020617 !important;
+            box-shadow: 0 0 12px var(--neon-color);
         }
         
         * {
@@ -53,8 +88,67 @@
             background-color: var(--bg-main);
             color: var(--text-main);
             margin: 0;
-            padding: 10px 6px;
+            padding: 10px 6px 45px 6px;
+            /* مساحة للشريط العائم الأسفل */
             line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        /* تنسيق شريط الأخبار العائم الأسفل */
+        
+        .floating-ticker-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
+            border-top: 2px solid var(--accent-blue);
+            color: #fff;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            z-index: 9998;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+        }
+        
+        body.global-cyber-neon-theme .floating-ticker-bar {
+            background: linear-gradient(90deg, #030712, #090f24, #030712);
+            border-top: 2px solid var(--neon-color);
+            box-shadow: 0 -5px 20px var(--neon-color);
+        }
+        
+        .ticker-title {
+            background: var(--accent-blue);
+            color: #0b1329;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 11px;
+            margin-left: 10px;
+            white-space: nowrap;
+        }
+        
+        .ticker-content-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+        }
+        
+        .ticker-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-100%, 0);
+            }
         }
         
         .academic-container {
@@ -65,6 +159,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             border: 1px solid var(--border-color);
             overflow: hidden;
+            transition: all 0.3s ease;
         }
         
         .academic-header {
@@ -127,6 +222,7 @@
             flex: 1;
             text-align: center;
             white-space: nowrap;
+            position: relative;
         }
         
         @media(min-width: 768px) {
@@ -141,9 +237,9 @@
         
         .sys-btn-neon {
             background: rgba(255, 51, 102, 0.15) !important;
-            border: 1px solid var(--neon-red) !important;
+            border: 1px solid #ff3366 !important;
             color: #ff80ab !important;
-            box-shadow: var(--neon-red-glow);
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.6);
             font-weight: 700 !important;
         }
         
@@ -571,7 +667,16 @@
             display: block !important;
         }
         
-        .form-input {
+        .instructor-only-flex {
+            display: none !important;
+        }
+        
+        .instructor-only-flex.active-instructor {
+            display: inline-flex !important;
+        }
+        
+        .form-input,
+        .form-select {
             width: 100%;
             padding: 8px 12px;
             margin-bottom: 10px;
@@ -601,8 +706,8 @@
             background: rgba(255, 51, 102, 0.08);
             padding: 10px;
             border-radius: 8px;
-            border: 1px solid var(--neon-red);
-            box-shadow: var(--neon-red-glow);
+            border: 1px solid #ff3366;
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.4);
             text-align: center;
             font-weight: 700;
             color: #ff80ab;
@@ -638,7 +743,7 @@
             border-radius: 12px;
             padding: 18px;
             width: 100%;
-            max-width: 440px;
+            max-width: 480px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             color: var(--text-main);
             position: relative;
@@ -668,6 +773,7 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 14px;
+            z-index: 10;
         }
         
         .modal-close-btn:hover {
@@ -678,7 +784,7 @@
         
         #toastNotification {
             position: fixed;
-            bottom: 20px;
+            bottom: 50px;
             right: 20px;
             transform: translateY(120px);
             background: linear-gradient(135deg, #0f172a, #1e293b);
@@ -698,14 +804,6 @@
             max-width: 90%;
         }
         
-        @media(max-width: 576px) {
-            #toastNotification {
-                right: 10px;
-                left: 10px;
-                bottom: 15px;
-            }
-        }
-        
         #toastNotification.show {
             transform: translateY(0);
             opacity: 1;
@@ -720,6 +818,72 @@
             font-weight: 800;
             margin-right: 4px;
             vertical-align: middle;
+        }
+        
+        .color-switch-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .color-label {
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #334155;
+            transition: .3s;
+            border-radius: 22px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 2px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        
+        input:checked+.slider {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+        
+        input:checked+.slider:before {
+            transform: translateX(21px);
         }
         
         .academic-footer {
@@ -737,7 +901,8 @@
             .sys-btn,
             .btn-action,
             .instructor-controls,
-            .tasks-summary-bar {
+            .tasks-summary-bar,
+            .floating-ticker-bar {
                 display: none !important;
             }
             body {
@@ -765,11 +930,19 @@
 
 <body>
 
+    <!-- شريط الأخبار العائم الأسفل -->
+    <div class="floating-ticker-bar">
+        <span class="ticker-title">📢 تعميم عاجل</span>
+        <div class="ticker-content-wrap">
+            <span class="ticker-text" id="floatingTickerText">مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة (المزامنة السحابية نشطة ومحدثة)</span>
+        </div>
+    </div>
+
     <div id="toastNotification">
         <span style="font-size:16px;">🔔</span>
         <div>
             <div style="color:var(--accent-blue); font-size:11px; margin-bottom:2px;">تنبيه أكاديمي فوري</div>
-            <span id="toastMessage">تم إضافة بحث أو مهمة جديدة للمساق!</span>
+            <span id="toastMessage">تم التحديث بنجاح!</span>
         </div>
     </div>
 
@@ -784,6 +957,11 @@
                     <button class="sys-btn" onclick="openModal('aboutModal')">👤 حول البوابة</button>
                     <button class="sys-btn" onclick="openModal('policyModal')">📜 التعليمات</button>
                     <button class="sys-btn" onclick="toggleTheme()">☀️ / 🌙 المظهر</button>
+
+                    <button class="sys-btn" style="background:rgba(56,189,248,0.15); border-color:var(--accent-blue); color:var(--accent-blue);" onclick="openModal('notificationsModal')">🔔 سجل الإشعارات <span id="notificationBadge" class="new-badge" style="display:none;">0</span></button>
+
+                    <button class="sys-btn instructor-only-flex" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#34d399;" onclick="openModal('instructorSettingsModal')">⚙️ إعدادات الدكتور</button>
+
                     <button class="sys-btn sys-btn-neon" id="modeToggleBtn" onclick="handleInstructorModeClick()" style="flex:2;">👨‍🏫 لوحة الدكتور</button>
                 </div>
             </div>
@@ -818,7 +996,7 @@
         </div>
 
         <div class="instructor-controls" id="instructorStatusBanner">
-            ⚡ وضع الدكتور نشط (يمكنك تعديل حالة البحوث والكويزات لتحديثها سحابياً للطلاب)
+            ⚡ وضع الدكتور نشط (المزامنة السحابية الكاملة والمنع التام للجلسات المزدوجة حتى بين التبويبات مفعلان)
         </div>
 
         <div id="pagePlan" class="page-section">
@@ -884,11 +1062,11 @@
         <div id="pageQuizzes" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                    <h3 style="margin:0; color:var(--accent-blue); font-size:16px;">📝 الامتحانات والكويزات</h3>
+                    <h3 style="margin:0; color:var(--accent-blue); font-size:16px;">📝 الامتحانات والكويزات (مزامنة سحابية موحدة)</h3>
                     <button class="btn-action" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                 </div>
                 <div id="instructorQuizAdd" class="instructor-only" style="margin-bottom: 12px;">
-                    <button class="btn-action" onclick="openModal('addQuizModal')">➕ إضافة امتحان جديد</button>
+                    <button class="btn-action" onclick="openModal('addQuizModal')">➕ إضافة امتحان جديد سحابياً</button>
                 </div>
                 <div class="table-wrapper">
                     <table class="desktop-table" id="quizTable">
@@ -912,6 +1090,87 @@
         </div>
     </div>
 
+    <!-- Modal: إعدادات الدكتور -->
+    <div class="modal-overlay" id="instructorSettingsModal">
+        <div class="modal-box">
+            <div class="modal-close-btn" onclick="closeModal('instructorSettingsModal')">✕</div>
+            <h3>⚙️ لوحة التحكم وثيمات النيون</h3>
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">اختر لون النيون السيبراني المتناسق وقم بتفعيله/إلغائه بمفتاح التشغيل:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
+                <div class="color-switch-row">
+                    <span class="color-label" style="color: #10b981;">🟢 أخضر زمردي (Emerald Green)</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sw_emerald" onchange="handleCapsuleToggle('#10b981', this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="color-switch-row">
+                    <span class="color-label" style="color: #00e5ff;">🔵 أزرق سيبراني (Cyber Cyan)</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sw_cyan" onchange="handleCapsuleToggle('#00e5ff', this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="color-switch-row">
+                    <span class="color-label" style="color: #ff3366;">🔴 أحمر ناري (Neon Red)</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sw_red" onchange="handleCapsuleToggle('#ff3366', this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="color-switch-row">
+                    <span class="color-label" style="color: #a855f7;">🟣 بنفسجي ملكي (Royal Purple)</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sw_purple" onchange="handleCapsuleToggle('#a855f7', this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="color-switch-row">
+                    <span class="color-label" style="color: #f59e0b;">🟡 ذهبي مشرق (Golden Amber)</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sw_amber" onchange="handleCapsuleToggle('#f59e0b', this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button class="btn-action" style="flex: 1; background: rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#f59e0b;" onclick="broadcastAlertToAllStudents(); closeModal('instructorSettingsModal');">📢 إرسال تعميم</button>
+                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="forceResetAllDoctorSessions(); closeModal('instructorSettingsModal');">⚡ تفريغ القفل</button>
+            </div>
+
+            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('instructorSettingsModal')">إغلاق النافذة</button>
+        </div>
+    </div>
+
+    <!-- Modal: مركز سجل الإشعارات -->
+    <div class="modal-overlay" id="notificationsModal">
+        <div class="modal-box" style="max-width: 600px;">
+            <div class="modal-close-btn" onclick="closeModal('notificationsModal')">✕</div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; padding-left: 45px; margin-bottom: 10px;">
+                <h3 style="margin: 0; border: none; padding: 0; font-size: 15px;">🔔 سجل الإشعارات والتعاميم</h3>
+                <button class="btn-action" style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-blue); color: var(--accent-blue); font-size: 11px; padding: 4px 10px;" onclick="refreshNotificationsFromCloud()">🔄 تحديث الإشعارات</button>
+            </div>
+
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">أرشيف كامل لكافة التعاميم والإشعارات الأكاديمية الصادرة:</p>
+
+            <div id="notificationsListContainer" style="max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px;">
+                <div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 20px;">لا توجد إشعارات سابقة مسجلة</div>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-action instructor-only" style="background: var(--danger-color); flex: 1;" onclick="clearAllNotificationsArchive()">🗑️ مسح السجل بالكامل</button>
+                <button class="btn-action" style="flex: 2;" onclick="markAllNotificationsAsRead(); closeModal('notificationsModal');">إغلاق وتحديد الكل كمقروء</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal: نافذة إضافة بحث جديد -->
     <div class="modal-overlay" id="addResearchModal">
         <div class="modal-box">
@@ -921,7 +1180,7 @@
             <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
             <input type="text" id="resDeadline" class="form-input" placeholder="موعد التسليم (مثل: الأسبوع العاشر)">
             <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
-            <button class="btn-action" style="margin-top:4px;" onclick="addResearchItem()">حفظ ونشر فوري</button>
+            <button class="btn-action" style="margin-top:4px;" onclick="addResearchItem()">حفظ ونشر فوري سحابياً</button>
         </div>
     </div>
 
@@ -929,11 +1188,11 @@
     <div class="modal-overlay" id="addQuizModal">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('addQuizModal')">✕</div>
-            <h3>إضافة امتحان أو كويز جديد</h3>
+            <h3>إضافة امتحان أو كويز جديد (سحابياً)</h3>
             <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
             <input type="text" id="quizDate" class="form-input" placeholder="موعد الامتحان (التاريخ والوقت)">
             <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
-            <button class="btn-action" style="margin-top:4px;" onclick="addQuizItem()">حفظ ونشر فوري</button>
+            <button class="btn-action" style="margin-top:4px;" onclick="addQuizItem()">حفظ ونشر فوري لكافة الأجهزة</button>
         </div>
     </div>
 
@@ -942,11 +1201,11 @@
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('instructorLoginModal')">✕</div>
             <h3>🔒 تسجيل دخول الدكتور</h3>
-            <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">أدخل رمز المرور:</p>
+            <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">أدخل رمز المرور الخاص بك:</p>
             <input type="password" id="instructorPinInput" class="form-input" placeholder="أدخل رمز المرور..." style="font-size: 14px; text-align: center; letter-spacing: 3px;" onkeydown="if(event.key==='Enter') verifyInstructorPinSecure()">
             <div style="display: flex; gap: 8px; margin-top: 12px;">
                 <button class="btn-action" style="flex: 1; background: var(--success-color);" onclick="verifyInstructorPinSecure()">دخول</button>
-                <button class="btn-action" style="flex: 1; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: var(--text-main);" onclick="closeModal('instructorLoginModal')">إلغاء</button>
+                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border: 1px solid var(--danger-color); color: #f87171;" onclick="forceResetAllDoctorSessions(); closeModal('instructorLoginModal');">تفريغ القفل</button>
             </div>
         </div>
     </div>
@@ -980,7 +1239,42 @@
         </div>
     </div>
 
+    <!-- Modal: التنبيهات الداخلية -->
+    <div class="modal-overlay" id="customAlertModal">
+        <div class="modal-box" style="text-align: center;">
+            <h3 id="customAlertTitle" style="color: var(--accent-blue); margin-bottom: 10px;">تنبيه النظام</h3>
+            <p id="customAlertMessage" style="font-size: 13.5px; color: var(--text-main); margin-bottom: 20px; line-height: 1.6;"></p>
+            <button class="btn-action" style="width: 100%; background: var(--accent-blue); color: #0b1329; font-weight: 700; padding: 8px;" onclick="closeModal('customAlertModal')">موافق</button>
+        </div>
+    </div>
+
     <script>
+        function showCustomAlert(title, message) {
+            document.getElementById('customAlertTitle').innerText = title;
+            document.getElementById('customAlertMessage').innerText = message;
+            openModal('customAlertModal');
+        }
+
+        function requestSystemNotificationPermission() {
+            if ("Notification" in window) {
+                if (Notification.permission === "default" && !localStorage.getItem('notif_prompt_shown')) {
+                    Notification.requestPermission().then(permission => {
+                        localStorage.setItem('notif_prompt_shown', 'true');
+                    });
+                }
+            }
+        }
+
+        function triggerSystemNativeNotification(title, message) {
+            if ("Notification" in window && Notification.permission === "granted") {
+                new Notification(title, {
+                    body: message,
+                    icon: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+                    requireInteraction: true
+                });
+            }
+        }
+
         const encodedConfigParts = [
             "QUl6YVN5QkUwUFFrX1lJTkhQN25kX0VrVHhIRUstMF83LWlVVXc=",
             "emR2ci1lZGE1Yy5maXJlYmFzZWFwcC5jb20=",
@@ -1028,6 +1322,15 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+        let localDeviceId = localStorage.getItem('zdvr_doctor_persistent_device_id');
+        if (!localDeviceId) {
+            localDeviceId = 'dr_master_device_' + Math.random().toString(36).substring(2, 10);
+            localStorage.setItem('zdvr_doctor_persistent_device_id', localDeviceId);
+        }
+        const currentDeviceId = localDeviceId;
+
+        let activeDoctorSession = null;
+        let cloudNotificationsList = [];
         let isInstructorMode = false;
         let isDetailsCollapsed = false;
 
@@ -1189,9 +1492,7 @@
             id: 15,
             chapter: 'ch5',
             chName: 'جلسة ختامية',
-            chClass: 'tag-ch5',
-            title: 'مراجعة وتطبيقات شاملة',
-            pages: 'ص 285 + تمارين',
+            chClass: 'ص 285 + تمارين',
             isCompleted: false,
             topics: ['ربط المفاهيم الكلية ومناقشة المراجع', 'حل أسئلة وتدريبات شاملة للامتحان النهائي'],
             outcome: 'ترسيخ المخرجات الكلية والجاهزية للامتحان.',
@@ -1206,6 +1507,7 @@
             submitted: '3 من أصل 5',
             isCompleted: false
         }];
+
         let defaultQuizzes = [{
             id: 1,
             name: 'الامتحان النصفي للمساق (Midterm)',
@@ -1218,8 +1520,6 @@
         let researchData = [...defaultResearch];
         let quizzesData = [...defaultQuizzes];
 
-        let lastSeenResearchCount = parseInt(localStorage.getItem('seen_res_count') || defaultResearch.length);
-        let lastSeenQuizCount = parseInt(localStorage.getItem('seen_quiz_count') || defaultQuizzes.length);
         let isFirstCloudLoad = true;
 
         function showInAppToast(msg) {
@@ -1229,7 +1529,13 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 5500);
+
+            triggerSystemNativeNotification("تنبيه أكاديمي فوري", msg);
         }
+
+        window.addEventListener('load', () => {
+            requestSystemNotificationPermission();
+        });
 
         if (db) {
             db.ref('.info/connected').on('value', (snap) => {
@@ -1243,27 +1549,53 @@
                 }
             });
 
+            db.ref('zdvr_portal_settings').on('value', (snapshot) => {
+                const settings = snapshot.val();
+                if (settings) {
+                    if (settings.cyberNeonThemeActive) {
+                        document.body.classList.add('global-cyber-neon-theme');
+                    } else {
+                        document.body.classList.remove('global-cyber-neon-theme');
+                    }
+                    if (settings.neonColorHex) {
+                        setNeonColorProperties(settings.neonColorHex);
+                        syncToggleSwitchesUI(settings.cyberNeonThemeActive ? settings.neonColorHex : null);
+                    }
+                    if (settings.floatingTickerText) {
+                        document.getElementById('floatingTickerText').innerText = settings.floatingTickerText;
+                    }
+                    if (settings.notificationsList) {
+                        cloudNotificationsList = settings.notificationsList;
+                        updateNotificationsUI();
+                        if (settings.latestMessage && !isFirstCloudLoad) {
+                            showInAppToast(settings.latestMessage);
+                        }
+                    }
+                }
+            });
+
+            // قفل الجلسات المزدوجة حتى بين التبويبات على نفس المتصفح
+            db.ref('zdvr_doctor_active_session').on('value', (snapshot) => {
+                activeDoctorSession = snapshot.val();
+                if (activeDoctorSession) {
+                    if (activeDoctorSession.deviceId !== currentDeviceId) {
+                        setInstructorModeActive(false);
+                    } else {
+                        setInstructorModeActive(true);
+                    }
+                } else {
+                    setInstructorModeActive(false);
+                }
+            });
+
             db.ref('zdvr_secure_portal').on('value', (snapshot) => {
                 const serverData = snapshot.val();
                 if (serverData) {
                     if (serverData.lectures) lecturesData = serverData.lectures;
-
-                    if (serverData.research) {
-                        if (serverData.research.length > researchData.length && !isFirstCloudLoad) {
-                            showInAppToast("تم إضافة بحث أو مهمة أكاديمية جديدة للمساق!");
-                        }
-                        if (serverData.research.length > lastSeenResearchCount) {
-                            document.getElementById('resNavBadge').style.display = 'inline-block';
-                        }
-                        researchData = serverData.research;
-                    }
-
+                    if (serverData.research) researchData = serverData.research;
                     if (serverData.quizzes) {
                         if (serverData.quizzes.length > quizzesData.length && !isFirstCloudLoad) {
-                            showInAppToast("تم إضافة امتحان أو كويز جديد للمساق!");
-                        }
-                        if (serverData.quizzes.length > lastSeenQuizCount) {
-                            document.getElementById('quizNavBadge').style.display = 'inline-block';
+                            showInAppToast("📝 تم إضافة امتحان أو كويز جديد سحابياً!");
                         }
                         quizzesData = serverData.quizzes;
                     }
@@ -1274,11 +1606,118 @@
                 renderAll();
             }, (error) => {
                 console.error("فشل مزامنة قاعدة البيانات:", error);
-                showInAppToast("⚠️ تنبيه: فشل الاتصال بقاعدة البيانات السحابية!");
             });
         }
 
-        // حل مشكلة Race Conditions عبر استخدام تحديثات جزئية للمسارات المحددة بدلاً من الكتابة الكاملة
+        function setInstructorModeActive(active) {
+            isInstructorMode = active;
+            const btn = document.getElementById('modeToggleBtn');
+            const banner = document.getElementById('instructorStatusBanner');
+
+            if (active) {
+                btn.innerText = "👨‍🎓 العودة للطلاب";
+                btn.classList.remove('sys-btn-neon');
+                btn.style.background = "var(--success-color)";
+                btn.style.color = "#fff";
+                banner.classList.add('active');
+            } else {
+                btn.innerText = "👨‍🏫 لوحة الدكتور";
+                btn.classList.add('sys-btn-neon');
+                btn.style.background = "";
+                btn.style.color = "";
+                banner.classList.remove('active');
+            }
+            applyInstructorUIVisibility();
+            renderAll();
+        }
+
+        function setNeonColorProperties(hex) {
+            document.documentElement.style.setProperty('--neon-color', hex);
+            document.documentElement.style.setProperty('--neon-glow', `0 0 15px ${hex}, inset 0 0 8px ${hex}`);
+        }
+
+        function syncToggleSwitchesUI(activeHex) {
+            const hexMap = {
+                '#10b981': 'sw_emerald',
+                '#00e5ff': 'sw_cyan',
+                '#ff3366': 'sw_red',
+                '#a855f7': 'sw_purple',
+                '#f59e0b': 'sw_amber'
+            };
+            Object.values(hexMap).forEach(id => {
+                const elem = document.getElementById(id);
+                if (elem) elem.checked = false;
+            });
+            if (activeHex && hexMap[activeHex]) {
+                const activeElem = document.getElementById(hexMap[activeHex]);
+                if (activeElem) activeElem.checked = true;
+            }
+        }
+
+        function handleCapsuleToggle(hex, checkboxElem) {
+            if (!isInstructorMode) return;
+            const isChecked = checkboxElem.checked;
+
+            setNeonColorProperties(hex);
+            syncToggleSwitchesUI(isChecked ? hex : null);
+
+            if (db) {
+                db.ref('zdvr_portal_settings').update({
+                    cyberNeonThemeActive: isChecked,
+                    neonColorHex: hex,
+                    latestMessage: isChecked ? "✨ قام الدكتور بتفعيل ثيم نيون متناسق بالكامل!" : "🌙 قام الدكتور بإلغاء مفتاح النيون."
+                });
+            }
+        }
+
+        function updateFloatingTickerText() {
+            if (!isInstructorMode) return;
+            const newTicker = prompt("أدخل نص شريط الأخبار العائم الجديد:", document.getElementById('floatingTickerText').innerText);
+            if (newTicker !== null) {
+                const trimmed = newTicker.trim() || "مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة";
+                if (db) {
+                    db.ref('zdvr_portal_settings').update({
+                        floatingTickerText: trimmed
+                    });
+                }
+                document.getElementById('floatingTickerText').innerText = trimmed;
+                showCustomAlert("نجاح التحديث", "تم تحديث شريط الأخبار العائم سحابياً بنجاح.");
+            }
+        }
+
+        function refreshNotificationsFromCloud() {
+            if (db) {
+                db.ref('zdvr_portal_settings/notificationsList').get().then((snapshot) => {
+                    if (snapshot.exists()) {
+                        cloudNotificationsList = snapshot.val();
+                        updateNotificationsUI();
+                        showInAppToast("تم تحديث وسحب سجل الإشعارات سحابياً بنجاح.");
+                    } else {
+                        cloudNotificationsList = [];
+                        updateNotificationsUI();
+                    }
+                }).catch(() => {
+                    showCustomAlert("خطأ", "تعذر جلب الإشعارات من السيرفر السحابي.");
+                });
+            }
+        }
+
+        function forceResetAllDoctorSessions() {
+            if (db) {
+                db.ref('zdvr_doctor_active_session').remove().then(() => {
+                    setInstructorModeActive(false);
+                    renderAll();
+                    showCustomAlert("🔄 تم تفريغ القفل", "تمت إزالة جميع أقفال الجلسات بنجاح. يمكنك الدخول الآن.");
+                }).catch(() => {
+                    showCustomAlert("تنبيه", "تعذر الاتصال بالسيرفر لمسح الجلسات.");
+                });
+            } else {
+                setInstructorModeActive(false);
+                renderAll();
+                showCustomAlert("تم التحرير", "تمت إزالة الجلسة محلياً.");
+            }
+        }
+
         function syncPathToCloud(pathKey, dataValue) {
             if (db) {
                 db.ref('zdvr_secure_portal/' + pathKey).set(dataValue).catch((err) => {
@@ -1299,16 +1738,65 @@
             }
         }
 
-        function clearDeviceNotifications(type) {
-            if (type === 'research') {
-                lastSeenResearchCount = researchData.length;
-                localStorage.setItem('seen_res_count', lastSeenResearchCount);
-                document.getElementById('resNavBadge').style.display = 'none';
-            } else if (type === 'quizzes') {
-                lastSeenQuizCount = quizzesData.length;
-                localStorage.setItem('seen_quiz_count', lastSeenQuizCount);
-                document.getElementById('quizNavBadge').style.display = 'none';
+        function updateNotificationsUI() {
+            const container = document.getElementById('notificationsListContainer');
+            const badge = document.getElementById('notificationBadge');
+            container.innerHTML = '';
+
+            let unreadCount = cloudNotificationsList.filter(n => !n.read).length;
+            if (unreadCount > 0) {
+                badge.style.display = 'inline-block';
+                badge.innerText = unreadCount;
+            } else {
+                badge.style.display = 'none';
             }
+
+            if (cloudNotificationsList.length === 0) {
+                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 20px;">لا توجد إشعارات سابقة مسجلة</div>`;
+                return;
+            }
+
+            [...cloudNotificationsList].reverse().forEach((item, index) => {
+                        const div = document.createElement('div');
+                        div.style.cssText = `background: var(--card-inner); padding: 10px; border-radius: 6px; border-right: 3px solid var(--accent-blue); font-size: 12px; display:flex; justify-content:space-between; align-items:center;`;
+                        div.innerHTML = `
+                    <div>
+                        <div style="font-weight:700; color:var(--accent-blue); margin-bottom:2px;">📌 تعميم أكاديمي رسمي</div>
+                        <div>${item.text}</div>
+                        <div style="font-size:9.5px; color:var(--text-muted); margin-top:4px;">📅 ${item.time}</div>
+                    </div>
+                    ${isInstructorMode ? `<button class="btn-danger" style="font-size:10px; padding:3px 6px;" onclick="deleteNotificationItem(${cloudNotificationsList.length - 1 - index})">حذف</button>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function deleteNotificationItem(index) {
+            if (!isInstructorMode) return;
+            cloudNotificationsList.splice(index, 1);
+            if (db) {
+                db.ref('zdvr_portal_settings').update({ notificationsList: cloudNotificationsList });
+            }
+            updateNotificationsUI();
+        }
+
+        function clearAllNotificationsArchive() {
+            if (!isInstructorMode) return;
+            if (confirm('هل أنت متأكد من مسح كافة سجل الإشعارات والتعاميم سحابياً؟')) {
+                cloudNotificationsList = [];
+                if (db) {
+                    db.ref('zdvr_portal_settings').update({ notificationsList: [], latestMessage: null });
+                }
+                updateNotificationsUI();
+            }
+        }
+
+        function markAllNotificationsAsRead() {
+            cloudNotificationsList.forEach(n => n.read = true);
+            if (db) {
+                db.ref('zdvr_portal_settings').update({ notificationsList: cloudNotificationsList });
+            }
+            document.getElementById('notificationBadge').style.display = 'none';
         }
 
         if (localStorage.getItem('theme_preference') === 'light') {
@@ -1321,6 +1809,28 @@
             localStorage.setItem('theme_preference', isLight ? 'light' : 'dark');
         }
 
+        function broadcastAlertToAllStudents() {
+            if (!isInstructorMode) return;
+            const msg = prompt("أدخل نص الإشعار المراد إرساله سحابياً لجميع الأجهزة:");
+            if (msg && msg.trim()) {
+                const newNotif = {
+                    text: msg.trim(),
+                    time: new Date().toLocaleString('ar-EG'),
+                    read: false
+                };
+                cloudNotificationsList.push(newNotif);
+
+                if (db) {
+                    db.ref('zdvr_portal_settings').update({
+                        notificationsList: cloudNotificationsList,
+                        latestMessage: "تعميم من الدكتور: " + msg.trim()
+                    });
+                }
+                triggerSystemNativeNotification("تعميم أكاديمي من الدكتور", msg.trim());
+                showCustomAlert("نجاح الإرسال", "تم إرسال التعميم الفوري لكافة الأجهزة والطلاب بنجاح.");
+            }
+        }
+
         function openModal(id) {
             document.getElementById(id).classList.add('active');
         }
@@ -1329,20 +1839,21 @@
             document.getElementById(id).classList.remove('active');
         }
 
-
         function handleInstructorModeClick() {
             if (!isInstructorMode) {
+                if (activeDoctorSession) {
+                    showCustomAlert("🔒 دخول محظور", "عذراً، لوحة الدكتور شغالة حالياً في تبويب أو جهاز آخر! يمنع تداخل الجلسات.");
+                    return;
+                }
+
                 document.getElementById('instructorPinInput').value = '';
                 openModal('instructorLoginModal');
                 setTimeout(() => document.getElementById('instructorPinInput').focus(), 100);
             } else {
-                isInstructorMode = false;
-                applyInstructorUIVisibility();
-                const btn = document.getElementById('modeToggleBtn');
-                btn.innerText = "👨‍🏫 لوحة الدكتور";
-                btn.classList.add('sys-btn-neon');
-                document.getElementById('instructorStatusBanner').classList.remove('active');
-                renderAll();
+                if (db) {
+                    db.ref('zdvr_doctor_active_session').remove();
+                }
+                setInstructorModeActive(false);
             }
         }
 
@@ -1351,18 +1862,17 @@
             const inputHash = await sha256(pin);
 
             if (inputHash === SECURE_INSTRUCTOR_HASH) {
-                isInstructorMode = true;
+                if (db) {
+                    await db.ref('zdvr_doctor_active_session').set({
+                        deviceId: currentDeviceId,
+                        loggedInAt: new Date().toISOString()
+                    });
+                }
+
                 closeModal('instructorLoginModal');
-                applyInstructorUIVisibility();
-                const btn = document.getElementById('modeToggleBtn');
-                btn.innerText = "👨‍🎓 العودة للطلاب";
-                btn.classList.remove('sys-btn-neon');
-                btn.style.background = "var(--success-color)";
-                btn.style.color = "#fff";
-                document.getElementById('instructorStatusBanner').classList.add('active');
-                renderAll();
+                setInstructorModeActive(true);
             } else {
-                alert("رمز المرور غير صحيح!");
+                showCustomAlert("خطأ في المصادقة", "رمز المرور غير صحيح. يرجى المحاولة مجدداً.");
                 document.getElementById('instructorPinInput').value = '';
                 document.getElementById('instructorPinInput').focus();
             }
@@ -1377,6 +1887,16 @@
                     el.classList.remove('active-instructor');
                 }
             });
+
+            const instructorFlexElements = document.querySelectorAll('.instructor-only-flex');
+            instructorFlexElements.forEach(el => {
+                if (isInstructorMode) {
+                    el.classList.add('active-instructor');
+                } else {
+                    el.classList.remove('active-instructor');
+                }
+            });
+            updateNotificationsUI();
         }
 
         function switchPage(page) {
@@ -1388,12 +1908,10 @@
                 document.getElementById('pageResearch').classList.remove('hidden');
                 document.getElementById('btnPageResearch').classList.add('active');
                 progressSection.style.display = 'none';
-                clearDeviceNotifications('research');
             } else if (page === 'quizzes') {
                 document.getElementById('pageQuizzes').classList.remove('hidden');
                 document.getElementById('btnPageQuizzes').classList.add('active');
                 progressSection.style.display = 'none';
-                clearDeviceNotifications('quizzes');
             } else {
                 document.getElementById('pagePlan').classList.remove('hidden');
                 document.getElementById('btnPagePlan').classList.add('active');
@@ -1607,7 +2125,7 @@
             const submitted = document.getElementById('resSubmittedCount').value.trim() || '0 من الطلاب';
 
             if (!title) {
-                alert('يرجى إدخال عنوان البحث');
+                showCustomAlert("تنبيه الحقل", "يرجى إدخال عنوان البحث أولاً.");
                 return;
             }
 
@@ -1628,6 +2146,7 @@
             document.getElementById('resDeadline').value = '';
             document.getElementById('resSubmittedCount').value = '';
             closeModal('addResearchModal');
+            showCustomAlert("نجاح الإضافة", "تم إدراج البحث ونشره سحابياً بنجاح.");
         }
 
         function deleteResearch(id) {
@@ -1733,7 +2252,7 @@
             const score = document.getElementById('quizScore').value.trim();
 
             if (!name) {
-                alert('يرجى إدخال عنوان الامتحان');
+                showCustomAlert("تنبيه الحقل", "يرجى إدخال عنوان الامتحان أولاً.");
                 return;
             }
 
@@ -1752,10 +2271,11 @@
             document.getElementById('quizDate').value = '';
             document.getElementById('quizScore').value = '';
             closeModal('addQuizModal');
+            showCustomAlert("نجاح الإضافة السحابية", "تم إدراج الامتحان ونشره سحابياً للجميع بنجاح.");
         }
 
         function deleteQuiz(id) {
-            if (confirm('هل أنت متأكد من حذف هذا الامتحان؟')) {
+            if (confirm('هل أنت متأكد من حذف هذا الامتحان سحابياً؟')) {
                 quizzesData = quizzesData.filter(i => i.id !== id);
                 syncPathToCloud('quizzes', quizzesData);
                 renderQuizzes();
