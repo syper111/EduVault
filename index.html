@@ -41,6 +41,14 @@
             --text-muted: #64748b;
             --border-color: #cbd5e1;
         }
+        /* منع حركة الخلفية نهائياً عند فتح أي تبويب أو نافذة منبثقة */
+        
+        body.modal-open {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
         /* الثيمات الرئيسية السيبرانية المتطورة */
         
         body.global-cyber-neon-theme {
@@ -82,6 +90,7 @@
         
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -237,12 +246,13 @@
             border: 1px solid var(--border-color);
             color: #fff;
             border-radius: 8px;
-            padding: 6px 11px;
+            padding: 7px 12px;
             font-size: 11.5px;
             cursor: pointer;
             font-weight: 700;
             white-space: nowrap;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .sys-btn:hover {
@@ -350,7 +360,7 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
             border: 1px solid var(--border-color);
-            padding: 9px 16px;
+            padding: 10px 16px;
             border-radius: 10px;
             font-size: 12px;
             font-weight: 800;
@@ -359,6 +369,7 @@
             text-align: center;
             min-width: 120px;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .btn-nav-page:hover {
@@ -411,7 +422,6 @@
             flex-direction: column;
             gap: 12px;
         }
-        /* تنسيق متناسق كلياً ومضبوط لأزرار الفلترة على الهواتف والكمبيوتر */
         
         .filter-group {
             display: grid;
@@ -437,16 +447,15 @@
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-muted);
-            padding: 9px 6px;
+            padding: 10px 6px;
             border-radius: 8px;
-            font-size: 11px;
+            font-size: 11.5px;
             font-weight: 700;
             cursor: pointer;
             text-align: center;
             transition: all 0.2s ease;
             width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            touch-action: manipulation;
         }
         
         .btn-filter:hover {
@@ -487,12 +496,12 @@
         }
         
         .search-box {
-            padding: 9px 14px;
+            padding: 10px 14px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
-            font-size: 12px;
+            font-size: 13px;
             flex: 1;
             outline: none;
             min-width: 180px;
@@ -508,7 +517,7 @@
             background: var(--accent-indigo);
             color: white;
             border: none;
-            padding: 9px 14px;
+            padding: 10px 16px;
             border-radius: 8px;
             font-weight: 700;
             font-size: 12px;
@@ -520,6 +529,7 @@
             gap: 6px;
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .btn-action:hover {
@@ -556,16 +566,17 @@
             background: rgba(239, 68, 68, 0.15);
             border: 1px solid var(--danger-color);
             color: #f87171;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 14px;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .section-close-btn:hover {
@@ -655,15 +666,16 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.06);
             color: var(--text-main);
             cursor: pointer;
             border: 1px solid var(--border-color);
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .status-check:hover {
@@ -764,21 +776,21 @@
         .instructor-only-flex.active-instructor {
             display: inline-flex !important;
         }
-        /* تنسيق مربعات الإدخال بشكل متناسق ومريح للعين في لوحة الدكتور */
         
         .form-input,
         .form-select {
             width: 100%;
-            padding: 10px 14px;
+            padding: 12px 14px;
             margin-bottom: 12px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
             font-family: inherit;
-            font-size: 12.5px;
+            font-size: 14px;
             outline: none;
             transition: all 0.2s ease;
+            -webkit-appearance: none;
         }
         
         .form-input:focus {
@@ -791,13 +803,14 @@
             background-color: var(--danger-color);
             color: white;
             border: none;
-            padding: 6px 11px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-size: 11px;
             cursor: pointer;
             font-weight: 700;
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
             transition: opacity 0.2s ease;
+            touch-action: manipulation;
         }
         
         .btn-danger:hover {
@@ -821,7 +834,7 @@
         .instructor-controls.active {
             display: block;
         }
-        /* تصميم موحد ومميز لكافة النوافذ المنبثقة Modals بالثيم السيبراني الجذاب */
+        /* النوافذ المنبثقة Modals مع دعم الإغلاق بالضغط خارج الصندوق */
         
         .modal-overlay {
             position: fixed;
@@ -885,8 +898,8 @@
             background: rgba(239, 68, 68, 0.15);
             border: 1px solid var(--danger-color);
             color: #f87171;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -896,6 +909,7 @@
             font-size: 14px;
             z-index: 10;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .modal-close-btn:hover {
@@ -1174,14 +1188,14 @@
             ⚡ وضع الدكتور نشط (المزامنة السحابية الكاملة والمنع التام للجلسات المزدوجة حتى بين التبويبات مفعلان)
         </div>
 
-        <!-- جدول الخطة (مخفي افتراضياً) -->
+        <!-- جدول الخطة -->
         <div id="pagePlan" class="page-section hidden">
             <div class="controls-bar">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                     <span style="font-size:12.5px; font-weight:800; color:var(--accent-blue);">📚 جدول المحاضرات الأكاديمية</span>
                     <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                 </div>
-                <!-- أزرار الفلترة مصممة بشكل متناسق ومستطيل مريح على الهواتف والكمبيوتر -->
+                <!-- أزرار الفلترة -->
                 <div class="filter-group">
                     <button class="btn-filter active" id="filterBtnAll" onclick="filterChapter('all', this)">الكل (15)</button>
                     <button class="btn-filter" onclick="filterChapter('ch1', this)">الفصل 1</button>
@@ -1214,7 +1228,7 @@
             </div>
         </div>
 
-        <!-- جدول البحوث (مخفي افتراضياً) -->
+        <!-- جدول البحوث -->
         <div id="pageResearch" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header">
@@ -1245,7 +1259,7 @@
             </div>
         </div>
 
-        <!-- جدول الامتحانات (مخفي افتراضياً) -->
+        <!-- جدول الامتحانات -->
         <div id="pageQuizzes" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header">
@@ -1280,8 +1294,8 @@
         </div>
     </div>
 
-    <!-- Modal: نافذة "سيتم إضافتها قريباً" لقسم المختبرات والتطبيقات العملية -->
-    <div class="modal-overlay" id="betaInfoModal">
+    <!-- Modal: المختبرات -->
+    <div class="modal-overlay" id="betaInfoModal" onclick="checkOutsideClick(event, 'betaInfoModal')">
         <div class="modal-box" style="text-align: center; max-width: 440px;">
             <div class="modal-close-btn" onclick="closeModal('betaInfoModal')">✕</div>
 
@@ -1302,8 +1316,8 @@
         </div>
     </div>
 
-    <!-- Modal: إعدادات الثيمات الرئيسية الثلاثة ووضع الصيانة -->
-    <div class="modal-overlay" id="instructorSettingsModal">
+    <!-- Modal: إعدادات الثيمات ووضع الصيانة -->
+    <div class="modal-overlay" id="instructorSettingsModal" onclick="checkOutsideClick(event, 'instructorSettingsModal')">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('instructorSettingsModal')">✕</div>
             <h3>⚙️ لوحة الإعدادات ووضع الصيانة</h3>
@@ -1354,8 +1368,8 @@
         </div>
     </div>
 
-    <!-- Modal: مركز سجل الإشعارات -->
-    <div class="modal-overlay" id="notificationsModal">
+    <!-- Modal: سجل الإشعارات -->
+    <div class="modal-overlay" id="notificationsModal" onclick="checkOutsideClick(event, 'notificationsModal')">
         <div class="modal-box" style="max-width: 550px;">
             <div class="modal-close-btn" onclick="closeModal('notificationsModal')">✕</div>
 
@@ -1375,8 +1389,8 @@
         </div>
     </div>
 
-    <!-- Modal: نافذة إضافة بحث جديد -->
-    <div class="modal-overlay" id="addResearchModal">
+    <!-- Modal: إضافة بحث -->
+    <div class="modal-overlay" id="addResearchModal" onclick="checkOutsideClick(event, 'addResearchModal')">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('addResearchModal')">✕</div>
             <h3>📖 إضافة بحث أو مهمة جديدة</h3>
@@ -1388,8 +1402,8 @@
         </div>
     </div>
 
-    <!-- Modal: نافذة إضافة امتحان جديد -->
-    <div class="modal-overlay" id="addQuizModal">
+    <!-- Modal: إضافة امتحان -->
+    <div class="modal-overlay" id="addQuizModal" onclick="checkOutsideClick(event, 'addQuizModal')">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('addQuizModal')">✕</div>
             <h3>📝 إضافة امتحان أو كويز جديد</h3>
@@ -1401,7 +1415,7 @@
     </div>
 
     <!-- Modal: تسجيل دخول الدكتور -->
-    <div class="modal-overlay" id="instructorLoginModal">
+    <div class="modal-overlay" id="instructorLoginModal" onclick="checkOutsideClick(event, 'instructorLoginModal')">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('instructorLoginModal')">✕</div>
             <h3>🔒 تسجيل دخول الدكتور</h3>
@@ -1414,12 +1428,11 @@
         </div>
     </div>
 
-    <!-- Modal 1: حول البوابة (تصميم مركزي متناسق بالكامل ومحدث) -->
-    <div class="modal-overlay" id="aboutModal">
+    <!-- Modal: حول البوابة -->
+    <div class="modal-overlay" id="aboutModal" onclick="checkOutsideClick(event, 'aboutModal')">
         <div class="modal-box" style="max-width: 500px; text-align: center;">
             <div class="modal-close-btn" onclick="closeModal('aboutModal')">✕</div>
 
-            <!-- عنوان النافذة بالمنتصف -->
             <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px;">
                 <div style="font-size: 30px; margin-bottom: 4px;">👤</div>
                 <h3 style="margin: 0; border: none; padding: 0; font-size: 18px; justify-content: center; display: flex; align-items: center; gap: 8px;">
@@ -1430,14 +1443,12 @@
                 </div>
             </div>
 
-            <!-- مربع الوصف بالمنتصف -->
             <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 14px; margin-bottom: 14px;">
                 <p style="font-size: 13px; line-height: 1.6; color: var(--text-main); margin: 0;">
                     بوابة أكاديمية رسمية متطورة مخصصة لمتابعة جدول المحاضرات، المتطلبات، والامتحانات لمساق التشفير وأمن المعلومات - مرحلة الدكتوراه.
                 </p>
             </div>
 
-            <!-- بطاقات المعلومات المركزية المتناسقة -->
             <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
                 <div style="background: var(--card-inner); border: 1px solid var(--border-color); border-radius: 10px; padding: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px;">
                     <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">👨‍🏫 إعداد وتقديم</span>
@@ -1461,8 +1472,8 @@
         </div>
     </div>
 
-    <!-- Modal 2: تعليمات التسليم -->
-    <div class="modal-overlay" id="policyModal">
+    <!-- Modal: تعليمات التسليم -->
+    <div class="modal-overlay" id="policyModal" onclick="checkOutsideClick(event, 'policyModal')">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('policyModal')">✕</div>
             <h3>📜 تعليمات وإرشادات التسليم</h3>
@@ -1476,7 +1487,7 @@
     </div>
 
     <!-- Modal: التنبيهات الداخلية -->
-    <div class="modal-overlay" id="customAlertModal">
+    <div class="modal-overlay" id="customAlertModal" onclick="checkOutsideClick(event, 'customAlertModal')">
         <div class="modal-box" style="text-align: center;">
             <h3 id="customAlertTitle" style="color: var(--accent-blue); margin-bottom: 10px; justify-content: center; border:none; padding:0;">تنبيه النظام</h3>
             <p id="customAlertMessage" style="font-size: 13px; color: var(--text-main); margin-bottom: 18px; line-height: 1.6;"></p>
@@ -2130,10 +2141,12 @@
             }
         }
 
+        /* دوال إدارة النوافذ المنبثقة مع قفل حركة الشاشة بالخلف وإغلاق بالضغط خارج الصندوق */
         function openModal(id) { 
             const modal = document.getElementById(id);
             if (modal) {
                 modal.classList.add('active'); 
+                document.body.classList.add('modal-open');
                 if (id === 'instructorLoginModal') {
                     const pinInput = document.getElementById('instructorPinInput');
                     if (pinInput) {
@@ -2147,12 +2160,19 @@
             const modal = document.getElementById(id);
             if (modal) {
                 modal.classList.remove('active'); 
+                document.body.classList.remove('modal-open');
                 if (id === 'instructorLoginModal') {
                     const pinInput = document.getElementById('instructorPinInput');
                     if (pinInput) {
                         pinInput.value = '';
                     }
                 }
+            }
+        }
+
+        function checkOutsideClick(event, modalId) {
+            if (event.target.id === modalId) {
+                closeModal(modalId);
             }
         }
 
