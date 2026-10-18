@@ -411,12 +411,12 @@
             flex-direction: column;
             gap: 12px;
         }
-        /* تعديل تنظيم أزرار الفلترة لتصبح شبكة مرتبة (Grid) ومتناسقة تماماً */
+        /* تنسيق متناسق كلياً ومضبوط لأزرار الفلترة على الهواتف والكمبيوتر */
         
         .filter-group {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            gap: 6px;
             width: 100%;
         }
         
@@ -426,7 +426,7 @@
             }
         }
         
-        @media(min-width: 768px) {
+        @media(min-width: 900px) {
             .filter-group {
                 grid-template-columns: repeat(8, 1fr);
             }
@@ -437,14 +437,16 @@
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-muted);
-            padding: 8px 10px;
+            padding: 9px 6px;
             border-radius: 8px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             text-align: center;
             transition: all 0.2s ease;
             width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .btn-filter:hover {
@@ -471,7 +473,7 @@
         
         .search-print-wrapper {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
             flex-wrap: wrap;
             align-items: center;
@@ -485,7 +487,7 @@
         }
         
         .search-box {
-            padding: 8px 14px;
+            padding: 9px 14px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -493,7 +495,7 @@
             font-size: 12px;
             flex: 1;
             outline: none;
-            min-width: 200px;
+            min-width: 180px;
             transition: border-color 0.2s ease;
         }
         
@@ -506,7 +508,7 @@
             background: var(--accent-indigo);
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 9px 14px;
             border-radius: 8px;
             font-weight: 700;
             font-size: 12px;
@@ -514,6 +516,7 @@
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
             transition: all 0.2s ease;
@@ -654,7 +657,7 @@
             gap: 5px;
             font-size: 10.5px;
             font-weight: 700;
-            padding: 3px 9px;
+            padding: 4px 10px;
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.06);
             color: var(--text-main);
@@ -761,34 +764,36 @@
         .instructor-only-flex.active-instructor {
             display: inline-flex !important;
         }
+        /* تنسيق مربعات الإدخال بشكل متناسق ومريح للعين في لوحة الدكتور */
         
         .form-input,
         .form-select {
             width: 100%;
-            padding: 9px 12px;
-            margin-bottom: 10px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
             font-family: inherit;
-            font-size: 12px;
+            font-size: 12.5px;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: all 0.2s ease;
         }
         
         .form-input:focus {
             border-color: var(--accent-blue);
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            background: rgba(255, 255, 255, 0.02);
         }
         
         .btn-danger {
             background-color: var(--danger-color);
             color: white;
             border: none;
-            padding: 4px 9px;
+            padding: 6px 11px;
             border-radius: 6px;
-            font-size: 10.5px;
+            font-size: 11px;
             cursor: pointer;
             font-weight: 700;
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
@@ -841,7 +846,7 @@
             background: linear-gradient(145deg, #0d1530 0%, #090f24 100%);
             border: 2px solid var(--accent-blue);
             border-radius: 16px;
-            padding: 22px 20px;
+            padding: 24px 20px;
             width: 100%;
             max-width: 480px;
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.25);
@@ -953,11 +958,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 9px 12px;
+            padding: 10px 12px;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            margin-bottom: 7px;
+            margin-bottom: 8px;
         }
         
         .color-label {
@@ -1112,7 +1117,7 @@
                     <span class="program-title">🎓 بوابة الدكتوراه</span>
                     <span class="cloud-badge" id="cloudStatusBadge">🟢 متصل</span>
                 </div>
-                <!-- أزرار علوية منظمة -->
+                <!-- أزرار علوية منظمة ومتجاوبة -->
                 <div class="header-actions">
                     <button class="sys-btn" style="background:rgba(16,185,129,0.18); border-color:#10b981; color:#34d399; font-weight:800;" onclick="openModal('betaInfoModal')">🔬 المختبرات <span class="beta-badge" style="font-size:8.5px; margin-right:3px;">Beta</span></button>
                     <button class="sys-btn" onclick="openModal('aboutModal')">حول</button>
@@ -1176,7 +1181,7 @@
                     <span style="font-size:12.5px; font-weight:800; color:var(--accent-blue);">📚 جدول المحاضرات الأكاديمية</span>
                     <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                 </div>
-                <!-- أزرار الفلترة مرتبطة بنظام Grid مرتب ومتناسق جداً للجوال والكمبيوتر -->
+                <!-- أزرار الفلترة مصممة بشكل متناسق ومستطيل مريح على الهواتف والكمبيوتر -->
                 <div class="filter-group">
                     <button class="btn-filter active" id="filterBtnAll" onclick="filterChapter('all', this)">الكل (15)</button>
                     <button class="btn-filter" onclick="filterChapter('ch1', this)">الفصل 1</button>
@@ -1291,7 +1296,7 @@
                 </p>
             </div>
 
-            <button class="btn-action" style="width: 100%; background: var(--accent-indigo); justify-content: center; padding: 9px;" onclick="closeModal('betaInfoModal')">
+            <button class="btn-action" style="width: 100%; background: var(--accent-indigo); justify-content: center; padding: 10px;" onclick="closeModal('betaInfoModal')">
                 حسناً، فهمت
             </button>
         </div>
@@ -1379,7 +1384,7 @@
             <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
             <input type="datetime-local" id="resDeadline" class="form-input">
             <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
-            <button class="btn-action" style="width:100%; margin-top:6px; justify-content:center;" onclick="addResearchItem()">حفظ ونشر فوري سحابياً</button>
+            <button class="btn-action" style="width:100%; margin-top:6px; justify-content:center; padding: 11px;" onclick="addResearchItem()">حفظ ونشر فوري سحابياً</button>
         </div>
     </div>
 
@@ -1391,7 +1396,7 @@
             <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
             <input type="datetime-local" id="quizDate" class="form-input">
             <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
-            <button class="btn-action" style="width:100%; margin-top:6px; justify-content:center;" onclick="addQuizItem()">حفظ ونشر فوري للجميع</button>
+            <button class="btn-action" style="width:100%; margin-top:6px; justify-content:center; padding: 11px;" onclick="addQuizItem()">حفظ ونشر فوري للجميع</button>
         </div>
     </div>
 
@@ -1401,10 +1406,10 @@
             <div class="modal-close-btn" onclick="closeModal('instructorLoginModal')">✕</div>
             <h3>🔒 تسجيل دخول الدكتور</h3>
             <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">أدخل رمز المرور الخاص بك:</p>
-            <input type="password" id="instructorPinInput" class="form-input" autocomplete="new-password" placeholder="أدخل رمز المرور..." style="font-size: 15px; text-align: center; letter-spacing: 4px;" onkeydown="if(event.key==='Enter') verifyInstructorPinSecure()">
+            <input type="password" id="instructorPinInput" class="form-input" autocomplete="new-password" placeholder="أدخل رمز المرور..." style="font-size: 16px; text-align: center; letter-spacing: 4px;" onkeydown="if(event.key==='Enter') verifyInstructorPinSecure()">
             <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="btn-action" style="flex: 1; background: var(--success-color); justify-content:center;" onclick="verifyInstructorPinSecure()">دخول</button>
-                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border: 1px solid var(--danger-color); color: #f87171; justify-content:center;" onclick="forceResetAllDoctorSessions(); closeModal('instructorLoginModal');">تفريغ القفل</button>
+                <button class="btn-action" style="flex: 1; background: var(--success-color); justify-content:center; padding: 10px;" onclick="verifyInstructorPinSecure()">دخول</button>
+                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border: 1px solid var(--danger-color); color: #f87171; justify-content:center; padding: 10px;" onclick="forceResetAllDoctorSessions(); closeModal('instructorLoginModal');">تفريغ القفل</button>
             </div>
         </div>
     </div>
@@ -1466,7 +1471,7 @@
                 <li>تُقدم التقارير أو الملفات المطلوبة حسب التوجيهات الرسمية.</li>
                 <li>ضرورة توثيق المراجع والورقات العلمية وفق معايير الأمان المعتمدة.</li>
             </ul>
-            <button class="btn-action" style="width:100%; justify-content:center;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
+            <button class="btn-action" style="width:100%; justify-content:center; padding: 10px;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
         </div>
     </div>
 
@@ -1475,7 +1480,7 @@
         <div class="modal-box" style="text-align: center;">
             <h3 id="customAlertTitle" style="color: var(--accent-blue); margin-bottom: 10px; justify-content: center; border:none; padding:0;">تنبيه النظام</h3>
             <p id="customAlertMessage" style="font-size: 13px; color: var(--text-main); margin-bottom: 18px; line-height: 1.6;"></p>
-            <button class="btn-action" style="width: 100%; background: var(--accent-blue); color: #0b1329; font-weight: 800; padding: 9px; justify-content: center;" onclick="closeModal('customAlertModal')">موافق</button>
+            <button class="btn-action" style="width: 100%; background: var(--accent-blue); color: #0b1329; font-weight: 800; padding: 10px; justify-content: center;" onclick="closeModal('customAlertModal')">موافق</button>
         </div>
     </div>
 
