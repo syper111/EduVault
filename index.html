@@ -1148,9 +1148,9 @@
 
             <h1>خطة التدريس الأكاديمية لمساق التشفير وأمن المعلومات</h1>
 
-            <!-- شريط الأخبار المتحرك والمستمر -->
+            <!-- شريط الأخبار المتحرك والمستمر (عاجل) -->
             <div class="top-ticker-bar">
-                <span class="ticker-title" onclick="updateFloatingTickerText()" title="اضغط للتعديل (للدكتور)">📢 تعميم</span>
+                <span class="ticker-title" onclick="updateFloatingTickerText()" title="اضغط للتعديل (للدكتور)">📢 عاجل</span>
                 <div class="ticker-content-wrap">
                     <span class="ticker-text" id="topTickerText">مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة (المزامنة السحابية نشطة ومحدثة)</span>
                 </div>
@@ -1359,7 +1359,7 @@
 
             <div style="display: flex; gap: 8px; margin-top: 10px;">
                 <button class="btn-action" style="flex: 1; background: rgba(56,189,248,0.2); border:1px solid var(--accent-blue); color:var(--accent-blue);" onclick="updateFloatingTickerText(); closeModal('instructorSettingsModal');">📢 تعديل الشريط</button>
-                <button class="btn-action" style="flex: 1; background: rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#f59e0b;" onclick="broadcastAlertToAllStudents(); closeModal('instructorSettingsModal');">📢 إرسال تعميم</button>
+                <button class="btn-action" style="flex: 1; background: rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#f59e0b;" onclick="broadcastAlertToAllStudents(); closeModal('instructorSettingsModal');">📢 إرسال عاجل</button>
             </div>
 
             <button class="btn-action" style="width:100%; margin-top:8px; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="clearAndResetEntireCloudDatabase(); closeModal('instructorSettingsModal');">🗑️ تفريغ القاعدة تماماً (إعادة ضبط)</button>
@@ -1978,10 +1978,10 @@
 
         function updateFloatingTickerText() {
             if (!isInstructorMode) {
-                showCustomAlert("تنبيه", "يجب تسجيل الدخول كدكتور أولاً لتعديل شريط الأخبار.");
+                showCustomAlert("تنبيه", "يجب تسجيل الدخول كدكتور أولاً لتعديل شريط العاجل.");
                 return;
             }
-            const newTicker = prompt("أدخل نص شريط الأخبار العلوي الجديد:", document.getElementById('topTickerText').innerText);
+            const newTicker = prompt("أدخل نص شريط العاجل العلوي الجديد:", document.getElementById('topTickerText').innerText);
             if (newTicker !== null) {
                 const trimmed = newTicker.trim() || "مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة";
                 if (db) {
@@ -1990,7 +1990,7 @@
                     });
                 }
                 document.getElementById('topTickerText').innerText = trimmed;
-                showCustomAlert("نجاح التحديث", "تم تحديث شريط الأخبار العلوي سحابياً بنجاح.");
+                showCustomAlert("نجاح التحديث", "تم تحديث شريط العاجل العلوي سحابياً بنجاح.");
             }
         }
 
@@ -2126,18 +2126,18 @@
 
         function broadcastAlertToAllStudents() {
             if (!isInstructorMode) return;
-            const msg = prompt("أدخل نص الإشعار المراد إرساله سحابياً لجميع الأجهزة:");
+            const msg = prompt("أدخل نص العاجل المراد إرساله سحابياً لجميع الأجهزة:");
             if (msg && msg.trim()) {
                 const newNotif = { text: msg.trim(), time: new Date().toLocaleString('ar-EG'), read: false };
                 cloudNotificationsList.push(newNotif);
                 if (db) {
                     db.ref('zdvr_portal_settings').update({
                         notificationsList: cloudNotificationsList,
-                        latestMessage: "تعميم من الدكتور: " + msg.trim()
+                        latestMessage: "عاجل من الدكتور: " + msg.trim()
                     });
                 }
-                triggerSystemNativeNotification("تعميم أكاديمي من الدكتور", msg.trim());
-                showCustomAlert("نجاح الإرسال", "تم إرسال التعميم الفوري لكافة الأجهزة والطلاب بنجاح.");
+                triggerSystemNativeNotification("عاجل من الدكتور", msg.trim());
+                showCustomAlert("نجاح الإرسال", "تم إرسال العاجل الفوري لكافة الأجهزة والطلاب بنجاح.");
             }
         }
 
