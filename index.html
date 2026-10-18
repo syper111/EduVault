@@ -12,12 +12,12 @@
 
     <style>
          :root {
-            --bg-main: #0b1329;
-            --card-bg: #131c38;
-            --card-inner: rgba(255, 255, 255, 0.03);
-            --text-main: #f1f5f9;
+            --bg-main: #070d1f;
+            --card-bg: #0e1630;
+            --card-inner: rgba(255, 255, 255, 0.04);
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #223055;
+            --border-color: #1e293b;
             --accent-blue: #38bdf8;
             --accent-indigo: #6366f1;
             --success-color: #10b981;
@@ -25,7 +25,7 @@
             --warning-color: #f59e0b;
             --badge-new: #f59e0b;
             --neon-color: #38bdf8;
-            --neon-glow: 0 0 15px rgba(56, 189, 248, 0.5), inset 0 0 8px rgba(56, 189, 248, 0.2);
+            --neon-glow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 0 10px rgba(56, 189, 248, 0.15);
             --ch1-color: #0284c7;
             --ch2-color: #0d9488;
             --ch3-color: #6366f1;
@@ -41,12 +41,12 @@
             --text-muted: #64748b;
             --border-color: #cbd5e1;
         }
-        /* الثيمات الرئيسية */
+        /* الثيمات الرئيسية السيبرانية المتطورة */
         
         body.global-cyber-neon-theme {
             --bg-main: #020617;
-            --card-bg: #090f24;
-            --card-inner: rgba(56, 189, 248, 0.06);
+            --card-bg: #080e22;
+            --card-inner: rgba(56, 189, 248, 0.05);
             --text-main: #f0fdf4;
             --border-color: var(--neon-color);
             --accent-blue: var(--neon-color);
@@ -54,11 +54,11 @@
         
         body.global-cyber-neon-theme .academic-container {
             border: 2px solid var(--neon-color);
-            box-shadow: 0 0 25px var(--neon-color), inset 0 0 15px rgba(56, 189, 248, 0.15);
+            box-shadow: 0 0 30px var(--neon-color), inset 0 0 15px rgba(56, 189, 248, 0.12);
         }
         
         body.global-cyber-neon-theme .academic-header {
-            background: linear-gradient(135deg, #060e26 100%, #030712 0%);
+            background: linear-gradient(135deg, #050b22 100%, #020617 0%);
             border-bottom: 3px solid var(--neon-color);
         }
         
@@ -70,14 +70,14 @@
         body.global-cyber-neon-theme .tasks-summary-bar,
         body.global-cyber-neon-theme .top-ticker-bar {
             border-color: var(--neon-color) !important;
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
         
         body.global-cyber-neon-theme .btn-filter.active,
         body.global-cyber-neon-theme .btn-nav-page.active {
             background-color: var(--neon-color) !important;
             color: #020617 !important;
-            box-shadow: 0 0 12px var(--neon-color);
+            box-shadow: 0 0 15px var(--neon-color);
         }
         
         * {
@@ -89,45 +89,70 @@
             background-color: var(--bg-main);
             color: var(--text-main);
             margin: 0;
-            padding: 10px 6px;
+            padding: 12px 10px 35px 10px;
             line-height: 1.6;
         }
-        /* شريط الأخبار المتحرك والمستمر بلا انقطاع */
+        /* شاشة وضع الصيانة العامة الشاملة مع زر الدخول السري للدكتور */
+        
+        #siteMaintenanceScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0b1329 0%, #020617 100%);
+            z-index: 99999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #siteMaintenanceScreen.active {
+            display: flex;
+        }
+        
+        .maintenance-card {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid var(--warning-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.35);
+        }
+        /* شريط الأخبار المتحرك */
         
         .top-ticker-bar {
             background: linear-gradient(90deg, #0f172a, #1e293b, #0f172a);
             border: 1px solid var(--accent-blue);
-            border-radius: 8px;
+            border-radius: 10px;
             color: #fff;
-            padding: 7px 12px;
+            padding: 8px 14px;
             display: flex;
             align-items: center;
-            margin: 12px auto;
+            margin: 14px auto;
             max-width: 900px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             font-size: 12px;
             overflow: hidden;
             position: relative;
         }
         
-        body.global-cyber-neon-theme .top-ticker-bar {
-            background: linear-gradient(90deg, #030712, #090f24, #030712);
-            border: 1px solid var(--neon-color);
-            box-shadow: 0 0 12px var(--neon-color);
-        }
-        
         .ticker-title {
             background: var(--accent-blue);
             color: #0b1329;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
             font-weight: 800;
             font-size: 11px;
-            margin-left: 10px;
+            margin-left: 12px;
             white-space: nowrap;
             cursor: pointer;
             z-index: 2;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
         }
         
         .ticker-content-wrap {
@@ -140,9 +165,9 @@
         .ticker-text {
             display: inline-block;
             padding-right: 100%;
-            animation: continuousMarquee 20s linear infinite;
+            animation: continuousMarquee 22s linear infinite;
             font-weight: 600;
-            color: #e2e8f0;
+            color: #f1f5f9;
             white-space: nowrap;
         }
         
@@ -159,14 +184,14 @@
             max-width: 1100px;
             margin: 0 auto;
             background: var(--card-bg);
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
             border: 1px solid var(--border-color);
             overflow: hidden;
         }
         
         .academic-header {
-            background: linear-gradient(135deg, #0f172a 100%, #1e293b 0%);
+            background: linear-gradient(135deg, #0d1633 100%, #162247 0%);
             color: #ffffff;
             padding: 16px 12px;
             border-bottom: 3px solid var(--accent-blue);
@@ -184,7 +209,7 @@
         .program-title {
             font-size: 13px;
             color: var(--accent-blue);
-            font-weight: 700;
+            font-weight: 800;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -192,25 +217,19 @@
         
         .cloud-badge {
             background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+            border: 1px solid rgba(16, 185, 129, 0.5);
             color: #34d399;
-            padding: 2px 8px;
+            padding: 3px 9px;
             border-radius: 20px;
             font-size: 10.5px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .header-actions {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
-            width: 100%;
-        }
-        
-        @media(min-width: 768px) {
-            .header-actions {
-                width: auto;
-            }
+            align-items: center;
         }
         
         .sys-btn {
@@ -218,52 +237,46 @@
             border: 1px solid var(--border-color);
             color: #fff;
             border-radius: 8px;
-            padding: 6px 10px;
+            padding: 6px 11px;
             font-size: 11.5px;
             cursor: pointer;
-            font-weight: 600;
-            flex: 1;
-            text-align: center;
+            font-weight: 700;
             white-space: nowrap;
-            position: relative;
-        }
-        
-        @media(min-width: 768px) {
-            .sys-btn {
-                flex: unset;
-            }
+            transition: all 0.2s ease;
         }
         
         .sys-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: var(--accent-blue);
         }
         
         .sys-btn-neon {
-            background: rgba(255, 51, 102, 0.15) !important;
+            background: rgba(255, 51, 102, 0.18) !important;
             border: 1px solid #ff3366 !important;
             color: #ff80ab !important;
-            box-shadow: 0 0 12px rgba(255, 51, 102, 0.6);
-            font-weight: 700 !important;
+            box-shadow: 0 0 12px rgba(255, 51, 102, 0.4);
+            font-weight: 800 !important;
         }
         
         .academic-header h1 {
             margin: 10px 0 12px 0;
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 800;
             text-align: center;
             color: #ffffff;
+            letter-spacing: 0.5px;
         }
         
         @media(min-width: 768px) {
             .academic-header h1 {
-                font-size: 22px;
+                font-size: 23px;
             }
         }
         
         .meta-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            gap: 8px;
+            gap: 10px;
             max-width: 900px;
             margin: 0 auto;
         }
@@ -283,28 +296,30 @@
         .meta-item {
             background: var(--card-inner);
             padding: 10px 12px;
-            border-radius: 8px;
-            border-right: 3px solid var(--accent-blue);
-            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            border-right: 4px solid var(--accent-blue);
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .meta-item .label {
             font-size: 10.5px;
             color: var(--text-muted);
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
         
         .meta-item .value {
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             color: #fff;
         }
         
         .tasks-summary-bar {
             background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 8px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 10px;
             padding: 8px 12px;
             margin: 12px auto 0 auto;
             max-width: 900px;
@@ -312,7 +327,7 @@
             justify-content: space-around;
             align-items: center;
             font-size: 11.5px;
-            font-weight: 600;
+            font-weight: 700;
             flex-wrap: wrap;
             gap: 8px;
             color: #e2e8f0;
@@ -320,9 +335,8 @@
         
         .summary-badge {
             color: var(--accent-blue);
-            font-weight: 700;
+            font-weight: 800;
         }
-        /* شريط القوائم المنسدلة */
         
         .page-nav-bar {
             display: flex;
@@ -337,62 +351,70 @@
             color: var(--text-muted);
             border: 1px solid var(--border-color);
             padding: 9px 16px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             flex: 1;
             text-align: center;
-            min-width: 130px;
+            min-width: 120px;
             transition: all 0.2s ease;
+        }
+        
+        .btn-nav-page:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-main);
         }
         
         .btn-nav-page.active {
             background: var(--accent-blue);
             color: #0b1329;
             border-color: var(--accent-blue);
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.45);
         }
         
         .progress-section {
             max-width: 900px;
             margin: 12px auto 0 auto;
             text-align: center;
+            display: none;
         }
         
         .progress-container {
             background-color: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            padding: 3px;
-            margin-top: 5px;
+            padding: 4px;
+            margin-top: 6px;
+            border: 1px solid var(--border-color);
         }
         
         .progress-bar {
             width: 6.7%;
-            height: 6px;
+            height: 7px;
             background: var(--success-color);
             border-radius: 20px;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
         }
         
         .progress-text {
             font-size: 11px;
             color: var(--text-muted);
             display: block;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .controls-bar {
-            padding: 10px 12px;
+            padding: 14px 16px;
             background-color: var(--card-inner);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         
         .filter-group {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -411,49 +433,44 @@
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-muted);
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 700;
             cursor: pointer;
             flex: 1 1 auto;
             text-align: center;
-            min-width: 65px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-filter:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-main);
+            background: rgba(56, 189, 248, 0.08);
         }
         
         .btn-filter.active {
             background-color: var(--accent-blue);
             color: #0b1329;
-            font-weight: 700;
+            font-weight: 800;
             border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
         
         .btn-filter-completed {
             background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
             border-color: #10b981 !important;
             color: #ffffff !important;
-            font-weight: 700 !important;
-            flex: 2 1 100% !important;
-        }
-        
-        .btn-filter-completed.active {
-            background: #047857 !important;
-            border-color: #38bdf8 !important;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.7), inset 0 0 8px rgba(56, 189, 248, 0.4);
-            color: #ffffff !important;
-        }
-        
-        @media(min-width: 768px) {
-            .btn-filter-completed {
-                flex: unset !important;
-            }
+            font-weight: 800 !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
         }
         
         .search-print-wrapper {
             display: flex;
-            gap: 6px;
+            gap: 10px;
             width: 100%;
             flex-wrap: wrap;
+            align-items: center;
         }
         
         @media(min-width: 768px) {
@@ -464,27 +481,43 @@
         }
         
         .search-box {
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
-            font-size: 11.5px;
+            font-size: 12px;
             flex: 1;
             outline: none;
-            min-width: 140px;
+            min-width: 200px;
+            transition: border-color 0.2s ease;
+        }
+        
+        .search-box:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
         }
         
         .btn-action {
             background: var(--accent-indigo);
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 11.5px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
             cursor: pointer;
             white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-action:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
         }
         
         .page-section {
@@ -496,7 +529,7 @@
         }
         
         .sub-page-wrapper {
-            padding: 14px 10px;
+            padding: 16px 10px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -508,7 +541,7 @@
             margin-bottom: 12px;
             background: var(--card-inner);
             padding: 10px 14px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
         }
         
@@ -525,16 +558,18 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 13px;
+            transition: all 0.2s ease;
         }
         
         .section-close-btn:hover {
             background: var(--danger-color);
             color: #fff;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
         }
         
         .table-wrapper {
             width: 100%;
-            padding: 8px;
+            padding: 6px;
         }
         
         .desktop-table {
@@ -554,7 +589,7 @@
         .mobile-cards-container {
             display: none;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
         
         @media(max-width: 767px) {
@@ -568,7 +603,7 @@
             color: var(--text-main);
             padding: 10px;
             border-bottom: 2px solid var(--border-color);
-            font-weight: 700;
+            font-weight: 800;
         }
         
         td {
@@ -581,15 +616,16 @@
         .sub-card {
             background: var(--card-inner);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 12px;
             margin-bottom: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .lec-card.is-completed,
         .sub-card.is-completed {
-            background-color: rgba(16, 185, 129, 0.05) !important;
-            border-color: rgba(16, 185, 129, 0.3);
+            background-color: rgba(16, 185, 129, 0.06) !important;
+            border-color: rgba(16, 185, 129, 0.4);
         }
         
         .card-header-row {
@@ -600,8 +636,8 @@
         }
         
         .lec-badge-mobile {
-            font-weight: 700;
-            font-size: 13px;
+            font-weight: 800;
+            font-size: 12.5px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -611,30 +647,36 @@
         .status-toggle-btn {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             font-size: 10.5px;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 6px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.06);
             color: var(--text-main);
             cursor: pointer;
             border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        
+        .status-check:hover {
+            border-color: var(--accent-blue);
         }
         
         .is-completed .status-toggle-btn {
-            background: rgba(16, 185, 129, 0.2);
+            background: rgba(16, 185, 129, 0.25);
             color: var(--success-color);
             border-color: var(--success-color);
         }
         
         .tag {
             display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
+            padding: 3px 8px;
+            border-radius: 6px;
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 800;
             color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
         
         .tag-ch1 {
@@ -659,41 +701,45 @@
         
         .page-info {
             font-size: 10.5px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--accent-blue);
             display: block;
-            margin-top: 2px;
+            margin-top: 3px;
         }
         
         ul.topic-tree {
             margin: 4px 0;
-            padding-right: 15px;
+            padding-right: 16px;
             font-size: 12px;
         }
         
         ul.topic-tree li {
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
         
         .academic-outcome {
             font-size: 11.5px;
             color: var(--text-muted);
             margin-top: 6px;
-            background: rgba(0, 0, 0, 0.15);
-            padding: 6px;
-            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 7px;
+            border-radius: 8px;
             border-right: 3px solid var(--accent-blue);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-left: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
         
         .lab-box {
             margin-top: 6px;
-            padding: 6px;
+            padding: 7px;
             background-color: rgba(16, 185, 129, 0.08);
             border-right: 3px solid var(--success-color);
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 11px;
             color: var(--success-color);
-            font-weight: 600;
+            font-weight: 700;
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
         
         .instructor-only {
@@ -715,26 +761,38 @@
         .form-input,
         .form-select {
             width: 100%;
-            padding: 8px 12px;
+            padding: 9px 12px;
             margin-bottom: 10px;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
             font-family: inherit;
             font-size: 12px;
             outline: none;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
         }
         
         .btn-danger {
             background-color: var(--danger-color);
             color: white;
             border: none;
-            padding: 4px 8px;
+            padding: 4px 9px;
             border-radius: 6px;
             font-size: 10.5px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+            transition: opacity 0.2s ease;
+        }
+        
+        .btn-danger:hover {
+            opacity: 0.9;
         }
         
         .instructor-controls {
@@ -742,11 +800,11 @@
             margin-bottom: 12px;
             background: rgba(255, 51, 102, 0.08);
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid #ff3366;
-            box-shadow: 0 0 12px rgba(255, 51, 102, 0.4);
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.35);
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
             color: #ff80ab;
             font-size: 11.5px;
         }
@@ -754,6 +812,7 @@
         .instructor-controls.active {
             display: block;
         }
+        /* تصميم موحد ومميز لكافة النوافذ المنبثقة Modals بالثيم السيبراني الجذاب */
         
         .modal-overlay {
             position: fixed;
@@ -761,13 +820,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(11, 19, 41, 0.85);
-            backdrop-filter: blur(4px);
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(8px);
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            padding: 12px;
+            z-index: 999999;
+            padding: 15px;
         }
         
         .modal-overlay.active {
@@ -775,34 +834,50 @@
         }
         
         .modal-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 18px;
+            background: linear-gradient(145deg, #0d1530 0%, #090f24 100%);
+            border: 2px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 22px 20px;
             width: 100%;
             max-width: 480px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.25);
             color: var(--text-main);
             position: relative;
+            animation: modalScaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes modalScaleUp {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
         
         .modal-box h3 {
             margin-top: 0;
             color: var(--accent-blue);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 6px;
-            font-size: 16px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            font-size: 16.5px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .modal-close-btn {
             position: absolute;
             top: 14px;
             left: 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 28px;
-            height: 28px;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--danger-color);
+            color: #f87171;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -811,25 +886,27 @@
             font-weight: bold;
             font-size: 14px;
             z-index: 10;
+            transition: all 0.2s ease;
         }
         
         .modal-close-btn:hover {
             background: var(--danger-color);
             border-color: var(--danger-color);
             color: #fff;
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
         }
         
         #toastNotification {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 25px;
+            right: 15px;
             transform: translateY(120px);
             background: linear-gradient(135deg, #0f172a, #1e293b);
             color: #fff;
             border: 2px solid var(--accent-blue);
             padding: 12px 18px;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.3);
             z-index: 10000;
             font-size: 12.5px;
             font-weight: 700;
@@ -855,17 +932,28 @@
             font-weight: 800;
             margin-right: 4px;
             vertical-align: middle;
+            box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+        }
+        
+        .beta-badge {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            font-size: 9.5px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 800;
         }
         
         .color-switch-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 9px 12px;
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 6px;
+            border-radius: 10px;
+            margin-bottom: 7px;
         }
         
         .color-label {
@@ -907,7 +995,7 @@
             content: "";
             height: 16px;
             width: 16px;
-            left: 3px;
+            left: 2px;
             bottom: 2px;
             background-color: white;
             transition: .3s;
@@ -917,18 +1005,20 @@
         input:checked+.slider {
             background-color: var(--success-color);
             border-color: var(--success-color);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
         }
         
         input:checked+.slider:before {
-            transform: translateX(21px);
+            transform: translateX(22px);
         }
         
         .academic-footer {
-            padding: 12px;
+            padding: 14px;
             text-align: center;
             font-size: 11.5px;
             color: var(--text-muted);
             border-top: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.1);
         }
         
         @media print {
@@ -986,8 +1076,25 @@
 
 <body>
 
+    <!-- شاشة وضع الصيانة العامة الشاملة مع زر الدخول السري للدكتور -->
+    <div id="siteMaintenanceScreen">
+        <div class="maintenance-card">
+            <div style="font-size: 45px; margin-bottom: 15px;">🛠️</div>
+            <h2 style="color: var(--warning-color); margin-top: 0; font-size: 20px; font-weight: 800;">البوابة قيد الصيانة والتحديث</h2>
+            <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 20px;">
+                عزيزي الطالب، البوابة الأكاديمية لمساق التشفير وأمن المعلومات تخضع حالياً لأعمال صيانة وتحديث شاملة بواسطة أستاذ المساق. يرجى العودة لاحقاً.
+            </p>
+            <div style="font-size: 11px; color: var(--accent-blue); font-weight: 700; background: rgba(56,189,248,0.1); padding: 8px; border-radius: 8px; border: 1px solid rgba(56,189,248,0.3); margin-bottom: 16px;">
+                البروفيسور أ.د. إبراهيم المدادحة
+            </div>
+            <button class="btn-action" style="width: 100%; background: var(--accent-indigo); justify-content: center; padding: 10px;" onclick="openModal('instructorLoginModal')">
+                🔐 الدخول لقائمة الدكتور (فك الصيانة)
+            </button>
+        </div>
+    </div>
+
     <div id="toastNotification">
-        <span style="font-size:16px;">🔔</span>
+        <span style="font-size:18px;">🔔</span>
         <div>
             <div style="color:var(--accent-blue); font-size:11px; margin-bottom:2px;">تنبيه أكاديمي فوري</div>
             <span id="toastMessage">تم التحديث بنجاح!</span>
@@ -998,27 +1105,29 @@
         <div class="academic-header">
             <div class="top-bar">
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <span class="program-title">🎓 بوابة طلاب الدكتوراه</span>
-                    <span class="cloud-badge" id="cloudStatusBadge">🟢 متصل سحابياً (محمي)</span>
+                    <span class="program-title">🎓 بوابة الدكتوراه</span>
+                    <span class="cloud-badge" id="cloudStatusBadge">🟢 متصل</span>
                 </div>
+                <!-- أزرار علوية منظمة -->
                 <div class="header-actions">
-                    <button class="sys-btn" onclick="openModal('aboutModal')">👤 حول البوابة</button>
-                    <button class="sys-btn" onclick="openModal('policyModal')">📜 التعليمات</button>
-                    <button class="sys-btn" onclick="toggleTheme()">☀️ / 🌙 المظهر</button>
+                    <button class="sys-btn" style="background:rgba(16,185,129,0.18); border-color:#10b981; color:#34d399; font-weight:800;" onclick="openModal('betaInfoModal')">🔬 المختبرات <span class="beta-badge" style="font-size:8.5px; margin-right:3px;">Beta</span></button>
+                    <button class="sys-btn" onclick="openModal('aboutModal')">حول</button>
+                    <button class="sys-btn" onclick="openModal('policyModal')">تعليمات</button>
+                    <button class="sys-btn" onclick="toggleTheme()">☀️/🌙</button>
 
-                    <button class="sys-btn" style="background:rgba(56,189,248,0.15); border-color:var(--accent-blue); color:var(--accent-blue);" onclick="openModal('notificationsModal')">🔔 سجل الإشعارات <span id="notificationBadge" class="new-badge" style="display:none;">0</span></button>
+                    <button class="sys-btn" style="background:rgba(56,189,248,0.15); border-color:var(--accent-blue); color:var(--accent-blue);" onclick="openModal('notificationsModal')">🔔 <span id="notificationBadge" class="new-badge" style="display:none;">0</span></button>
 
-                    <button class="sys-btn instructor-only-flex" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#34d399;" onclick="openModal('instructorSettingsModal')">⚙️ إعدادات الثيمات</button>
+                    <button class="sys-btn instructor-only-flex" style="background:rgba(16,185,129,0.2); border-color:#10b981; color:#34d399;" onclick="openModal('instructorSettingsModal')">⚙️ إعدادات</button>
 
-                    <button class="sys-btn sys-btn-neon" id="modeToggleBtn" onclick="handleInstructorModeClick()" style="flex:2;">👨‍🏫 لوحة الدكتور</button>
+                    <button class="sys-btn sys-btn-neon" id="modeToggleBtn" onclick="handleInstructorModeClick()">👨‍🏫 لوحة الدكتور</button>
                 </div>
             </div>
 
             <h1>خطة التدريس الأكاديمية لمساق التشفير وأمن المعلومات</h1>
 
-            <!-- شريط الأخبار المتحرك والمستمر بلا انقطاع -->
+            <!-- شريط الأخبار المتحرك والمستمر -->
             <div class="top-ticker-bar">
-                <span class="ticker-title" onclick="updateFloatingTickerText()" title="اضغط للتعديل (للدكتور)">📢 تعميم عاجل</span>
+                <span class="ticker-title" onclick="updateFloatingTickerText()" title="اضغط للتعديل (للدكتور)">📢 تعميم</span>
                 <div class="ticker-content-wrap">
                     <span class="ticker-text" id="topTickerText">مرحباً بكم في بوابة مساق التشفير وأمن المعلومات - إعداد البروفيسور أ.د. إبراهيم المدادحة (المزامنة السحابية نشطة ومحدثة)</span>
                 </div>
@@ -1026,8 +1135,8 @@
 
             <div class="meta-grid">
                 <div class="meta-item"><span class="label">أستاذ المساق</span><span class="value">البروفيسور: أ.د. إبراهيم المدادحة</span></div>
-                <div class="meta-item"><span class="label">الساعات التدريسية</span><span class="value">3 ساعات (محاضرتين أسبوعياً)</span></div>
-                <div class="meta-item"><span class="label">الفصل والمستوى</span><span class="value">الفصل الأول (دكتوراه أمن سيبراني)</span></div>
+                <div class="meta-item"><span class="label">الساعات التدريسية</span><span class="value">3 ساعات أسبوعياً</span></div>
+                <div class="meta-item"><span class="label">الفصل والمستوى</span><span class="value">الفصل الأول (دكتوراه)</span></div>
                 <div class="meta-item"><span class="label">إجمالي المساق</span><span class="value">15 محاضرة أكاديمية</span></div>
             </div>
 
@@ -1037,9 +1146,9 @@
                 <span>🎯 الحالة: <span style="color:var(--success-color);">نشطة ومحدثة</span></span>
             </div>
 
-            <!-- شريط القوائم المنسدلة -->
+            <!-- شريط التبويبات الرئيسي -->
             <div class="page-nav-bar">
-                <button class="btn-nav-page active" id="btnPagePlan" onclick="handleMenuClick('plan', event)">📚 جدول الخطة</button>
+                <button class="btn-nav-page" id="btnPagePlan" onclick="handleMenuClick('plan', event)">📚 جدول الخطة</button>
                 <button class="btn-nav-page" id="btnPageResearch" onclick="handleMenuClick('research', event)">📖 البحوث <span id="resNavBadge" style="display:none;" class="new-badge">جديد</span></button>
                 <button class="btn-nav-page" id="btnPageQuizzes" onclick="handleMenuClick('quizzes', event)">📝 الامتحانات <span id="quizNavBadge" style="display:none;" class="new-badge">جديد</span></button>
             </div>
@@ -1056,11 +1165,11 @@
             ⚡ وضع الدكتور نشط (المزامنة السحابية الكاملة والمنع التام للجلسات المزدوجة حتى بين التبويبات مفعلان)
         </div>
 
-        <!-- جدول الخطة -->
-        <div id="pagePlan" class="page-section">
+        <!-- جدول الخطة (مخفي افتراضياً) -->
+        <div id="pagePlan" class="page-section hidden">
             <div class="controls-bar">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                    <span style="font-size:13px; font-weight:700; color:var(--accent-blue);">📚 جدول المحاضرات الأكاديمية</span>
+                    <span style="font-size:12.5px; font-weight:800; color:var(--accent-blue);">📚 جدول المحاضرات الأكاديمية</span>
                     <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                 </div>
                 <div class="filter-group">
@@ -1070,11 +1179,12 @@
                     <button class="btn-filter" onclick="filterChapter('ch3', this)">الفصل 3</button>
                     <button class="btn-filter" onclick="filterChapter('ch4', this)">الفصل 4</button>
                     <button class="btn-filter" onclick="filterChapter('ch5', this)">الفصل 5</button>
+                    <button class="btn-filter" style="background:rgba(16,185,129,0.15); border-color:#10b981; color:#34d399;" onclick="filterChapter('lab_only', this)">🔬 مختبرات Lab</button>
                     <button class="btn-filter btn-filter-completed" id="filterBtnCompleted" onclick="toggleCompletedFilter(this)">✔️ المنجز فقط</button>
                 </div>
                 <div class="search-print-wrapper">
                     <button class="btn-action" onclick="toggleDetailsCollapse()" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1px solid var(--border-color);">👁️ طي/توسيع</button>
-                    <input type="text" id="searchInput" class="search-box" placeholder="بحث فوري في الخطة..." onkeyup="applySearch()">
+                    <input type="text" id="searchInput" class="search-box" placeholder="بحث فوري..." onkeyup="applySearch()">
                     <button class="btn-action" onclick="window.print()">🖨️ طباعة</button>
                 </div>
             </div>
@@ -1094,13 +1204,13 @@
             </div>
         </div>
 
-        <!-- جدول البحوث -->
+        <!-- جدول البحوث (مخفي افتراضياً) -->
         <div id="pageResearch" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header">
-                    <h3 style="margin:0; color:var(--accent-blue); font-size:15px;">📖 البحوث والمتطلبات الأكاديمية</h3>
+                    <h3 style="margin:0; color:var(--accent-blue); font-size:14.5px; font-weight:800;">📖 البحوث والمتطلبات الأكاديمية</h3>
                     <div style="display:flex; gap:8px; align-items:center;">
-                        <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="switchPage('plan')">↩️ العودة للخطة</button>
+                        <button class="btn-action" style="padding:6px 12px; font-size:11.5px;" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                         <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                     </div>
                 </div>
@@ -1113,9 +1223,9 @@
                             <tr>
                                 <th>عنوان البحث / المهمة</th>
                                 <th>المتطلبات والتفاصيل</th>
-                                <th>موعد التسليم</th>
+                                <th>موعد التسليم والعد التنازلي</th>
                                 <th>الحالة / عدد من سلموا</th>
-                                <th id="resDeleteHeader" class="instructor-only" style="width:110px;">إدارة الحالة</th>
+                                <th id="resDeleteHeader" class="instructor-only" style="width:100px;">إدارة الحالة</th>
                             </tr>
                         </thead>
                         <tbody id="researchTableBody"></tbody>
@@ -1125,13 +1235,13 @@
             </div>
         </div>
 
-        <!-- جدول الامتحانات -->
+        <!-- جدول الامتحانات (مخفي افتراضياً) -->
         <div id="pageQuizzes" class="page-section hidden">
             <div class="sub-page-wrapper">
                 <div class="sub-page-header">
-                    <h3 style="margin:0; color:var(--accent-blue); font-size:15px;">📝 جدول الامتحانات والكويزات (مستقل ومنفصل تماماً سحابياً)</h3>
+                    <h3 style="margin:0; color:var(--accent-blue); font-size:14.5px; font-weight:800;">📝 جدول الامتحانات والكويزات</h3>
                     <div style="display:flex; gap:8px; align-items:center;">
-                        <button class="btn-action" style="padding:4px 10px; font-size:11px;" onclick="switchPage('plan')">↩️ العودة للخطة</button>
+                        <button class="btn-action" style="padding:6px 12px; font-size:11.5px;" onclick="switchPage('plan')">↩️ العودة للخطة</button>
                         <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                     </div>
                 </div>
@@ -1143,9 +1253,9 @@
                         <thead>
                             <tr>
                                 <th>عنوان الامتحان / الكويز</th>
-                                <th>موعد الامتحان</th>
+                                <th>موعد الامتحان والعد التنازلي</th>
                                 <th>علامة الامتحان / الحالة</th>
-                                <th id="quizDeleteHeader" class="instructor-only" style="width:110px;">إدارة الحالة</th>
+                                <th id="quizDeleteHeader" class="instructor-only" style="width:100px;">إدارة الحالة</th>
                             </tr>
                         </thead>
                         <tbody id="quizTableBody"></tbody>
@@ -1160,16 +1270,46 @@
         </div>
     </div>
 
-    <!-- Modal: إعدادات الثيمات الرئيسية الثلاثة -->
+    <!-- Modal: نافذة "سيتم إضافتها قريباً" لقسم المختبرات والتطبيقات العملية -->
+    <div class="modal-overlay" id="betaInfoModal">
+        <div class="modal-box" style="text-align: center; max-width: 440px;">
+            <div class="modal-close-btn" onclick="closeModal('betaInfoModal')">✕</div>
+
+            <div style="font-size: 45px; margin-bottom: 10px;">🔬</div>
+            <h3 style="color: var(--accent-blue); justify-content: center; border: none; padding: 0; font-size: 18px; font-weight: 800; margin-bottom: 12px;">
+                قسم المختبرات والتطبيقات العملية
+            </h3>
+
+            <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent-blue); border-radius: 12px; padding: 18px 15px; margin-bottom: 18px;">
+                <p style="font-size: 14px; font-weight: 700; color: #38bdf8; margin: 0; line-height: 1.6;">
+                    ⏳ سيتم إضافة المختبرات والتطبيقات العملية قريباً إن شاء الله.
+                </p>
+            </div>
+
+            <button class="btn-action" style="width: 100%; background: var(--accent-indigo); justify-content: center; padding: 9px;" onclick="closeModal('betaInfoModal')">
+                حسناً، فهمت
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal: إعدادات الثيمات الرئيسية الثلاثة ووضع الصيانة -->
     <div class="modal-overlay" id="instructorSettingsModal">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('instructorSettingsModal')">✕</div>
-            <h3>🎨 إعدادات الثيمات الرئيسية الثلاثة وتصفير القاعات</h3>
-            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">اختر أحد الثيمات الثلاثة أو قم بتصفير جلسات الأجهزة:</p>
+            <h3>⚙️ لوحة الإعدادات ووضع الصيانة</h3>
+            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px;">إدارة الثيمات ووضع الصيانة الشامل للطلاب:</p>
 
-            <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
+                <div class="color-switch-row" style="border-color: var(--warning-color); background: rgba(245, 158, 11, 0.06);">
+                    <span class="color-label" style="color: var(--warning-color);">🛠️ وضع الصيانة العام (إغلاق الموقع للطلاب)</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="sw_maintenance" onchange="handleMaintenanceToggle(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
                 <div class="color-switch-row">
-                    <span class="color-label" style="color: #38bdf8;">🔵 الأزرق السيبراني (Cyber Blue)</span>
+                    <span class="color-label" style="color: #38bdf8;">🔵 الأزرق السيبراني</span>
                     <label class="toggle-switch">
                         <input type="checkbox" id="sw_blue" onchange="handleCapsuleToggle('#38bdf8', this)">
                         <span class="slider"></span>
@@ -1177,7 +1317,7 @@
                 </div>
 
                 <div class="color-switch-row">
-                    <span class="color-label" style="color: #ef4444;">🔴 الأحمر الناري (Neon Red)</span>
+                    <span class="color-label" style="color: #ef4444;">🔴 الأحمر الناري</span>
                     <label class="toggle-switch">
                         <input type="checkbox" id="sw_red" onchange="handleCapsuleToggle('#ef4444', this)">
                         <span class="slider"></span>
@@ -1185,7 +1325,7 @@
                 </div>
 
                 <div class="color-switch-row">
-                    <span class="color-label" style="color: #10b981;">🟢 الأخضر الزمردي (Emerald Green)</span>
+                    <span class="color-label" style="color: #10b981;">🟢 الأخضر الزمردي</span>
                     <label class="toggle-switch">
                         <input type="checkbox" id="sw_green" onchange="handleCapsuleToggle('#10b981', this)">
                         <span class="slider"></span>
@@ -1194,35 +1334,33 @@
             </div>
 
             <div style="display: flex; gap: 8px; margin-top: 10px;">
-                <button class="btn-action" style="flex: 1; background: rgba(56,189,248,0.2); border:1px solid var(--accent-blue); color:var(--accent-blue);" onclick="updateFloatingTickerText(); closeModal('instructorSettingsModal');">📢 تعديل شريط الأخبار</button>
+                <button class="btn-action" style="flex: 1; background: rgba(56,189,248,0.2); border:1px solid var(--accent-blue); color:var(--accent-blue);" onclick="updateFloatingTickerText(); closeModal('instructorSettingsModal');">📢 تعديل الشريط</button>
                 <button class="btn-action" style="flex: 1; background: rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#f59e0b;" onclick="broadcastAlertToAllStudents(); closeModal('instructorSettingsModal');">📢 إرسال تعميم</button>
             </div>
 
-            <button class="btn-action" style="width:100%; margin-top:8px; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="clearAndResetEntireCloudDatabase(); closeModal('instructorSettingsModal');">🗑️ تفريغ وفراغ القاعدة تماماً (إعادة ضبط)</button>
-            <button class="btn-action" style="width:100%; margin-top:6px; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="forceResetAllDoctorSessions(); closeModal('instructorSettingsModal');">🔄 صفر جميع جلسات الأجهزة سحابياً</button>
-            <button class="btn-action" style="width:100%; margin-top:6px;" onclick="closeModal('instructorSettingsModal')">إغلاق النافذة</button>
+            <button class="btn-action" style="width:100%; margin-top:8px; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="clearAndResetEntireCloudDatabase(); closeModal('instructorSettingsModal');">🗑️ تفريغ القاعدة تماماً (إعادة ضبط)</button>
+            <button class="btn-action" style="width:100%; margin-top:6px; background: rgba(239,68,68,0.2); border:1px solid #ef4444; color:#f87171;" onclick="forceResetAllDoctorSessions(); closeModal('instructorSettingsModal');">🔄 صفر جميع جلسات الأجهزة</button>
+            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('instructorSettingsModal')">إغلاق</button>
         </div>
     </div>
 
     <!-- Modal: مركز سجل الإشعارات -->
     <div class="modal-overlay" id="notificationsModal">
-        <div class="modal-box" style="max-width: 600px;">
+        <div class="modal-box" style="max-width: 550px;">
             <div class="modal-close-btn" onclick="closeModal('notificationsModal')">✕</div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; padding-left: 45px; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; padding-left: 40px; margin-bottom: 10px;">
                 <h3 style="margin: 0; border: none; padding: 0; font-size: 15px;">🔔 سجل الإشعارات والتعاميم</h3>
-                <button class="btn-action" style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-blue); color: var(--accent-blue); font-size: 11px; padding: 4px 10px;" onclick="refreshNotificationsFromCloud()">🔄 تحديث الإشعارات</button>
+                <button class="btn-action" style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-blue); color: var(--accent-blue); font-size: 11px; padding: 4px 10px;" onclick="refreshNotificationsFromCloud()">🔄 تحديث</button>
             </div>
 
-            <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">أرشيف كامل لكافة التعاميم والإشعارات الأكاديمية الصادرة:</p>
-
-            <div id="notificationsListContainer" style="max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px;">
-                <div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 20px;">لا توجد إشعارات سابقة مسجلة</div>
+            <div id="notificationsListContainer" style="max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; border: 1px solid var(--border-color); padding: 8px; border-radius: 8px;">
+                <div style="text-align: center; color: var(--text-muted); font-size: 11.5px; padding: 18px;">لا توجد إشعارات سابقة مسجلة</div>
             </div>
 
             <div style="display: flex; gap: 8px;">
-                <button class="btn-action instructor-only" style="background: var(--danger-color); flex: 1;" onclick="clearAllNotificationsArchive()">🗑️ مسح السجل بالكامل</button>
-                <button class="btn-action" style="flex: 2;" onclick="markAllNotificationsAsRead(); closeModal('notificationsModal');">إغلاق وتحديد الكل كمقروء</button>
+                <button class="btn-action instructor-only" style="background: var(--danger-color); flex: 1;" onclick="clearAllNotificationsArchive()">🗑️ مسح السجل</button>
+                <button class="btn-action" style="flex: 2;" onclick="markAllNotificationsAsRead(); closeModal('notificationsModal');">إغلاق وتحديد كمقروء</button>
             </div>
         </div>
     </div>
@@ -1231,12 +1369,12 @@
     <div class="modal-overlay" id="addResearchModal">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('addResearchModal')">✕</div>
-            <h3>إضافة بحث أو مهمة جديدة</h3>
+            <h3>📖 إضافة بحث أو مهمة جديدة</h3>
             <input type="text" id="resTitle" class="form-input" placeholder="عنوان البحث / المهمة">
             <input type="text" id="resReqs" class="form-input" placeholder="متطلبات البحث والتفاصيل">
-            <input type="text" id="resDeadline" class="form-input" placeholder="موعد التسليم (مثل: الأسبوع العاشر)">
+            <input type="datetime-local" id="resDeadline" class="form-input">
             <input type="text" id="resSubmittedCount" class="form-input" placeholder="عدد من سلموا (مثل: 3 من أصل 5)">
-            <button class="btn-action" style="margin-top:4px;" onclick="addResearchItem()">حفظ ونشر فوري سحابياً</button>
+            <button class="btn-action" style="width:100%; margin-top:6px; justify-content:center;" onclick="addResearchItem()">حفظ ونشر فوري سحابياً</button>
         </div>
     </div>
 
@@ -1244,11 +1382,11 @@
     <div class="modal-overlay" id="addQuizModal">
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('addQuizModal')">✕</div>
-            <h3>إضافة امتحان أو كويز جديد (سحابياً)</h3>
+            <h3>📝 إضافة امتحان أو كويز جديد</h3>
             <input type="text" id="quizName" class="form-input" placeholder="عنوان الامتحان / الكويز">
-            <input type="text" id="quizDate" class="form-input" placeholder="موعد الامتحان (التاريخ والوقت)">
+            <input type="datetime-local" id="quizDate" class="form-input">
             <input type="text" id="quizScore" class="form-input" placeholder="علامة الامتحان (مثل: 15 علامة)">
-            <button class="btn-action" style="margin-top:4px;" onclick="addQuizItem()">حفظ ونشر فوري لكافة الأجهزة</button>
+            <button class="btn-action" style="width:100%; margin-top:6px; justify-content:center;" onclick="addQuizItem()">حفظ ونشر فوري للجميع</button>
         </div>
     </div>
 
@@ -1258,26 +1396,58 @@
             <div class="modal-close-btn" onclick="closeModal('instructorLoginModal')">✕</div>
             <h3>🔒 تسجيل دخول الدكتور</h3>
             <p style="margin-bottom: 12px; font-size:12px; color:var(--text-muted);">أدخل رمز المرور الخاص بك:</p>
-            <input type="password" id="instructorPinInput" class="form-input" placeholder="أدخل رمز المرور..." style="font-size: 14px; text-align: center; letter-spacing: 3px;" onkeydown="if(event.key==='Enter') verifyInstructorPinSecure()">
+            <input type="password" id="instructorPinInput" class="form-input" autocomplete="new-password" placeholder="أدخل رمز المرور..." style="font-size: 15px; text-align: center; letter-spacing: 4px;" onkeydown="if(event.key==='Enter') verifyInstructorPinSecure()">
             <div style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="btn-action" style="flex: 1; background: var(--success-color);" onclick="verifyInstructorPinSecure()">دخول</button>
-                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border: 1px solid var(--danger-color); color: #f87171;" onclick="forceResetAllDoctorSessions(); closeModal('instructorLoginModal');">تفريغ القفل</button>
+                <button class="btn-action" style="flex: 1; background: var(--success-color); justify-content:center;" onclick="verifyInstructorPinSecure()">دخول</button>
+                <button class="btn-action" style="flex: 1; background: rgba(239,68,68,0.2); border: 1px solid var(--danger-color); color: #f87171; justify-content:center;" onclick="forceResetAllDoctorSessions(); closeModal('instructorLoginModal');">تفريغ القفل</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal 1: حول البوابة -->
+    <!-- Modal 1: حول البوابة (تصميم مركزي متناسق بالكامل ومحدث) -->
     <div class="modal-overlay" id="aboutModal">
-        <div class="modal-box">
+        <div class="modal-box" style="max-width: 500px; text-align: center;">
             <div class="modal-close-btn" onclick="closeModal('aboutModal')">✕</div>
-            <h3>👤 حول البوابة الأكاديمية</h3>
-            <p>بوابة رسمية مخصصة لمتابعة جدول المحاضرات، المتطلبات الأكاديمية، والامتحانات لمساق التشفير وأمن المعلومات - مرحلة الدكتوراه.</p>
-            <ul>
-                <li><strong>إعداد وتقديم:</strong> البروفيسور أ.د. إبراهيم المدادحة</li>
-                <li><strong>التخصص:</strong> الأمن السيبراني وعلم التشفير</li>
-                <li><strong>النظام:</strong> مزامنة سحابية مباشرة.</li>
-            </ul>
-            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('aboutModal')">إغلاق</button>
+
+            <!-- عنوان النافذة بالمنتصف -->
+            <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px;">
+                <div style="font-size: 30px; margin-bottom: 4px;">👤</div>
+                <h3 style="margin: 0; border: none; padding: 0; font-size: 18px; justify-content: center; display: flex; align-items: center; gap: 8px;">
+                    حول البوابة الأكاديمية
+                </h3>
+                <div style="margin-top: 6px;">
+                    <span class="beta-badge">نسخة بيتا تجريبية (Beta)</span>
+                </div>
+            </div>
+
+            <!-- مربع الوصف بالمنتصف -->
+            <div style="background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 14px; margin-bottom: 14px;">
+                <p style="font-size: 13px; line-height: 1.6; color: var(--text-main); margin: 0;">
+                    بوابة أكاديمية رسمية متطورة مخصصة لمتابعة جدول المحاضرات، المتطلبات، والامتحانات لمساق التشفير وأمن المعلومات - مرحلة الدكتوراه.
+                </p>
+            </div>
+
+            <!-- بطاقات المعلومات المركزية المتناسقة -->
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;">
+                <div style="background: var(--card-inner); border: 1px solid var(--border-color); border-radius: 10px; padding: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">👨‍🏫 إعداد وتقديم</span>
+                    <span style="font-size: 12.5px; font-weight: 800; color: var(--accent-blue);">البروفيسور أ.د. إبراهيم المدادحة</span>
+                </div>
+
+                <div style="background: var(--card-inner); border: 1px solid var(--border-color); border-radius: 10px; padding: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">🔒 التخصص الأكاديمي</span>
+                    <span style="font-size: 12.5px; font-weight: 800; color: #34d399;">الأمن السيبراني وعلم التشفير</span>
+                </div>
+
+                <div style="background: var(--card-inner); border: 1px solid var(--border-color); border-radius: 10px; padding: 11px; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;">⚡ حالة النظام</span>
+                    <span style="font-size: 12px; font-weight: 800; color: #fbbf24;">نسخة بيتا تجريبية (Beta)</span>
+                </div>
+            </div>
+
+            <button class="btn-action" style="width: 100%; justify-content: center; padding: 10px; background: var(--accent-indigo);" onclick="closeModal('aboutModal')">
+                إغلاق النافذة
+            </button>
         </div>
     </div>
 
@@ -1286,21 +1456,21 @@
         <div class="modal-box">
             <div class="modal-close-btn" onclick="closeModal('policyModal')">✕</div>
             <h3>📜 تعليمات وإرشادات التسليم</h3>
-            <ul>
+            <ul style="font-size: 12px; line-height: 1.8; padding-right: 18px; margin-bottom: 15px; color: var(--text-main);">
                 <li>يجب تسليم جميع البحوث والمتطلبات في الموعد المحدد.</li>
-                <li>تُقدم التقارير بصيغة PDF أو مطبوعة حسب التوجيهات.</li>
+                <li>تُقدم التقارير أو الملفات المطلوبة حسب التوجيهات الرسمية.</li>
                 <li>ضرورة توثيق المراجع والورقات العلمية وفق معايير الأمان المعتمدة.</li>
             </ul>
-            <button class="btn-action" style="width:100%; margin-top:8px;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
+            <button class="btn-action" style="width:100%; justify-content:center;" onclick="closeModal('policyModal')">حسناً، فهمت</button>
         </div>
     </div>
 
     <!-- Modal: التنبيهات الداخلية -->
     <div class="modal-overlay" id="customAlertModal">
         <div class="modal-box" style="text-align: center;">
-            <h3 id="customAlertTitle" style="color: var(--accent-blue); margin-bottom: 10px;">تنبيه النظام</h3>
-            <p id="customAlertMessage" style="font-size: 13.5px; color: var(--text-main); margin-bottom: 20px; line-height: 1.6;"></p>
-            <button class="btn-action" style="width: 100%; background: var(--accent-blue); color: #0b1329; font-weight: 700; padding: 8px;" onclick="closeModal('customAlertModal')">موافق</button>
+            <h3 id="customAlertTitle" style="color: var(--accent-blue); margin-bottom: 10px; justify-content: center; border:none; padding:0;">تنبيه النظام</h3>
+            <p id="customAlertMessage" style="font-size: 13px; color: var(--text-main); margin-bottom: 18px; line-height: 1.6;"></p>
+            <button class="btn-action" style="width: 100%; background: var(--accent-blue); color: #0b1329; font-weight: 800; padding: 9px; justify-content: center;" onclick="closeModal('customAlertModal')">موافق</button>
         </div>
     </div>
 
@@ -1365,8 +1535,6 @@
         try {
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
-
-            // تصفير الجلسة تلقائياً عند فتح التبويب أو إعادة التحميل
             db.ref('zdvr_doctor_active_session').remove();
         } catch (e) {
             console.error("خطأ في تهيئة النظام السحابي");
@@ -1388,7 +1556,7 @@
         const SECURE_INSTRUCTOR_HASH = "ad5f9478d603fe97eae2bbff07f76fe7f18610343b5f3bc8e00945ee51b30d2c";
 
         async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
+            const msgBuffer = new TextEncoder().encode(message.trim());
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
@@ -1579,7 +1747,6 @@
         let quizzesData = [...defaultQuizzes];
 
         let isFirstCloudLoad = true;
-
         let clickCounts = {
             plan: 0,
             research: 0,
@@ -1598,23 +1765,28 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 5500);
-
             triggerSystemNativeNotification("تنبيه أكاديمي فوري", msg);
         }
 
         window.addEventListener('load', () => {
             requestSystemNotificationPermission();
             closeAllPages();
+
+            const savedCollapse = localStorage.getItem('zdvr_details_collapsed');
+            if (savedCollapse === 'true') {
+                isDetailsCollapsed = true;
+                renderLectures();
+            }
         });
 
         if (db) {
             db.ref('.info/connected').on('value', (snap) => {
                 const badge = document.getElementById('cloudStatusBadge');
                 if (snap.val() === true) {
-                    badge.innerText = "🟢 متصل سحابياً (محمي)";
+                    badge.innerText = "🟢 متصل";
                     badge.style.color = "#34d399";
                 } else {
-                    badge.innerText = "🔴 غير متصل بالإنترنت";
+                    badge.innerText = "🔴 غير متصل";
                     badge.style.color = "#ef4444";
                 }
             });
@@ -1643,6 +1815,17 @@
                         if (settings.latestMessage && !isFirstCloudLoad) {
                             showInAppToast(settings.latestMessage);
                         }
+                    }
+
+                    const maintenanceActive = settings.siteMaintenanceActive === true;
+                    const maintCheckbox = document.getElementById('sw_maintenance');
+                    if (maintCheckbox) maintCheckbox.checked = maintenanceActive;
+
+                    const screen = document.getElementById('siteMaintenanceScreen');
+                    if (maintenanceActive && !isInstructorMode) {
+                        screen.classList.add('active');
+                    } else {
+                        screen.classList.remove('active');
                     }
                 }
             });
@@ -1687,6 +1870,7 @@
             isInstructorMode = active;
             const btn = document.getElementById('modeToggleBtn');
             const banner = document.getElementById('instructorStatusBanner');
+            const screen = document.getElementById('siteMaintenanceScreen');
 
             if (active) {
                 btn.innerText = "👨‍🎓 العودة للطلاب";
@@ -1694,20 +1878,47 @@
                 btn.style.background = "var(--success-color)";
                 btn.style.color = "#fff";
                 banner.classList.add('active');
+                screen.classList.remove('active');
             } else {
                 btn.innerText = "👨‍🏫 لوحة الدكتور";
                 btn.classList.add('sys-btn-neon');
                 btn.style.background = "";
                 btn.style.color = "";
                 banner.classList.remove('active');
+
+                if (db) {
+                    db.ref('zdvr_portal_settings/siteMaintenanceActive').get().then(snap => {
+                        if (snap.val() === true) screen.classList.add('active');
+                    });
+                }
             }
             applyInstructorUIVisibility();
             renderAll();
         }
 
+        function handleMaintenanceToggle(checkboxElem) {
+            if (!isInstructorMode) return;
+            const isChecked = checkboxElem.checked;
+            const screen = document.getElementById('siteMaintenanceScreen');
+
+            if (isChecked) {
+                screen.classList.add('active');
+            } else {
+                screen.classList.remove('active');
+            }
+
+            if (db) {
+                db.ref('zdvr_portal_settings').update({
+                    siteMaintenanceActive: isChecked,
+                    latestMessage: isChecked ? "🛠️ البوابة قيد الصيانة والتحديث الآن." : "✨ تم إيقاف وضع الصيانة وعودة البوابة للعمل."
+                });
+            }
+            showInAppToast(isChecked ? "تم تفعيل وضع الصيانة للجميع." : "تم إلغاء وضع الصيانة بنجاح.");
+        }
+
         function setNeonColorProperties(hex) {
             document.documentElement.style.setProperty('--neon-color', hex);
-            document.documentElement.style.setProperty('--neon-glow', `0 0 15px ${hex}, inset 0 0 8px ${hex}`);
+            document.documentElement.style.setProperty('--neon-glow', `0 0 20px ${hex}, inset 0 0 10px ${hex}`);
         }
 
         function syncToggleSwitchesUI(activeHex) {
@@ -1729,7 +1940,6 @@
         function handleCapsuleToggle(hex, checkboxElem) {
             if (!isInstructorMode) return;
             const isChecked = checkboxElem.checked;
-
             setNeonColorProperties(hex);
             syncToggleSwitchesUI(isChecked ? hex : null);
 
@@ -1782,13 +1992,13 @@
 
         function clearAndResetEntireCloudDatabase() {
             if (!isInstructorMode) return;
-            if (confirm('هل أنت متأكد تماماً من تفريغ جداول البيانات السحابية (البحوث والامتحانات) وجعلها فارغة تماماً لتضيف منها يدوياً؟')) {
+            if (confirm('هل أنت متأكد تماماً من تفريغ جداول البيانات السحابية وجعلها فارغة تماماً؟')) {
                 lecturesData = [...defaultLectures];
                 researchData = [];
                 quizzesData = [];
                 syncAllToCloud();
                 renderAll();
-                showCustomAlert("🗑️ تم التفريغ التام", "تمت تهيئة وتفريغ جداول البحوث والامتحانات في القاعدة السحابية بنجاح. أصبحت فارغة وجاهزة لإضافتك.");
+                showCustomAlert("🗑️ تم التفريغ التام", "تمت تهيئة وتفريغ جداول البحوث والامتحانات بنجاح.");
             }
         }
 
@@ -1842,16 +2052,16 @@
             }
 
             if (cloudNotificationsList.length === 0) {
-                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 12px; padding: 20px;">لا توجد إشعارات سابقة مسجلة</div>`;
+                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 11.5px; padding: 18px;">لا توجد إشعارات سابقة مسجلة</div>`;
                 return;
             }
 
             [...cloudNotificationsList].reverse().forEach((item, index) => {
                         const div = document.createElement('div');
-                        div.style.cssText = `background: var(--card-inner); padding: 10px; border-radius: 6px; border-right: 3px solid var(--accent-blue); font-size: 12px; display:flex; justify-content:space-between; align-items:center;`;
+                        div.style.cssText = `background: var(--card-inner); padding: 9px; border-radius: 8px; border-right: 3px solid var(--accent-blue); font-size: 12px; display:flex; justify-content:space-between; align-items:center;`;
                         div.innerHTML = `
                     <div>
-                        <div style="font-weight:700; color:var(--accent-blue); margin-bottom:2px;">📌 تعميم أكاديمي رسمي</div>
+                        <div style="font-weight:700; color:var(--accent-blue); margin-bottom:3px;">📌 تعميم أكاديمي رسمي</div>
                         <div>${item.text}</div>
                         <div style="font-size:9.5px; color:var(--text-muted); margin-top:4px;">📅 ${item.time}</div>
                     </div>
@@ -1864,9 +2074,7 @@
         function deleteNotificationItem(index) {
             if (!isInstructorMode) return;
             cloudNotificationsList.splice(index, 1);
-            if (db) {
-                db.ref('zdvr_portal_settings').update({ notificationsList: cloudNotificationsList });
-            }
+            if (db) { db.ref('zdvr_portal_settings').update({ notificationsList: cloudNotificationsList }); }
             updateNotificationsUI();
         }
 
@@ -1874,18 +2082,14 @@
             if (!isInstructorMode) return;
             if (confirm('هل أنت متأكد من مسح كافة سجل الإشعارات والتعاميم سحابياً؟')) {
                 cloudNotificationsList = [];
-                if (db) {
-                    db.ref('zdvr_portal_settings').update({ notificationsList: [], latestMessage: null });
-                }
+                if (db) { db.ref('zdvr_portal_settings').update({ notificationsList: [], latestMessage: null }); }
                 updateNotificationsUI();
             }
         }
 
         function markAllNotificationsAsRead() {
             cloudNotificationsList.forEach(n => n.read = true);
-            if (db) {
-                db.ref('zdvr_portal_settings').update({ notificationsList: cloudNotificationsList });
-            }
+            if (db) { db.ref('zdvr_portal_settings').update({ notificationsList: cloudNotificationsList }); }
             document.getElementById('notificationBadge').style.display = 'none';
         }
 
@@ -1903,13 +2107,8 @@
             if (!isInstructorMode) return;
             const msg = prompt("أدخل نص الإشعار المراد إرساله سحابياً لجميع الأجهزة:");
             if (msg && msg.trim()) {
-                const newNotif = {
-                    text: msg.trim(),
-                    time: new Date().toLocaleString('ar-EG'),
-                    read: false
-                };
+                const newNotif = { text: msg.trim(), time: new Date().toLocaleString('ar-EG'), read: false };
                 cloudNotificationsList.push(newNotif);
-
                 if (db) {
                     db.ref('zdvr_portal_settings').update({
                         notificationsList: cloudNotificationsList,
@@ -1921,29 +2120,52 @@
             }
         }
 
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
+        function openModal(id) { 
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('active'); 
+                if (id === 'instructorLoginModal') {
+                    const pinInput = document.getElementById('instructorPinInput');
+                    if (pinInput) {
+                        pinInput.value = '';
+                    }
+                }
+            }
         }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
+        function closeModal(id) { 
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('active'); 
+                if (id === 'instructorLoginModal') {
+                    const pinInput = document.getElementById('instructorPinInput');
+                    if (pinInput) {
+                        pinInput.value = '';
+                    }
+                }
+            }
         }
 
         function handleInstructorModeClick() {
             if (!isInstructorMode) {
-                document.getElementById('instructorPinInput').value = '';
+                const pinInput = document.getElementById('instructorPinInput');
+                if (pinInput) pinInput.value = '';
                 openModal('instructorLoginModal');
-                setTimeout(() => document.getElementById('instructorPinInput').focus(), 100);
+                setTimeout(() => {
+                    if (pinInput) {
+                        pinInput.value = '';
+                        pinInput.focus();
+                    }
+                }, 100);
             } else {
-                if (db) {
-                    db.ref('zdvr_doctor_active_session').remove();
-                }
+                if (db) { db.ref('zdvr_doctor_active_session').remove(); }
                 setInstructorModeActive(false);
             }
         }
 
         async function verifyInstructorPinSecure() {
-            const pin = document.getElementById('instructorPinInput').value;
+            const pinInput = document.getElementById('instructorPinInput');
+            const pin = pinInput ? pinInput.value : '';
             const inputHash = await sha256(pin);
 
             if (inputHash === SECURE_INSTRUCTOR_HASH) {
@@ -1953,34 +2175,36 @@
                         loggedInAt: new Date().toISOString()
                     });
                 }
-
+                if (pinInput) pinInput.value = '';
                 closeModal('instructorLoginModal');
                 setInstructorModeActive(true);
-                showInAppToast("مرحباً بك يا دكتور إبراهيم، تم تسجيل الدخول بنجاح.");
+
+                const screen = document.getElementById('siteMaintenanceScreen');
+                const isMaintenanceActive = screen.classList.contains('active') || (document.getElementById('sw_maintenance') && document.getElementById('sw_maintenance').checked);
+                
+                if (isMaintenanceActive) {
+                    showInAppToast("مرحباً بك يا دكتور إبراهيم، تم تسجيل الدخول بنجاح وفك الصيانة على جهازك.");
+                } else {
+                    showInAppToast("مرحباً بك يا دكتور إبراهيم، تم تسجيل الدخول بنجاح.");
+                }
             } else {
                 showCustomAlert("خطأ في المصادقة", "رمز المرور غير صحيح. يرجى المحاولة مجدداً.");
-                document.getElementById('instructorPinInput').value = '';
-                document.getElementById('instructorPinInput').focus();
+                if (pinInput) {
+                    pinInput.value = '';
+                    pinInput.focus();
+                }
             }
         }
 
         function applyInstructorUIVisibility() {
             const instructorElements = document.querySelectorAll('.instructor-only');
             instructorElements.forEach(el => {
-                if (isInstructorMode) {
-                    el.classList.add('active-instructor');
-                } else {
-                    el.classList.remove('active-instructor');
-                }
+                if (isInstructorMode) { el.classList.add('active-instructor'); } else { el.classList.remove('active-instructor'); }
             });
 
             const instructorFlexElements = document.querySelectorAll('.instructor-only-flex');
             instructorFlexElements.forEach(el => {
-                if (isInstructorMode) {
-                    el.classList.add('active-instructor');
-                } else {
-                    el.classList.remove('active-instructor');
-                }
+                if (isInstructorMode) { el.classList.add('active-instructor'); } else { el.classList.remove('active-instructor'); }
             });
             updateNotificationsUI();
         }
@@ -1989,14 +2213,17 @@
             ['pagePlan', 'pageResearch', 'pageQuizzes'].forEach(p => document.getElementById(p).classList.add('hidden'));
             ['btnPagePlan', 'btnPageResearch', 'btnPageQuizzes'].forEach(b => document.getElementById(b).classList.remove('active'));
             document.getElementById('progressSection').style.display = 'none';
+            localStorage.removeItem('zdvr_last_active_page');
         }
 
         function handleMenuClick(page, event) {
-            const targetSec = (page === 'plan') ? 'pagePlan' : (page === 'research' ? 'pageResearch' : 'pageQuizzes');
+            let targetSec = 'pagePlan';
+            if (page === 'research') targetSec = 'pageResearch';
+            else if (page === 'quizzes') targetSec = 'pageQuizzes';
+
             const isCurrentlyOpen = !document.getElementById(targetSec).classList.contains('hidden');
 
             clickCounts[page]++;
-            
             if (clickCounts[page] === 3 || isCurrentlyOpen) {
                 closeAllPages();
                 clickCounts[page] = 0;
@@ -2005,16 +2232,14 @@
             }
 
             clearTimeout(clickTimers[page]);
-            clickTimers[page] = setTimeout(() => {
-                clickCounts[page] = 0;
-            }, 800);
-
+            clickTimers[page] = setTimeout(() => { clickCounts[page] = 0; }, 800);
             switchPage(page);
         }
 
         function switchPage(page) {
             closeAllPages();
             const progressSection = document.getElementById('progressSection');
+            localStorage.setItem('zdvr_last_active_page', page);
 
             if (page === 'research') {
                 document.getElementById('pageResearch').classList.remove('hidden');
@@ -2031,6 +2256,7 @@
 
         function toggleDetailsCollapse() {
             isDetailsCollapsed = !isDetailsCollapsed;
+            localStorage.setItem('zdvr_details_collapsed', isDetailsCollapsed);
             renderLectures();
         }
 
@@ -2068,6 +2294,7 @@
                 tr.className = completedClass;
                 tr.setAttribute('data-chapter', lec.chapter);
                 tr.setAttribute('data-completed', lec.isCompleted);
+                tr.setAttribute('data-lab', lec.lab ? 'true' : 'false');
 
                 tr.innerHTML = `
         <td style="text-align: center;"><span style="font-weight:bold;">${lec.id}</span>${checkboxHtml}</td>
@@ -2097,6 +2324,7 @@
                 card.className = `lec-card ${completedClass}`;
                 card.setAttribute('data-chapter', lec.chapter);
                 card.setAttribute('data-completed', lec.isCompleted);
+                card.setAttribute('data-lab', lec.lab ? 'true' : 'false');
                 card.innerHTML = `
         <div class="card-header-row"><div class="lec-badge-mobile"><span>${lec.id}</span> <span class="card-title"></span></div>${checkboxHtml}</div>
         <div><span class="tag ${lec.chClass}">${lec.chName}</span><span class="page-info card-pages" style="display:inline-block; margin-right:6px;"></span></div>
@@ -2136,6 +2364,15 @@
             }
         }
 
+        function getCountdownTimeString(dateString) {
+            if (!dateString) return 'مفتوح';
+            const diff = new Date(dateString) - new Date();
+            if (diff <= 0) return 'انتهى الموعد';
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            return `متبقي: ${days} يوم و ${hours} ساعة`;
+        }
+
         function renderResearch() {
             const tbody = document.getElementById('researchTableBody');
             const mobileContainer = document.getElementById('mobileResearchContainer');
@@ -2152,18 +2389,19 @@
                 const isDone = item.isCompleted;
                 const statusText = isDone ? '✔️ منجز' : '⏳ نشط';
                 const rowClass = isDone ? 'is-completed' : '';
+                const countdownStr = getCountdownTimeString(item.deadline);
 
                 const tr = document.createElement('tr');
                 tr.className = rowClass;
                 tr.innerHTML = `
         <td><strong></strong></td>
         <td></td>
-        <td><span style="color:var(--accent-blue); font-weight:bold;" class="res-deadline"></span></td>
+        <td><span style="color:var(--accent-blue); font-weight:bold;" class="res-deadline"></span><div style="font-size:10px; color:var(--warning-color);">${countdownStr}</div></td>
         <td><span style="font-weight:bold;" class="res-status"></span> <span class="res-sub"></span></td>
       `;
                 tr.querySelector('strong').textContent = item.title;
                 tr.children[1].textContent = item.reqs;
-                tr.querySelector('.res-deadline').textContent = item.deadline;
+                tr.querySelector('.res-deadline').textContent = item.deadline || 'بدون تحديد';
                 const stSpan = tr.querySelector('.res-status');
                 stSpan.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
                 stSpan.textContent = statusText;
@@ -2176,7 +2414,7 @@
           <button class="status-toggle-btn toggle-btn"></button>
           <button class="btn-danger" style="margin-top:4px;">حذف</button>
         `;
-                    tdAdmin.querySelector('.toggle-btn').textContent = isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز';
+                    tdAdmin.querySelector('.toggle-btn').textContent = isDone ? 'إلغاء' : 'إنجاز';
                     tdAdmin.querySelector('.toggle-btn').onclick = () => toggleResearchStatus(item.id);
                     tdAdmin.querySelector('.btn-danger').onclick = () => deleteResearch(item.id);
                     tr.appendChild(tdAdmin);
@@ -2188,6 +2426,7 @@
                 card.innerHTML = `
         <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;" class="card-title"></div>
         <div style="font-size:12px; margin-bottom:6px;" class="card-reqs"></div>
+        <div style="font-size:10.5px; color:var(--warning-color); margin-bottom:4px;">⏰ ${countdownStr}</div>
         <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); align-items:center;">
           <span class="card-deadline"></span>
           <span style="font-weight:bold;" class="card-status"></span>
@@ -2195,7 +2434,7 @@
       `;
                 card.querySelector('.card-title').textContent = item.title;
                 card.querySelector('.card-reqs').textContent = item.reqs;
-                card.querySelector('.card-deadline').textContent = `📅 تسليم: ${item.deadline}`;
+                card.querySelector('.card-deadline').textContent = `📅 تسليم: ${item.deadline || 'مفتوح'}`;
                 const cardSt = card.querySelector('.card-status');
                 cardSt.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
                 cardSt.textContent = statusText;
@@ -2205,8 +2444,8 @@
                     mobActions.className = 'instructor-only active-instructor';
                     mobActions.style.cssText = 'margin-top:6px; display:flex; gap:6px;';
                     mobActions.innerHTML = `
-          <button class="status-toggle-btn mob-toggle" style="font-size:10px; padding:2px 6px;"></button>
-          <button class="btn-danger mob-del" style="padding:2px 6px; font-size:10px;">حذف</button>
+          <button class="status-toggle-btn mob-toggle" style="font-size:10px; padding:3px 6px;"></button>
+          <button class="btn-danger mob-del" style="padding:3px 6px; font-size:10px;">حذف</button>
         `;
                     mobActions.querySelector('.mob-toggle').textContent = isDone ? 'إلغاء الإنجاز' : 'وضع كمنجز';
                     mobActions.querySelector('.mob-toggle').onclick = () => toggleResearchStatus(item.id);
@@ -2231,22 +2470,12 @@
         function addResearchItem() {
             const title = document.getElementById('resTitle').value.trim();
             const reqs = document.getElementById('resReqs').value.trim();
-            const deadline = document.getElementById('resDeadline').value.trim();
+            const deadline = document.getElementById('resDeadline').value;
             const submitted = document.getElementById('resSubmittedCount').value.trim() || '0 من الطلاب';
 
-            if (!title) {
-                showCustomAlert("تنبيه الحقل", "يرجى إدخال عنوان البحث أولاً.");
-                return;
-            }
+            if (!title) { showCustomAlert("تنبيه", "يرجى إدخال عنوان البحث."); return; }
 
-            researchData.push({
-                id: Date.now(),
-                title,
-                reqs,
-                deadline,
-                submitted,
-                isCompleted: false
-            });
+            researchData.push({ id: Date.now(), title, reqs, deadline, submitted, isCompleted: false });
             syncPathToCloud('research', researchData);
             renderResearch();
             updateSummaryCounts();
@@ -2282,22 +2511,23 @@
 
             quizzesData.forEach(item => {
                 const isDone = item.isCompleted;
-                const statusText = isDone ? '✔️ تم أخذ الامتحان' : '⏳ قادم';
+                const statusText = isDone ? '✔️ تم' : '⏳ قادم';
                 const rowClass = isDone ? 'is-completed' : '';
+                const countdownStr = getCountdownTimeString(item.date);
 
                 const tr = document.createElement('tr');
                 tr.className = rowClass;
                 tr.innerHTML = `
         <td><strong></strong></td>
-        <td><span style="color:var(--accent-blue); font-weight:bold;" class="q-date"></span></td>
+        <td><span style="color:var(--accent-blue); font-weight:bold;" class="q-date"></span><div style="font-size:10px; color:var(--warning-color);">${countdownStr}</div></td>
         <td><span style="font-weight:bold;" class="q-status"></span> <span class="q-score"></span></td>
       `;
                 tr.querySelector('strong').textContent = item.name;
-                tr.querySelector('.q-date').textContent = item.date;
+                tr.querySelector('.q-date').textContent = item.date || 'بدون تحديد';
                 const qSt = tr.querySelector('.q-status');
                 qSt.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
                 qSt.textContent = statusText;
-                tr.querySelector('.q-score').textContent = `(العلامة: ${item.score})`;
+                tr.querySelector('.q-score').textContent = `(${item.score})`;
 
                 if (isInstructorMode) {
                     const tdAdmin = document.createElement('td');
@@ -2306,7 +2536,7 @@
           <button class="status-toggle-btn toggle-btn"></button>
           <button class="btn-danger" style="margin-top:4px;">حذف</button>
         `;
-                    tdAdmin.querySelector('.toggle-btn').textContent = isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان';
+                    tdAdmin.querySelector('.toggle-btn').textContent = isDone ? 'إلغاء' : 'إنجاز';
                     tdAdmin.querySelector('.toggle-btn').onclick = () => toggleQuizStatus(item.id);
                     tdAdmin.querySelector('.btn-danger').onclick = () => deleteQuiz(item.id);
                     tr.appendChild(tdAdmin);
@@ -2317,13 +2547,14 @@
                 card.className = `sub-card ${rowClass}`;
                 card.innerHTML = `
         <div style="font-weight:bold; color:var(--accent-blue); font-size:13.5px; margin-bottom:4px;" class="card-name"></div>
+        <div style="font-size:10.5px; color:var(--warning-color); margin-bottom:4px;">⏰ ${countdownStr}</div>
         <div style="display:flex; justify-content:space-between; font-size:11px; margin-top:6px; align-items:center;">
           <span class="card-date"></span>
           <span style="font-weight:bold;" class="card-status"></span>
         </div>
       `;
                 card.querySelector('.card-name').textContent = item.name;
-                card.querySelector('.card-date').textContent = `⏰ ${item.date}`;
+                card.querySelector('.card-date').textContent = `📅 ${item.date || 'مفتوح'}`;
                 const cardSt = card.querySelector('.card-status');
                 cardSt.style.color = isDone ? 'var(--success-color)' : 'var(--warning-color)';
                 cardSt.textContent = statusText;
@@ -2333,8 +2564,8 @@
                     mobActions.className = 'instructor-only active-instructor';
                     mobActions.style.cssText = 'margin-top:6px; display:flex; gap:6px;';
                     mobActions.innerHTML = `
-          <button class="status-toggle-btn mob-toggle" style="font-size:10px; padding:2px 6px;"></button>
-          <button class="btn-danger mob-del" style="padding:2px 6px; font-size:10px;">حذف</button>
+          <button class="status-toggle-btn mob-toggle" style="font-size:10px; padding:3px 6px;"></button>
+          <button class="btn-danger mob-del" style="padding:3px 6px; font-size:10px;">حذف</button>
         `;
                     mobActions.querySelector('.mob-toggle').textContent = isDone ? 'إلغاء الحالة' : 'تم أخذ الامتحان';
                     mobActions.querySelector('.mob-toggle').onclick = () => toggleQuizStatus(item.id);
@@ -2358,21 +2589,12 @@
 
         function addQuizItem() {
             const name = document.getElementById('quizName').value.trim();
-            const date = document.getElementById('quizDate').value.trim();
+            const date = document.getElementById('quizDate').value;
             const score = document.getElementById('quizScore').value.trim();
 
-            if (!name) {
-                showCustomAlert("تنبيه الحقل", "يرجى إدخال عنوان الامتحان أولاً.");
-                return;
-            }
+            if (!name) { showCustomAlert("تنبيه", "يرجى إدخال عنوان الامتحان."); return; }
 
-            quizzesData.push({
-                id: Date.now(),
-                name,
-                date,
-                score,
-                isCompleted: false
-            });
+            quizzesData.push({ id: Date.now(), name, date, score, isCompleted: false });
             syncPathToCloud('quizzes', quizzesData);
             renderQuizzes();
             updateSummaryCounts();
@@ -2413,11 +2635,7 @@
 
         function toggleCompletedFilter(btn) {
             showCompletedOnly = !showCompletedOnly;
-            if (showCompletedOnly) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
+            if (showCompletedOnly) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
             applySearch();
         }
 
@@ -2427,9 +2645,16 @@
             document.querySelectorAll('#lectureTable tbody tr').forEach(row => {
                 const chapter = row.getAttribute('data-chapter');
                 const isCompleted = row.getAttribute('data-completed') === 'true';
+                const hasLab = row.getAttribute('data-lab') === 'true';
                 const text = row.innerText.toLowerCase();
 
-                let matchesChapter = (activeChapter === 'all' || chapter === activeChapter);
+                let matchesChapter = true;
+                if (activeChapter === 'lab_only') {
+                    matchesChapter = hasLab;
+                } else if (activeChapter !== 'all') {
+                    matchesChapter = (chapter === activeChapter);
+                }
+
                 let matchesCompletion = (!showCompletedOnly || isCompleted);
                 let matchesSearch = text.includes(query);
 
