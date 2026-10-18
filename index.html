@@ -834,7 +834,7 @@
         .instructor-controls.active {
             display: block;
         }
-        /* النوافذ المنبثقة Modals مع دعم الإغلاق بالضغط خارج الصندوق */
+        /* النوافذ المنبثقة Modals */
         
         .modal-overlay {
             position: fixed;
@@ -1195,7 +1195,7 @@
                     <span style="font-size:12.5px; font-weight:800; color:var(--accent-blue);">📚 جدول المحاضرات الأكاديمية</span>
                     <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                 </div>
-                <!-- أزرار الفلترة -->
+                <!-- أزرار الفلترة للأشهر والفصول -->
                 <div class="filter-group">
                     <button class="btn-filter active" id="filterBtnAll" onclick="filterChapter('all', this)">الكل (15)</button>
                     <button class="btn-filter" onclick="filterChapter('ch1', this)">الفصل 1</button>
@@ -2320,6 +2320,7 @@
 
                 const displayStyle = isDetailsCollapsed ? 'display:none;' : '';
 
+                // الجدول العادي
                 const tr = document.createElement('tr');
                 tr.className = completedClass;
                 tr.setAttribute('data-chapter', lec.chapter);
@@ -2350,6 +2351,7 @@
                 }
                 tableBody.appendChild(tr);
 
+                // بطاقات الموبايل (مع إضافة سمات الفلترة بدقة لتعمل على الهواتف والأيفون)
                 const card = document.createElement('div');
                 card.className = `lec-card ${completedClass}`;
                 card.setAttribute('data-chapter', lec.chapter);
@@ -2669,9 +2671,11 @@
             applySearch();
         }
 
+        // دالة الفلترة المحدثة والمنسقة لتعمل بكفاءة مطلقة على الجدول وبطاقات الموبايل معاً
         function applySearch() {
             const query = document.getElementById('searchInput').value.toLowerCase();
 
+            // تصفية صفوف الجدول العادي
             document.querySelectorAll('#lectureTable tbody tr').forEach(row => {
                 const chapter = row.getAttribute('data-chapter');
                 const isCompleted = row.getAttribute('data-completed') === 'true';
@@ -2689,6 +2693,26 @@
                 let matchesSearch = text.includes(query);
 
                 row.style.display = (matchesChapter && matchesCompletion && matchesSearch) ? '' : 'none';
+            });
+
+            // تصفية بطاقات الموبايل لتعمل الفلاتر بدقة تامة على الهاتف
+            document.querySelectorAll('#mobileCardsContainer .lec-card').forEach(card => {
+                const chapter = card.getAttribute('data-chapter');
+                const isCompleted = card.getAttribute('data-completed') === 'true';
+                const hasLab = card.getAttribute('data-lab') === 'true';
+                const text = card.innerText.toLowerCase();
+
+                let matchesChapter = true;
+                if (activeChapter === 'lab_only') {
+                    matchesChapter = hasLab;
+                } else if (activeChapter !== 'all') {
+                    matchesChapter = (chapter === activeChapter);
+                }
+
+                let matchesCompletion = (!showCompletedOnly || isCompleted);
+                let matchesSearch = text.includes(query);
+
+                card.style.display = (matchesChapter && matchesCompletion && matchesSearch) ? 'block' : 'none';
             });
         }
     </script>
