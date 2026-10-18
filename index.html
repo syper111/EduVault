@@ -411,20 +411,24 @@
             flex-direction: column;
             gap: 12px;
         }
+        /* تعديل تنظيم أزرار الفلترة لتصبح شبكة مرتبة (Grid) ومتناسقة تماماً */
         
         .filter-group {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
+            width: 100%;
+        }
+        
+        @media(min-width: 576px) {
+            .filter-group {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
         
         @media(min-width: 768px) {
             .filter-group {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                justify-content: flex-start;
-                padding-bottom: 4px;
+                grid-template-columns: repeat(8, 1fr);
             }
         }
         
@@ -433,14 +437,14 @@
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-muted);
-            padding: 7px 14px;
+            padding: 8px 10px;
             border-radius: 8px;
             font-size: 11.5px;
             font-weight: 700;
             cursor: pointer;
-            flex: 1 1 auto;
             text-align: center;
             transition: all 0.2s ease;
+            width: 100%;
         }
         
         .btn-filter:hover {
@@ -1172,6 +1176,7 @@
                     <span style="font-size:12.5px; font-weight:800; color:var(--accent-blue);">📚 جدول المحاضرات الأكاديمية</span>
                     <div class="section-close-btn" onclick="closeAllPages()" title="إغلاق القائمة">✕</div>
                 </div>
+                <!-- أزرار الفلترة مرتبطة بنظام Grid مرتب ومتناسق جداً للجوال والكمبيوتر -->
                 <div class="filter-group">
                     <button class="btn-filter active" id="filterBtnAll" onclick="filterChapter('all', this)">الكل (15)</button>
                     <button class="btn-filter" onclick="filterChapter('ch1', this)">الفصل 1</button>
@@ -1179,8 +1184,8 @@
                     <button class="btn-filter" onclick="filterChapter('ch3', this)">الفصل 3</button>
                     <button class="btn-filter" onclick="filterChapter('ch4', this)">الفصل 4</button>
                     <button class="btn-filter" onclick="filterChapter('ch5', this)">الفصل 5</button>
-                    <button class="btn-filter" style="background:rgba(16,185,129,0.15); border-color:#10b981; color:#34d399;" onclick="filterChapter('lab_only', this)">🔬 مختبرات Lab</button>
-                    <button class="btn-filter btn-filter-completed" id="filterBtnCompleted" onclick="toggleCompletedFilter(this)">✔️ المنجز فقط</button>
+                    <button class="btn-filter" style="background:rgba(16,185,129,0.15); border-color:#10b981; color:#34d399;" onclick="filterChapter('lab_only', this)">🔬 مختبرات</button>
+                    <button class="btn-filter btn-filter-completed" id="filterBtnCompleted" onclick="toggleCompletedFilter(this)">✔️ المنجز</button>
                 </div>
                 <div class="search-print-wrapper">
                     <button class="btn-action" onclick="toggleDetailsCollapse()" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1px solid var(--border-color);">👁️ طي/توسيع</button>
